@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M3 Divider" data-speaker-notes="This is the core technical module of Session 1. Containers are the most important skill for getting ML into production. Everything else builds on this." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 03 · 55 min + Lab</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Containerization<br>with Docker</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Package your code, dependencies, and runtime into one portable box. Ship it anywhere.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · VENV vs DOCKER ══ -->
+<section data-label="Table" data-screen-label="venv vs Docker" data-speaker-notes="Most students know venv. Build from there. Ask: what's the problem with venv when your teammate has a different Python version? That's exactly what Docker solves." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Why Docker? venv vs Docker vs VM</h2>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;font-size:var(--t-body);border-radius:14px;overflow:hidden;flex:1;align-content:start">
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:22px 28px">Feature</div>
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:22px 28px">venv</div>
+    <div style="background:var(--teal);color:#fff;font-weight:600;font-size:22px;padding:22px 28px">Docker</div>
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:22px 28px">VM</div>
+
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);font-weight:600">Isolation level</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Python packages</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Full OS + packages</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Full hardware</div>
+
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);font-weight:600">Portability</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">No (OS-dependent)</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Yes — any Linux host</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Partial (image files)</div>
+
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);font-weight:600">Image size</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Tiny (~MB)</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Small (100–500 MB)</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Large (2–10 GB)</div>
+
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);font-weight:600">Startup time</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Instant</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">~1 second</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Minutes</div>
+
+    <div style="padding:18px 28px;font-weight:600">Best for</div>
+    <div style="padding:18px 28px;color:var(--body)">Local dev only</div>
+    <div style="padding:18px 28px;background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Production ML APIs</div>
+    <div style="padding:18px 28px;color:var(--body)">Legacy / Windows apps</div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · IMAGE / CONTAINER / REGISTRY ══ -->
+<section data-label="Three Columns" data-screen-label="Core Docker Concepts" data-speaker-notes="Analogy: Image=Class, Container=Instance, Registry=npm/PyPI. Ask students to drop this analogy in their own words in chat before clicking to next slide." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">Three core Docker concepts</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 56px;max-width:1100px">Image → Container → Registry. This is the only vocabulary you need to get started.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Image</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">The blueprint</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Read-only. Built once, stored forever. Layers stacked on top of a base like <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">python:3.11-slim</span>.</p>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--muted);margin:0">Think: a class definition. Not running — just a template.</p>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Container</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">The running instance</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">A live, isolated process. One image can spawn 100 containers — each isolated from the others.</p>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--muted);margin:0">Think: a class instance. Running in its own memory space.</p>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Registry</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">The warehouse</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Docker Hub, Amazon ECR, GitHub Packages. Pull base images from here. Push your built images here.</p>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--muted);margin:0">Think: PyPI for images. <span style="font-family:'IBM Plex Mono',monospace">docker pull / push</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · DOCKERFILE ANATOMY ══ -->
+<section data-label="Code" data-screen-label="Dockerfile Anatomy" data-speaker-notes="Walk each line live. Key insight: COPY requirements.txt BEFORE COPY . . — this is the layer cache trick. If code changes but requirements don't, pip install is skipped on rebuild." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">Dockerfile</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Anatomy of a Dockerfile</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:27px;line-height:1.75;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:40px 48px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">FROM</span> python:3.11-slim          <span style="color:#8a93b4"># start from an official base image</span>
+
+<span style="color:#9aa3c4">WORKDIR</span> /app                   <span style="color:#8a93b4"># set the working directory inside the container</span>
+
+<span style="color:#9aa3c4">COPY</span> requirements.txt .        <span style="color:#8a93b4"># copy deps first — layer cache trick!</span>
+<span style="color:#9aa3c4">RUN</span> <span style="color:#7fe3c0">pip install -r requirements.txt</span>
+
+<span style="color:#9aa3c4">COPY</span> . .                       <span style="color:#8a93b4"># then copy the rest of your code</span>
+
+<span style="color:#9aa3c4">EXPOSE</span> 8000                    <span style="color:#8a93b4"># document which port the app listens on</span>
+
+<span style="color:#9aa3c4">CMD</span> [<span style="color:#7fe3c0">"python"</span>, <span style="color:#7fe3c0">"app.py"</span>]       <span style="color:#8a93b4"># default command when container starts</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 5 · DOCKER COMMANDS ══ -->
+<section data-label="Code" data-screen-label="Docker Commands" data-speaker-notes="Live demo — type these commands on screen. For docker ps, show the students what a running container looks like. Ask: what's the difference between -p 8000:8000 and just 8000:8000? (nothing — it's the same)." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">Terminal</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Four commands you need today</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:27px;line-height:1.85;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:40px 48px;color:#cfd6e6;max-width:1500px"><span style="color:#8a93b4"># 1. Build an image from the Dockerfile in the current directory</span>
+<span style="color:var(--teal)">$</span> <span style="color:#7fe3c0">docker build -t my-app:v1 .</span>
+
+<span style="color:#8a93b4"># 2. Run a container (detached, port mapped host:container)</span>
+<span style="color:var(--teal)">$</span> <span style="color:#7fe3c0">docker run -d -p 8000:8000 my-app:v1</span>
+
+<span style="color:#8a93b4"># 3. List running containers</span>
+<span style="color:var(--teal)">$</span> <span style="color:#7fe3c0">docker ps</span>
+
+<span style="color:#8a93b4"># 4. Push to Docker Hub (replace with your username)</span>
+<span style="color:var(--teal)">$</span> <span style="color:#7fe3c0">docker push myusername/my-app:v1</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 6 · LAB 1 ══ -->
+<section data-label="Lab" data-screen-label="Lab 1 — First Container" data-speaker-notes="Set the timer: 25 minutes. Walk through step 1 together on screen, then let them work. Circulate and help. Collect the stretch results in chat — ask who got layer caching working." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;align-items:center;gap:80px">
+  <div style="flex:1">
+    <div style="display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.12em;text-transform:uppercase;padding:10px 18px;border-radius:8px;margin-bottom:30px">Lab 01 · 25 min</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 26px;line-height:1.05">Your first container</h2>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:0 0 34px">Build and run a Docker container that prints Python version and today's date. Fill in the blanks in the Dockerfile.</p>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">1.</span><span style="font-size:var(--t-small);line-height:1.4">Open <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">labs/lab1-first-container/</span> — fill in the blanks in <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">Dockerfile</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">2.</span><span style="font-size:var(--t-small);line-height:1.4">Build: <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">docker build -t hello-docker .</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">3.</span><span style="font-size:var(--t-small);line-height:1.4">Run: <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">docker run hello-docker</span> — verify the output</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">★</span><span style="font-size:var(--t-small);line-height:1.4">Stretch: edit <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">app.py</span>, rebuild — observe which steps are cached vs re-run</span></div>
+    </div>
+  </div>
+  <div style="flex:0 0 680px;background:var(--navy);border-radius:16px;padding:34px;box-sizing:border-box">
+    <div style="display:flex;gap:9px;margin-bottom:26px"><span style="width:13px;height:13px;border-radius:50%;background:#ff5f56"></span><span style="width:13px;height:13px;border-radius:50%;background:#ffbd2e"></span><span style="width:13px;height:13px;border-radius:50%;background:#27c93f"></span></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;line-height:1.9;color:#cfd6e6">
+      <div><span style="color:var(--teal)">$</span> docker build -t hello-docker .</div>
+      <div style="color:#8a93b4">Step 1/4 : FROM python:3.11-slim</div>
+      <div style="color:#8a93b4">Step 2/4 : WORKDIR /app</div>
+      <div style="color:#8a93b4">Step 3/4 : COPY . .</div>
+      <div style="color:#8a93b4">Step 4/4 : CMD ["python", "app.py"]</div>
+      <div style="margin-top:10px"><span style="color:var(--teal)">$</span> docker run hello-docker</div>
+      <div style="color:#7fe3c0">Hello from inside Docker!</div>
+      <div style="color:#7fe3c0">Running Python 3.11.6</div>
+      <div style="color:#7fe3c0">Today is: 2024-01-15</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 7 · SESSION 2 DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="Session 2 Divider" data-speaker-notes="Break time between sessions. Ask students to think about ONE model from their graduation project they'd like to containerize. We'll work toward that in Lab 2." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Session 02 · 3 Hours</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Ship &amp; Automate</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">ML model in Docker · CI/CD pipelines · Model versioning · Serverless · End-to-end MLOps</p>
+    <div style="display:flex;gap:40px;margin-top:50px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Lab 2: ML Inference API</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Lab 3: GitHub Actions</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Self-learning assignments</div>
+    </div>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

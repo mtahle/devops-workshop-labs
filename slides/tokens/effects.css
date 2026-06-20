@@ -1,0 +1,24 @@
+:root {
+  /* ---- Corner radii ---- */
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* ---- Borders ---- */
+  --border-hairline: 1px solid var(--line);
+  --ring-width: 9px;            /* teal ring around avatars / numbered circles */
+  --ring-teal: var(--ring-width) solid var(--teal-500);
+
+  /* ---- Shadows ---- */
+  --shadow-card: 0 14px 30px rgba(40, 48, 104, 0.18);
+  --shadow-soft: 0 8px 20px rgba(40, 48, 104, 0.10);
+
+  /* ---- Signature swoosh ----
+     Concentric hairlines fanning from a corner, paired with a solid
+     teal circle. Place behind a z-index:1 content layer.
+     Usage: a div with background:var(--swoosh-lines) sized large and
+     centered on a corner, with a solid teal circle on top. */
+  --swoosh-lines: repeating-radial-gradient(circle, transparent 0 8px, var(--contour) 8px 9px);
+}

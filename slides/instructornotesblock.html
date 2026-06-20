@@ -1,0 +1,778 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     INSTRUCTOR PRESENTER MODE
+     Paste this block just before </body> in full-workshop.html
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+
+/* ── INSTRUCTOR NOTES ──────────────────────────────────────────
+   One entry per slide, in deck order.
+   Fields:
+     label   → matches data-screen-label on the <section>
+     time    → suggested time in minutes
+     keys    → 2-4 bullet talking points
+     prompt  → discussion question or activity
+     tip     → delivery tip for the instructor
+─────────────────────────────────────────────────────────────── */
+const NOTES = [
+
+  /* ── MODULE 00 · INTRO ────────────────────────────────────── */
+  {
+    label: "Cover",
+    time: 3,
+    keys: [
+      "Introduce yourself and your background briefly — keep it under 60 seconds.",
+      "Two sessions, 6 hours total. Labs count for ~40% of the time.",
+      "Wifi password + Zoom link + GitHub repo — share on screen now.",
+      "Goal: by end of Session 2 every student has a CI/CD pipeline shipping a real model."
+    ],
+    prompt: "Ask: 'Who has deployed a model to production before?' — see who raises their hand.",
+    tip: "Energy here sets the tone. Stand up if you're presenting remotely, use your webcam."
+  },
+  {
+    label: "Workshop Agenda",
+    time: 2,
+    keys: [
+      "Walk through both sessions in under 90 seconds — don't read every bullet.",
+      "Session 1 ends with Lab 1 (Docker basics). Session 2 ends with Lab 3 (CI/CD).",
+      "Breaks are built in — honour them or students lose focus.",
+      "Slack/Discord channel is open for questions even after the workshop."
+    ],
+    prompt: null,
+    tip: "Tell them to bookmark the repo link — they'll need it for every lab."
+  },
+
+  /* ── SESSION 1 OPENING ───────────────────────────────────── */
+  {
+    label: "Session 1 Divider",
+    time: 1,
+    keys: [
+      "Hard prerequisite check: everyone run 'docker --version' in a terminal right now.",
+      "If Docker fails → use the Gitpod backup link in the repo README.",
+      "Python 3.9+ and pip also required — quick check: 'python3 --version'."
+    ],
+    prompt: "Ask who is using Windows vs Mac vs Linux — affects some Docker commands.",
+    tip: "Fix environment issues NOW. Skipping this costs 30 minutes of lab time later."
+  },
+
+  /* ── MODULE 01 · DEVOPS & MLOPS ─────────────────────────── */
+  {
+    label: "M1 Divider",
+    time: 1,
+    keys: [
+      "Poll: 'How many of you have deployed an ML model to production?' — chat or show of hands.",
+      "This module is conceptual — it moves fast. Labs come in Module 3.",
+      "Goal: frame WHY the rest of the workshop matters before touching any code."
+    ],
+    prompt: "Ask: 'What problems do you face when sharing a Jupyter notebook with teammates?'",
+    tip: "Keep energy high — this is theory before practice. Use stories, not slides."
+  },
+  {
+    label: "The Problem",
+    time: 4,
+    keys: [
+      "The 'Works on My Machine' problem is universal — every student has felt it.",
+      "ML adds extra pain: library versions, GPU drivers, dataset paths all vary.",
+      "Production != a notebook: needs an API, logging, error handling, restartability.",
+      "The gap between Data Science and Engineering is where models die."
+    ],
+    prompt: "Ask: 'Raise your hand if you have a model that works in a notebook but nowhere else.' — then say 'We're fixing that today.'",
+    tip: "Be empathetic — this is a real frustration students live with. Don't shame it."
+  },
+  {
+    label: "What is DevOps?",
+    time: 4,
+    keys: [
+      "DevOps = Culture + Practices + Tools. In that order of importance.",
+      "Left column: Plan→Code→Build is the Dev side.",
+      "Right column: Test→Release→Deploy→Operate→Monitor is the Ops side.",
+      "The loop is intentional — monitoring feeds back into planning."
+    ],
+    prompt: "Ask: 'What do you think DevOps means?' — take 2 answers, then reveal.",
+    tip: "Don't spend more than 4 minutes here. The comparison slide next is more useful."
+  },
+  {
+    label: "DevOps Lifecycle",
+    time: 3,
+    keys: [
+      "The cycle never stops — ship, watch, learn, ship again.",
+      "Traditional software: the loop is code → deploy → monitor.",
+      "ML adds a data arrow: Monitor → (re)train → evaluate → deploy.",
+      "This extra feedback loop is the key difference MLOps addresses."
+    ],
+    prompt: null,
+    tip: "Draw the ML arrow verbally: 'Now imagine an arrow going from Monitor back to data collection — that's the extra loop ML teams deal with.'"
+  },
+  {
+    label: "DevOps vs MLOps",
+    time: 4,
+    keys: [
+      "MLOps = DevOps + Data Versioning + Model Versioning + Experiment Tracking.",
+      "Code doesn't change but accuracy does — that's a model drift problem, not a code bug.",
+      "Retraining pipelines replace standard deployment pipelines for ML.",
+      "This workshop covers the intersection: where ML meets proper engineering."
+    ],
+    prompt: "Ask: 'What's the hardest part of keeping an ML model accurate over time?'",
+    tip: "Keep this to 4 minutes. The maturity model next makes the abstract concrete."
+  },
+  {
+    label: "MLOps Maturity",
+    time: 4,
+    keys: [
+      "Level 0: Jupyter notebooks, manual everything — most academic projects.",
+      "Level 1: Training pipeline automated, model registry, basic monitoring.",
+      "Level 2: Full CI/CD for both code AND model, automated retraining triggers.",
+      "Today's target: get from Level 0 to Level 1 in 6 hours."
+    ],
+    prompt: "Ask students to drop in chat which level their current graduation project is at.",
+    tip: "Validate Level 0 answers — most will say 0. 'That's the honest answer and exactly why you're here.'"
+  },
+  {
+    label: "Learning Outcomes",
+    time: 2,
+    keys: [
+      "Read each outcome aloud — this is a commitment to students.",
+      "Containerize: Lab 1 & 2. CI/CD: Lab 3. Version: Module 5. Deploy: Module 6.",
+      "By end of today, all 5 are checked off."
+    ],
+    prompt: "Ask: 'Which of these feels most unfamiliar right now?' — note the answers, revisit at close.",
+    tip: "This slide is a contract. Reference it again at the very end to show what changed."
+  },
+
+  /* ── MODULE 02 · CLOUD & IAC ─────────────────────────────── */
+  {
+    label: "M2 Divider",
+    time: 1,
+    keys: [
+      "Cloud is NOT the focus — understanding the vocabulary is.",
+      "Goal: read an architecture diagram and talk intelligently with cloud teams.",
+      "We use AWS as the example but every concept maps to Azure/GCP."
+    ],
+    prompt: null,
+    tip: "Move through this module quickly — 15 minutes max. Practical Docker time is more valuable."
+  },
+  {
+    label: "Cloud Primitives",
+    time: 5,
+    keys: [
+      "EC2 = renting a computer by the hour. t3.medium for CPU, g4dn.xlarge for GPU training.",
+      "S3 = unlimited file storage at ~$0.023/GB. Home for datasets, model artifacts, logs.",
+      "VPC = your private network. ALB = the traffic director in front of your containers.",
+      "Every ML architecture uses all three."
+    ],
+    prompt: "Mentimeter poll: 'Which AWS service have you used?' — show results live.",
+    tip: "Map each column to the workshop: EC2=Lab VMs, S3=model storage, ALB=serving endpoint."
+  },
+  {
+    label: "Infrastructure as Code",
+    time: 4,
+    keys: [
+      "If you click to create infrastructure, it's undocumented and unrepeatable.",
+      "IaC: define resources in files → version in Git → automate with CI.",
+      "Terraform is provider-agnostic. Pulumi, CDK, Bicep are alternatives.",
+      "Reproducibility: same config → identical dev/staging/prod. No more 'works in staging'."
+    ],
+    prompt: "Ask: 'How do you currently provision your cloud resources? Clicking or code?'",
+    tip: "Stress the Git angle — infra changes are now code-reviewed, audited, and reversible."
+  },
+  {
+    label: "Terraform Example",
+    time: 4,
+    keys: [
+      "provider block: which cloud and which region.",
+      "resource block: what to create. 'aws_instance' + 'ml_trainer' = type + name.",
+      "ami = the base OS image. instance_type = the hardware size.",
+      "tags = metadata — use them for cost tracking and environment labelling."
+    ],
+    prompt: "Ask: 'What would you change to make this a GPU instance?' (answer: instance_type = 'g4dn.xlarge')",
+    tip: "Open the file live if possible — show it's just text, demystify Terraform."
+  },
+
+  /* ── MODULE 03 · DOCKER ─────────────────────────────────── */
+  {
+    label: "M3 Divider",
+    time: 1,
+    keys: [
+      "This is the most important module of Session 1.",
+      "Everything downstream — CI/CD, serverless, cloud deploy — depends on containers.",
+      "Lab 1 is the first hands-on moment. Keep the energy high."
+    ],
+    prompt: null,
+    tip: "Pause here, check that everyone's Docker is running before continuing."
+  },
+  {
+    label: "venv vs Docker",
+    time: 5,
+    keys: [
+      "venv isolates Python packages but not the OS, system libraries, or Python version itself.",
+      "Docker isolates everything: OS, Python, system libs, your code. Identical everywhere.",
+      "The price of Docker: slightly larger artifact, slightly longer build time. Worth it.",
+      "In production, containers beat venv every time — standardised, deployable, auditable."
+    ],
+    prompt: "Ask: 'What's the problem when your teammate has a different Python version than you?'",
+    tip: "Build from what students know — they all use venv. Docker is just the next level up."
+  },
+  {
+    label: "Core Docker Concepts",
+    time: 5,
+    keys: [
+      "Image = the blueprint (class in OOP terms). Immutable.",
+      "Container = a running instance of an image. Ephemeral by default.",
+      "Registry = Docker Hub / ECR / GHCR — the npm for container images.",
+      "Layer = one instruction in a Dockerfile. Layers are cached and reused."
+    ],
+    prompt: "Ask students to restate the Image/Container/Registry analogy in their own words in chat.",
+    tip: "The Class/Instance analogy lands immediately with CS students."
+  },
+  {
+    label: "Dockerfile Anatomy",
+    time: 6,
+    keys: [
+      "FROM: base image. Always pin a version tag — never use :latest in production.",
+      "WORKDIR: sets the working directory inside the container. Use /app by convention.",
+      "COPY requirements.txt BEFORE COPY . . — this is the layer cache trick.",
+      "RUN pip install executes at build time. CMD executes at run time."
+    ],
+    prompt: "Ask: 'Why do we COPY requirements.txt before copying the rest of the code?'",
+    tip: "The layer cache insight (requirements before code) is the most practical Dockerfile tip. Make sure it lands."
+  },
+  {
+    label: "Docker Commands",
+    time: 5,
+    keys: [
+      "docker build -t name:tag . — builds an image from the Dockerfile in current directory.",
+      "docker run -p 8000:8000 name — starts a container and maps port 8000 host→container.",
+      "docker ps — lists running containers with IDs, names, ports.",
+      "docker stop / docker rm — graceful stop then remove. Use docker rm -f to force both."
+    ],
+    prompt: "Ask: 'What's the difference between -p 8000:8000 and -p 9000:8000?' (host:container mapping)",
+    tip: "Type every command live. Seeing it execute matters more than the slide."
+  },
+  {
+    label: "Lab 1 — First Container",
+    time: 25,
+    keys: [
+      "Timer: 25 minutes on screen.",
+      "Walk through Step 1 (write Dockerfile) together before releasing students.",
+      "Circulate — common issue: COPY path wrong, port not mapped.",
+      "Stretch goal: change code → rebuild → verify only changed layers rebuild (cache demo)."
+    ],
+    prompt: "After lab: 'Who got the layer cache optimisation working? Show us your build output.'",
+    tip: "The most common mistake: forgetting the . at the end of docker build. Watch for it."
+  },
+
+  /* ── SESSION 2 OPENING ──────────────────────────────────── */
+  {
+    label: "Session 2 Divider",
+    time: 5,
+    keys: [
+      "Break time — 10–15 minutes. Hard stop.",
+      "While on break: ask students to think of ONE model from their own project.",
+      "Session 2 goal: take that model → containerise it → add CI/CD.",
+      "Energy reset: do a quick recap poll at session start."
+    ],
+    prompt: "Opening of Session 2: 'Name one thing from Session 1 you'll use in your next project.'",
+    tip: "Start Session 2 with a 2-minute recap — energy always dips after a break."
+  },
+
+  /* ── MODULE 04 · ML DOCKER ──────────────────────────────── */
+  {
+    label: "M3 cont. Divider",
+    time: 1,
+    keys: [
+      "Session 2 starts here — we're extending what we built in Lab 1.",
+      "Now we containerise a real ML model with a FastAPI REST endpoint.",
+      "This is what production ML actually looks like."
+    ],
+    prompt: null,
+    tip: "Reference Lab 1: 'You already know how to build and run a container. Now we add the ML layer.'"
+  },
+  {
+    label: "model.py — Train & Save",
+    time: 5,
+    keys: [
+      "load_iris() → train/test split → RandomForest → evaluate → pickle.dump.",
+      "We save model.pkl to disk — the container will load it at startup.",
+      "Key question: why train once and save, rather than train every time the API starts?",
+      "Answer: training is expensive (seconds to hours). Inference is cheap (milliseconds)."
+    ],
+    prompt: "Ask: 'Why do we save the model to a file instead of training inside the API?'",
+    tip: "Run this script live so students see model.pkl appear. Makes it tangible."
+  },
+  {
+    label: "main.py — FastAPI",
+    time: 5,
+    keys: [
+      "FastAPI auto-generates /docs (Swagger UI) — API testing in the browser for free.",
+      "On startup: load model.pkl once. On every /predict request: run model.predict().",
+      "The IrisFeatures schema validates input automatically — wrong type = 422 error.",
+      "This pattern (load once, serve many) is the standard ML inference API pattern."
+    ],
+    prompt: "Ask: 'What would happen if we loaded the model on every request instead of at startup?'",
+    tip: "Show the /docs page live after Lab 2 — students love clicking the interactive API tester."
+  },
+  {
+    label: "ML Dockerfile",
+    time: 4,
+    keys: [
+      "Key difference from Lab 1: RUN python model.py runs training AT BUILD TIME.",
+      "model.pkl is baked into the image — the container starts pre-trained, instantly.",
+      "Tradeoff: larger image, but zero cold-start training cost at runtime.",
+      "Alternative: mount model.pkl as a volume from S3 at startup (covered in Module 7)."
+    ],
+    prompt: "Ask: 'Why is it better to train during docker build rather than when the container starts?'",
+    tip: "Emphasise that the resulting image is fully self-contained — ship it anywhere, it works."
+  },
+  {
+    label: "Lab 2 — ML Inference API",
+    time: 30,
+    keys: [
+      "Timer: 30 minutes on screen.",
+      "Start docker build together on screen — while it runs, explain the layers being built.",
+      "After build: docker run → open /docs → live predict from a browser together.",
+      "Stretch: swap RandomForest for GradientBoosting — show the model is swappable."
+    ],
+    prompt: "After lab: let a student pick numbers and call /predict from their browser via /docs.",
+    tip: "The Swagger UI moment is the 'wow' moment of the workshop. Build up to it."
+  },
+
+  /* ── MODULE 05 · CI/CD ──────────────────────────────────── */
+  {
+    label: "M4 Divider",
+    time: 1,
+    keys: [
+      "Transition: in Lab 2 we built and pushed manually. In this module, automation takes over.",
+      "Every push to main now runs tests → builds the container → deploys.",
+      "This is the moment the workshop clicks for most students."
+    ],
+    prompt: null,
+    tip: "Say: 'Imagine never needing to type docker build again. That's what we're building now.'"
+  },
+  {
+    label: "What CI/CD Solves",
+    time: 4,
+    keys: [
+      "Manual deploy = risk. CI/CD removes the human from the critical path.",
+      "CI: every push is tested automatically — broken code never reaches main.",
+      "CD: every green build is deployed automatically — no deployment scripts, no SSH.",
+      "For ML: CI also runs model accuracy tests. A degraded model won't ship."
+    ],
+    prompt: "Ask: 'How do you currently deploy changes to your project?' — SSH? Manual copy? Nothing?",
+    tip: "Validate all answers, even 'we don't deploy.' That's the honest truth for most students."
+  },
+  {
+    label: "GitHub Actions Concepts",
+    time: 5,
+    keys: [
+      "Workflow = the whole YAML file. Lives at .github/workflows/ci.yml in the repo.",
+      "Job = a group of steps running on one machine (runner).",
+      "Step = a single shell command or a pre-built action (uses: actions/checkout@v4).",
+      "Trigger: on: push: branches: [main] — runs on every push to main."
+    ],
+    prompt: "Ask: 'Where do workflow files live in a repo?' (.github/workflows/) — check comprehension.",
+    tip: "Bottom-up explanation (Step → Job → Workflow) is easier than top-down."
+  },
+  {
+    label: "ci.yml workflow",
+    time: 6,
+    keys: [
+      "actions/checkout@v4 — clones the repo into the runner.",
+      "actions/setup-python@v5 — installs the right Python version.",
+      "pip install → python model.py → pytest — train then test on every push.",
+      "docker build tag uses ${{ github.sha }} — every image is uniquely tied to a commit."
+    ],
+    prompt: "Ask: 'Why do we use github.sha as the image tag instead of :latest?'",
+    tip: "The SHA tag is the key insight: you can always roll back to any previous commit's image."
+  },
+  {
+    label: "test_model.py",
+    time: 4,
+    keys: [
+      "Standard pytest file — two tests: model loads without error, accuracy > 0.85.",
+      "The accuracy threshold IS the deployment gate. Below 0.85 → CI fails → nothing ships.",
+      "This is data-aware testing — unique to ML, not just code testing.",
+      "Add more tests: latency, memory, fairness metrics — the pattern is extensible."
+    ],
+    prompt: "Ask: 'What threshold would you set for your own model? What counts as good enough?'",
+    tip: "The accuracy gate test is the single most important concept in this module."
+  },
+  {
+    label: "Deployment Strategies",
+    time: 4,
+    keys: [
+      "Rolling: replace containers one by one. Zero downtime but slow rollback.",
+      "Blue/Green: two live environments, instant traffic switch. Fast rollback — just flip the switch.",
+      "Canary: 5% of traffic to new model first. Catch issues before full rollout.",
+      "For students: Blue/Green is the safest starting point. Canary for mature pipelines."
+    ],
+    prompt: "Ask: 'If your new model has worse accuracy, which strategy lets you recover fastest?'",
+    tip: "Draw the traffic flow for Blue/Green — a quick diagram on screen makes it click."
+  },
+  {
+    label: "Lab 3 — GitHub Actions",
+    time: 25,
+    keys: [
+      "Timer: 25 minutes on screen.",
+      "Start Step 1 together: create .github/workflows/ci.yml and push.",
+      "Tell students: 'Break it on purpose first — lower the threshold to 0.99 and watch CI fail.'",
+      "After fix: show the green check on GitHub Actions tab together."
+    ],
+    prompt: "After lab: ask who got the red X first (breaking CI intentionally). Celebrate it.",
+    tip: "A failing CI pipeline is the lesson, not a mistake. Frame it that way from the start."
+  },
+
+  /* ── MODULE 06 · VERSIONING ─────────────────────────────── */
+  {
+    label: "M5 Divider",
+    time: 1,
+    keys: [
+      "We can now build and test automatically. But how do we track which model is live?",
+      "Model versioning = Git for models. Same idea, different tool.",
+      "MLflow is the most widely adopted open-source solution."
+    ],
+    prompt: null,
+    tip: "Reference the problem: 'You overwrote model.pkl last week — which one is in production?'"
+  },
+  {
+    label: "Why Versioning Matters",
+    time: 4,
+    keys: [
+      "Code is versioned in Git — but model.pkl is a binary, not code.",
+      "Without versioning: can't reproduce an experiment, can't roll back a bad model.",
+      "DVC (Data Version Control) versions datasets + models alongside Git commits.",
+      "MLflow tracks hyperparameters, metrics, and artifacts per experiment run."
+    ],
+    prompt: "Ask: 'Has anyone lost their best experiment by overwriting model.pkl?' — pause for nods.",
+    tip: "This is an emotional memory for most students. Let the pain land before offering the solution."
+  },
+  {
+    label: "MLflow Tracking",
+    time: 5,
+    keys: [
+      "mlflow.start_run() wraps your training code — that's it. No server required to start.",
+      "mlflow.log_param() → hyperparameters. mlflow.log_metric() → accuracy/loss etc.",
+      "mlflow.log_artifact() → saves any file (model.pkl, plots, data snapshots).",
+      "mlflow ui → local web UI at localhost:5000. Production: point to a tracking server."
+    ],
+    prompt: "Show the MLflow UI live — even locally, ./mlruns is created automatically after first run.",
+    tip: "The UI demo is worth 5 minutes. Seeing the experiment comparison table is the aha moment."
+  },
+  {
+    label: "Environments",
+    time: 4,
+    keys: [
+      "Dev → Staging → Prod. Code travels one direction only. Never skip staging.",
+      "Dev: your laptop or a cloud VM. Fast iteration, no stability guarantees.",
+      "Staging: a prod-like environment. Runs load tests, integration tests, smoke tests.",
+      "Prod: real users, real data, real consequences. Only promoted from green staging."
+    ],
+    prompt: "Ask: 'What could go wrong if you deploy to production without a staging environment?'",
+    tip: "Stress: a model that works on your laptop is not the same as one that works under load."
+  },
+
+  /* ── MODULE 07 · SERVERLESS ─────────────────────────────── */
+  {
+    label: "M6 Divider",
+    time: 1,
+    keys: [
+      "Short module — 15 minutes. Serverless is the alternative to always-on containers.",
+      "Not building today — just learning to read architecture diagrams.",
+      "Understanding options helps you make the right infrastructure choice for your project."
+    ],
+    prompt: null,
+    tip: "Manage expectations: 'This is a survey, not a deep-dive. You'll know which option to choose.'"
+  },
+  {
+    label: "Serverless ML Options",
+    time: 8,
+    keys: [
+      "AWS Lambda: event-driven, ~15 min max, 10 GB RAM, no GPU. Good for lightweight models.",
+      "SageMaker Endpoints: managed containers, auto-scaling, A/B testing built in. Best for teams.",
+      "Custom container on ECS/Fargate: full control, persistent, best portability.",
+      "Decision: cost-sensitive + small model → Lambda. Team + monitoring → SageMaker. Full control → containers."
+    ],
+    prompt: "Ask: 'Which option fits your graduation project — Lambda, SageMaker, or a container?'",
+    tip: "The decision tree matters more than memorising the options. Keep it practical."
+  },
+
+  /* ── MODULE 08 · END TO END ─────────────────────────────── */
+  {
+    label: "M7 Divider",
+    time: 1,
+    keys: [
+      "Final module — synthesis. Every concept from today appears in one diagram.",
+      "Walk the loop clockwise, name the tool at each stage.",
+      "This is the slide they screenshot for their LinkedIn post."
+    ],
+    prompt: null,
+    tip: "Slow down here. Students are tired. Make this moment feel like a finish line."
+  },
+  {
+    label: "End-to-End MLOps Pipeline",
+    time: 6,
+    keys: [
+      "Data → Experiment (MLflow) → Train → Evaluate (pytest accuracy gate).",
+      "Evaluate → CI/CD (GitHub Actions) → Build (Docker) → Registry (GHCR/ECR).",
+      "Registry → Deploy (ECS/Lambda/SageMaker) → Monitor → feeds back to Data.",
+      "The entire loop is automated except for the Data ingestion trigger — that's the next frontier."
+    ],
+    prompt: "Walk the loop clockwise and ask a different student to name the tool at each stage.",
+    tip: "Point out: everything they built today lives in this one picture."
+  },
+  {
+    label: "Self-Learning Assignments",
+    time: 5,
+    keys: [
+      "Hand out ASSIGNMENTS.md — it's in the repo root.",
+      "Pick ONE assignment, complete it, prepare a 5-minute demo for the study group.",
+      "No grading — just shipping. Exposure to real tools matters more than a score.",
+      "Suggested timeline: complete within 2 weeks while the material is fresh."
+    ],
+    prompt: "Ask each student to unmute and say which assignment they'll attempt.",
+    tip: "Public commitment in the room increases follow-through. Don't skip this."
+  },
+  {
+    label: "Closing",
+    time: 3,
+    keys: [
+      "Recap the learning outcomes slide — tick off every bullet together.",
+      "One sentence: you can now take a notebook model to a versioned, tested, auto-deployed container.",
+      "Share LinkedIn / GitHub handles. Ask students to connect.",
+      "Share the repo link, recording link (if applicable), and where to ask questions after."
+    ],
+    prompt: "Ask: 'Which module surprised you most?' — one answer per person, 10 seconds each.",
+    tip: "End on time. Students remember how you finish. Energy → gratitude → resources → done."
+  }
+
+]; /* end NOTES */
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PRESENTER ENGINE
+   ─ Opens an audience window synced via BroadcastChannel
+   ─ Shows expanded notes in a side panel for the instructor
+   ═══════════════════════════════════════════════════════════════ */
+
+const ch = new BroadcastChannel('dc-presenter');
+const isAudience = new URLSearchParams(location.search).has('audience');
+
+/* ── AUDIENCE WINDOW ──────────────────────────────────────── */
+if (isAudience) {
+  document.documentElement.style.cssText = 'margin:0;padding:0;overflow:hidden;background:#000';
+
+  ch.onmessage = ({ data }) => {
+    const sections = document.querySelectorAll('x-import section');
+    const el = sections[data.index];
+    if (el) el.scrollIntoView({ behavior: 'instant' });
+  };
+
+  window.addEventListener('load', () => {
+    const s = document.createElement('style');
+    s.textContent = `
+      [data-dc-sidebar],[data-dc-toolbar],[data-dc-nav]{ display:none!important; }
+      x-import{ width:100vw!important; height:100vh!important; }
+      #presenter-panel{ display:none!important; }
+      #present-btn{ display:none!important; }
+    `;
+    document.head.appendChild(s);
+  });
+  return; /* stop here for audience window */
+}
+
+/* ── PRESENTER WINDOW ─────────────────────────────────────── */
+
+const CSS = `
+  #present-btn{
+    position:fixed;bottom:20px;right:20px;z-index:9000;
+    padding:10px 20px;background:#283068;color:#fff;
+    border:none;border-radius:8px;cursor:pointer;
+    font-family:Poppins,sans-serif;font-size:13px;font-weight:600;
+    box-shadow:0 4px 16px rgba(40,48,104,.35);
+  }
+  #present-btn:hover{ background:#38C0C8;color:#283068; }
+
+  #presenter-panel{
+    position:fixed;bottom:0;left:0;right:0;z-index:8000;
+    height:0;overflow:hidden;
+    background:#1a1f44;color:#e8eaf2;
+    font-family:Poppins,sans-serif;
+    transition:height .3s ease;
+    border-top:3px solid #38C0C8;
+    display:flex;flex-direction:column;
+  }
+  #presenter-panel.open{ height:280px; }
+
+  #panel-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 20px;background:#12163a;flex-shrink:0;
+  }
+  #panel-slide-label{ font-size:13px;font-weight:700;color:#38C0C8;letter-spacing:.08em;text-transform:uppercase; }
+  #panel-time{ font-size:13px;color:#9aa3c4; }
+  #panel-toggle{
+    background:none;border:none;color:#9aa3c4;cursor:pointer;
+    font-size:20px;line-height:1;padding:0 4px;
+  }
+  #panel-toggle:hover{ color:#fff; }
+
+  #panel-body{
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:0;overflow:hidden;flex:1;
+  }
+  .panel-col{ padding:14px 20px;overflow-y:auto;border-right:1px solid rgba(255,255,255,.08); }
+  .panel-col:last-child{ border-right:none; }
+  .panel-col-title{
+    font-size:10px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:#38C0C8;margin:0 0 8px;
+  }
+  .panel-col ul{ margin:0;padding-left:16px; }
+  .panel-col li{ font-size:12px;line-height:1.5;color:#ccd0e8;margin-bottom:5px; }
+  .panel-prompt{
+    font-size:12px;line-height:1.45;color:#f0d060;
+    background:rgba(240,208,96,.08);border-radius:6px;
+    padding:8px 12px;margin-top:4px;
+  }
+  .panel-tip{
+    font-size:12px;line-height:1.45;color:#a0e8b0;
+    background:rgba(56,192,200,.08);border-radius:6px;
+    padding:8px 12px;margin-top:4px;
+  }
+  .panel-empty{ font-size:12px;color:#6e7490;font-style:italic; }
+`;
+
+const styleEl = document.createElement('style');
+styleEl.textContent = CSS;
+document.head.appendChild(styleEl);
+
+/* Present button */
+const btn = document.createElement('button');
+btn.id = 'present-btn';
+btn.textContent = '⎋ Present on 2nd screen';
+btn.onclick = () => {
+  const aw = window.open(location.href + '?audience', '_blank');
+  setTimeout(() => {
+    ch.postMessage({ index: currentIndex });
+  }, 2000);
+};
+document.body.appendChild(btn);
+
+/* Notes panel */
+const panel = document.createElement('div');
+panel.id = 'presenter-panel';
+panel.innerHTML = `
+  <div id="panel-header">
+    <span id="panel-slide-label">Slide</span>
+    <span id="panel-time"></span>
+    <button id="panel-toggle" title="Toggle notes panel">▲</button>
+  </div>
+  <div id="panel-body">
+    <div class="panel-col">
+      <p class="panel-col-title">Talking points</p>
+      <ul id="panel-keys"></ul>
+    </div>
+    <div class="panel-col">
+      <p class="panel-col-title">Discussion prompt</p>
+      <div id="panel-prompt"></div>
+    </div>
+    <div class="panel-col">
+      <p class="panel-col-title">Delivery tip</p>
+      <div id="panel-tip"></div>
+    </div>
+  </div>
+`;
+document.body.appendChild(panel);
+
+let panelOpen = false;
+document.getElementById('panel-toggle').onclick = () => {
+  panelOpen = !panelOpen;
+  panel.classList.toggle('open', panelOpen);
+  document.getElementById('panel-toggle').textContent = panelOpen ? '▼' : '▲';
+};
+
+/* auto-open panel on first slide change */
+let autoOpened = false;
+
+function buildNoteIndex(sections) {
+  const map = {};
+  sections.forEach((sec, i) => {
+    const lbl = sec.getAttribute('data-screen-label') || '';
+    map[i] = NOTES.find(n => n.label === lbl) || null;
+  });
+  return map;
+}
+
+let currentIndex = 0;
+let noteMap = {};
+
+function renderNotes(index) {
+  currentIndex = index;
+  const note = noteMap[index];
+  const sections = document.querySelectorAll('x-import section');
+  const lbl = sections[index]?.getAttribute('data-screen-label') || `Slide ${index + 1}`;
+
+  document.getElementById('panel-slide-label').textContent =
+    `${index + 1} / ${sections.length}  ·  ${lbl}`;
+
+  if (!note) {
+    document.getElementById('panel-time').textContent = '';
+    document.getElementById('panel-keys').innerHTML = '<li class="panel-empty">No notes for this slide.</li>';
+    document.getElementById('panel-prompt').innerHTML = '<span class="panel-empty">—</span>';
+    document.getElementById('panel-tip').innerHTML = '<span class="panel-empty">—</span>';
+    return;
+  }
+
+  document.getElementById('panel-time').textContent = `⏱ ${note.time} min`;
+  document.getElementById('panel-keys').innerHTML =
+    note.keys.map(k => `<li>${k}</li>`).join('');
+  document.getElementById('panel-prompt').innerHTML = note.prompt
+    ? `<div class="panel-prompt">${note.prompt}</div>`
+    : '<span class="panel-empty">No discussion prompt.</span>';
+  document.getElementById('panel-tip').innerHTML = note.tip
+    ? `<div class="panel-tip">${note.tip}</div>`
+    : '<span class="panel-empty">No delivery tip.</span>';
+
+  /* auto-open on first navigation */
+  if (!autoOpened) {
+    panelOpen = true;
+    panel.classList.add('open');
+    document.getElementById('panel-toggle').textContent = '▼';
+    autoOpened = true;
+  }
+
+  /* sync audience window */
+  ch.postMessage({ index });
+}
+
+/* Watch for active slide changes */
+window.addEventListener('load', () => {
+  const sections = [...document.querySelectorAll('x-import section')];
+  noteMap = buildNoteIndex(sections);
+
+  /* render notes for slide 0 immediately */
+  renderNotes(0);
+
+  /* IntersectionObserver — works with scroll-snap and CSS-driven navigation */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sections.indexOf(entry.target);
+        if (idx >= 0 && idx !== currentIndex) renderNotes(idx);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  sections.forEach(s => io.observe(s));
+
+  /* MutationObserver fallback for data-active attribute (deck-stage.js) */
+  const mo = new MutationObserver(() => {
+    const activeIdx = sections.findIndex(
+      s => s.hasAttribute('data-active') || s.classList.contains('active')
+    );
+    if (activeIdx >= 0 && activeIdx !== currentIndex) renderNotes(activeIdx);
+  });
+  const root = document.querySelector('x-import');
+  if (root) mo.observe(root, { attributes: true, subtree: true, attributeFilter: ['data-active', 'class'] });
+});
+
+})();
+</script>
+<!-- ═══════════════════════════════════════════════════════════════ -->

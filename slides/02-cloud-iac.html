@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M2 Divider" data-speaker-notes="Quick context-setter: we're not going deep on cloud here. The goal is to know WHAT the pieces are so you can read architecture diagrams and have intelligent conversations with cloud teams." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 02 · 30 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Cloud &amp; Infrastructure<br>as Code</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">The cloud building blocks your ML system will run on — and why you define them in code, not in a console.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · CLOUD PRIMITIVES ══ -->
+<section data-label="Three Columns" data-screen-label="Cloud Primitives" data-speaker-notes="Mentimeter poll: 'Which AWS service have you used?' Show results. Then map each column to a real ML use case: EC2=training, S3=datasets, VPC/ALB=serving. Keep it to 5 minutes." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:10px">Module 02</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">The three cloud primitives</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 56px;max-width:1100px">Everything in AWS (and any cloud) is one of three things: compute, storage, or network.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Compute · EC2</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Virtual machines on demand</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Rent a CPU (or GPU) by the hour. Your ML training job and your API server both run here.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal-ink);background:var(--paper-soft);padding:12px 16px;border-radius:8px">t3.medium · g4dn.xlarge</div>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Storage · S3</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Object storage for everything</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Unlimited files at pennies per GB. Model artifacts, training datasets, Docker layer cache — all here.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal-ink);background:var(--paper-soft);padding:12px 16px;border-radius:8px">s3://my-bucket/models/v1/</div>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Network · VPC + ALB</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Your private network + load balancer</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">VPC isolates your resources. ALB (Application Load Balancer) routes user traffic to your containers.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal-ink);background:var(--paper-soft);padding:12px 16px;border-radius:8px">api.myproject.com → :8000</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · INFRASTRUCTURE AS CODE ══ -->
+<section data-label="Bar Items" data-screen-label="Infrastructure as Code" data-speaker-notes="Key message: treat infrastructure like code — commit it, review it, version it. Terraform is just one tool; the principle applies everywhere." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-360px;bottom:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1180px">
+    <div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:14px">
+      <span style="width:56px;height:56px;background:var(--teal);flex:0 0 auto;border-radius:6px"></span>
+      <div>
+        <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0;line-height:1.0">Infrastructure as Code</h2>
+        <p style="font-weight:500;font-size:var(--t-sub);color:var(--navy);margin:6px 0 0">Stop clicking. Start committing.</p>
+      </div>
+    </div>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:8px 0 52px;max-width:900px">Define your cloud infrastructure in files, version it in Git, and let automation do the rest. Terraform is the most widely used IaC tool.</p>
+    <div style="display:flex;flex-direction:column;gap:34px">
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Version control</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">Infrastructure lives in Git alongside your code. Every change is auditable, reviewable, and reversible with a single command.</p>
+      </div>
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Reproducibility</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">The same Terraform config creates identical environments in dev, staging, and production. No more "it works in staging but fails in prod."</p>
+      </div>
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Speed</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">Spinning up a GPU instance for training goes from a 10-minute console session to one command: <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">terraform apply</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · TERRAFORM CODE ══ -->
+<section data-label="Code" data-screen-label="Terraform Example" data-speaker-notes="Live demo: open this file, show what each block does. You don't need to run it — just read it like a recipe. Then ask: 'What would you change to make this a GPU instance?'" style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">terraform / main.tf</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Declare an EC2 instance in code</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:26px;line-height:1.75;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:40px 48px;color:#cfd6e6;max-width:1500px"><span style="color:#8a93b4"># main.tf — provision an EC2 instance for ML training</span>
+
+<span style="color:#9aa3c4">provider</span> <span style="color:#7fe3c0">"aws"</span> {
+  <span style="color:#9aa3c4">region</span> = <span style="color:#7fe3c0">"us-east-1"</span>
+}
+
+<span style="color:#9aa3c4">resource</span> <span style="color:#7fe3c0">"aws_instance"</span> <span style="color:var(--teal)">"ml_trainer"</span> {
+  <span style="color:#9aa3c4">ami</span>           = <span style="color:#7fe3c0">"ami-0c55b159cbfafe1f0"</span>
+  <span style="color:#9aa3c4">instance_type</span> = <span style="color:#7fe3c0">"t3.medium"</span>    <span style="color:#8a93b4"># swap to g4dn.xlarge for GPU</span>
+
+  <span style="color:#9aa3c4">tags</span> = {
+    <span style="color:#9aa3c4">Name</span> = <span style="color:#7fe3c0">"ml-training-server"</span>
+    <span style="color:#9aa3c4">Env</span>  = <span style="color:#7fe3c0">"dev"</span>
+  }
+}
+</pre>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

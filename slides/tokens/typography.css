@@ -1,0 +1,35 @@
+:root {
+  /* ---- Families ---- */
+  --font-display: 'Poppins', system-ui, sans-serif;  /* headings */
+  --font-body:    'Poppins', system-ui, sans-serif;  /* prose */
+  --font-mono:    'IBM Plex Mono', ui-monospace, monospace; /* labels, numbers, code */
+
+  /* ---- Weights ---- */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  /* ---- Type scale (authored at 1920×1080 slide size) ---- */
+  --text-display:  104px; /* cover / closing hero */
+  --text-name:      78px; /* presenter name */
+  --text-title:     58px; /* slide titles */
+  --text-subtitle:  34px; /* section subtitles */
+  --text-body-lg:   28px; /* lead paragraph */
+  --text-body-sm:   24px; /* body / captions (projection minimum) */
+  --text-label:     24px; /* mono eyebrow labels */
+
+  /* ---- Web-scale equivalents (UI / docs, ~0.4×) ---- */
+  --text-h1: 44px;
+  --text-h2: 32px;
+  --text-h3: 24px;
+  --text-base: 17px;
+  --text-sm: 14px;
+
+  /* ---- Tracking ---- */
+  --tracking-label: 0.2em;  /* uppercase mono eyebrows */
+  --tracking-tight: -0.02em; /* large display headings */
+  --leading-tight: 1.05;
+  --leading-body: 1.45;
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M1 Divider" data-speaker-notes="Poll in chat: how many of you have deployed an ML model to production? Let's see what that even means by the end of this module." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 01 · 40 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">DevOps &amp; MLOps<br>Fundamentals</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Where ML meets operations — and why your notebook is not a product.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · THE PROBLEM ══ -->
+<section data-label="Bullets" data-screen-label="The Problem" data-speaker-notes="Ask: how many of you have a Jupyter notebook that 'works' but no one else can run it? This is the problem. Keep it conversational — 3 minutes max, then move on." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-300px;bottom:-300px;width:600px;height:600px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1320px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:16px">The Gap</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 48px">The notebook is not a product</h2>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">"It works on my machine" — the most dangerous phrase in ML.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">A model trained in a notebook can't serve real users — it needs an API, a container, a pipeline.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Without versioning, you can't reproduce your best result — or roll back from your worst.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Models degrade silently as real-world data drifts — no monitoring means no warning.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--navy);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35;font-weight:600;color:var(--navy)">This workshop gives you the bridge: DevOps &amp; MLOps practices that turn your project into a product.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · WHAT IS DEVOPS? ══ -->
+<section data-label="Three Columns" data-screen-label="What is DevOps?" data-speaker-notes="DevOps is not a tool — it's a culture. Ask: what do you think DevOps means? Take 2 answers from chat, then reveal. Keep each column to 30 seconds." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:10px">Module 01</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">What is DevOps?</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 56px;max-width:1100px">A culture and set of practices that unifies development, operations, and delivery.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">People</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Shared ownership</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Dev and Ops work together, not in silos. The team that builds it is responsible for running it.</p>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Process</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Continuous delivery</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Small, frequent changes over big, rare releases. Every commit flows through an automated pipeline.</p>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Tools</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Automation everywhere</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Git, Docker, GitHub Actions, Terraform — the stack that removes manual toil from code to production.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · DEVOPS LIFECYCLE ══ -->
+<section data-label="Timeline" data-screen-label="DevOps Lifecycle" data-speaker-notes="The lifecycle is a loop, not a line — monitoring feeds back into planning. Point out that ML adds a data + retrain arrow between Monitor and Plan." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 12px">The DevOps lifecycle</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 70px">Eight phases, continuously repeating. ML adds a <strong>data loop</strong> on top.</p>
+  <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start">
+    <div style="position:absolute;top:39px;left:5%;right:5%;height:4px;background:var(--line);z-index:0"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">01</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Plan</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">02</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Code</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">03</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Build</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">04</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Test</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">05</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Release</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">06</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Deploy</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">07</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Operate</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">08</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Monitor</span></div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 5 · DEVOPS VS MLOPS ══ -->
+<section data-label="Table" data-screen-label="DevOps vs MLOps" data-speaker-notes="MLOps = DevOps + data + models. The extra dimensions are what make ML systems harder to operate. Don't spend more than 4 minutes here." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">DevOps vs MLOps</h2>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;font-size:var(--t-body);border-radius:14px;overflow:hidden;flex:1;align-content:start">
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">Dimension</div>
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">DevOps</div>
+    <div style="background:var(--teal);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">MLOps</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Primary artifact</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Code / binary</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Code + trained model</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Testing</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Unit &amp; integration</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">+ Model accuracy &amp; bias</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Versioning</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Git</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Git + MLflow / DVC</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Deploy trigger</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Every passing build</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">When model improves</div>
+
+    <div style="padding:20px 28px;font-weight:600">Monitoring</div>
+    <div style="padding:20px 28px;color:var(--body)">Logs, latency, errors</div>
+    <div style="padding:20px 28px;background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">+ Data drift &amp; accuracy</div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 6 · MLOPS MATURITY LEVELS ══ -->
+<section data-label="Numbered Grid" data-screen-label="MLOps Maturity" data-speaker-notes="Ask students to drop in chat which level their graduation project is at. Most will say Level 0. That's fine — Level 1 by end of today is the goal." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="position:absolute;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.45;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-260px;bottom:-260px;width:520px;height:520px;border-radius:50%;background:var(--teal);opacity:.9;pointer-events:none;z-index:0"></div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.01em;margin:0 0 16px;position:relative;z-index:1">MLOps maturity levels</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 44px;position:relative;z-index:1">Where does your graduation project sit today?</p>
+  <div style="position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;column-gap:90px;row-gap:36px;flex:1">
+    <div style="display:flex;align-items:center;gap:28px"><div style="width:96px;height:96px;border-radius:50%;border:8px solid var(--gray-circle);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px;color:var(--navy);flex:0 0 auto">0</div><div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Manual everything</h3><p style="font-size:22px;line-height:1.4;color:var(--body);margin:0">Notebook only. No versioning, no API, no reproducibility. Your laptop IS the server.</p></div></div>
+    <div style="display:flex;align-items:center;gap:28px"><div style="width:96px;height:96px;border-radius:50%;border:8px solid var(--teal);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px;color:var(--navy);flex:0 0 auto">2</div><div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Automated pipeline</h3><p style="font-size:22px;line-height:1.4;color:var(--body);margin:0">CI/CD triggers training + testing + container build on every push. Models are versioned.</p></div></div>
+    <div style="display:flex;align-items:center;gap:28px"><div style="width:96px;height:96px;border-radius:50%;border:8px solid var(--teal);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px;color:var(--navy);flex:0 0 auto">1</div><div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Scripted + containerized</h3><p style="font-size:22px;line-height:1.4;color:var(--body);margin:0">Training is a script. Model served via Docker. Deployment is still manual. <strong style="color:var(--teal-ink)">← Target for today</strong></p></div></div>
+    <div style="display:flex;align-items:center;gap:28px"><div style="width:96px;height:96px;border-radius:50%;border:8px solid var(--navy);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px;color:var(--navy);flex:0 0 auto">3</div><div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Full MLOps</h3><p style="font-size:22px;line-height:1.4;color:var(--body);margin:0">Automated retraining on data drift. Model registry. A/B testing. Self-healing production.</p></div></div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 7 · WHAT YOU'LL BE ABLE TO DO ══ -->
+<section data-label="Bullets" data-screen-label="Learning Outcomes" data-speaker-notes="This is a commitment slide. Read each bullet. Tell them: by session 2 end, you'll have done all of these. Ask 'who's excited?' — pause for reactions before moving to Module 2." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-300px;bottom:-300px;width:600px;height:600px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1320px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:16px">By end of Session 2</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 48px">You will be able to…</h2>
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Package any ML model as a Docker container with a REST API.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Write a GitHub Actions pipeline that trains, tests, and builds your model on every push.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Apply MLflow to track experiments and compare model versions.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Describe what cloud services power a production ML system and why.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Apply Level 1 MLOps practices to your graduation project — starting this weekend.</span></div>
+    </div>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

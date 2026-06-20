@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M4 Divider" data-speaker-notes="Transition: in Lab 2 we built and ran a container manually. In this module, we automate that process so EVERY push triggers test + build. That's CI/CD." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 04 · 45 min + Lab</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">CI/CD for ML<br>with GitHub Actions</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Automate test → train → build → push. Every push to main becomes a validated, versioned container.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · WHAT CICD SOLVES ══ -->
+<section data-label="Bullets" data-screen-label="What CI/CD Solves" data-speaker-notes="Ask: how do you currently 'deploy' your model changes? Email the script? SSH into a server? Drop a file? Each one of these is a risk. CI/CD removes the human from the critical path." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-300px;bottom:-300px;width:600px;height:600px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1320px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:16px">The problem</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 48px">What CI/CD eliminates</h2>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">"It works on my machine" — automated tests catch breakage before it reaches anyone else.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Forgetting to run tests before pushing — the pipeline runs them automatically on every commit.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Manual Docker builds with inconsistent tags — the pipeline builds and tags with the exact commit SHA.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Untested model accuracy drops — pytest checks that accuracy stays above threshold on every run.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--navy);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35;font-weight:600">Result: bad code never reaches production because the pipeline is the gatekeeper.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · GITHUB ACTIONS CONCEPTS ══ -->
+<section data-label="Bar Items" data-screen-label="GitHub Actions Concepts" data-speaker-notes="Build bottom-up: Step → Job → Workflow. The YAML file IS the pipeline. It lives in the repo — version controlled, reviewable, reproducible." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-360px;bottom:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1180px">
+    <div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:14px">
+      <span style="width:56px;height:56px;background:var(--teal);flex:0 0 auto;border-radius:6px"></span>
+      <div>
+        <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0;line-height:1.0">GitHub Actions</h2>
+        <p style="font-weight:500;font-size:var(--t-sub);color:var(--navy);margin:6px 0 0">A YAML file that lives next to your code</p>
+      </div>
+    </div>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:8px 0 48px;max-width:900px">Place a <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">.github/workflows/ci.yml</span> in your repo and GitHub runs it automatically on the events you define.</p>
+    <div style="display:flex;flex-direction:column;gap:30px">
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Trigger <span style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500">(on:)</span></h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">Defines WHEN the pipeline runs: <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">push</span>, <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">pull_request</span>, <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">schedule</span>, or manually via the GitHub UI.</p>
+      </div>
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Job</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">A group of steps that runs on one fresh machine (<span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">ubuntu-latest</span>). Jobs can run in parallel or in sequence.</p>
+      </div>
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Step</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">The smallest unit of work. <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">uses:</span> runs a pre-built action. <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">run:</span> executes any shell command.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · CI.YML ══ -->
+<section data-label="Code" data-screen-label="ci.yml workflow" data-speaker-notes="Walk each step: checkout → setup python → install → train → test → docker build. Notice the tag uses github.sha — every image is uniquely identified by its commit. No 'latest' ambiguity." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">.github/workflows/ci.yml</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">The ML CI pipeline</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:24px;line-height:1.65;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">name</span>: ML CI Pipeline
+<span style="color:#9aa3c4">on</span>:
+  <span style="color:#9aa3c4">push</span>:
+    <span style="color:#9aa3c4">branches</span>: [main]
+
+<span style="color:#9aa3c4">jobs</span>:
+  <span style="color:var(--teal)">test-and-build</span>:
+    <span style="color:#9aa3c4">runs-on</span>: ubuntu-latest
+    <span style="color:#9aa3c4">steps</span>:
+      - <span style="color:#9aa3c4">uses</span>: <span style="color:#7fe3c0">actions/checkout@v4</span>
+      - <span style="color:#9aa3c4">uses</span>: <span style="color:#7fe3c0">actions/setup-python@v4</span>
+        <span style="color:#9aa3c4">with</span>: { <span style="color:#9aa3c4">python-version</span>: <span style="color:#7fe3c0">'3.11'</span> }
+      - <span style="color:#9aa3c4">run</span>: <span style="color:#7fe3c0">pip install -r requirements.txt</span>
+      - <span style="color:#9aa3c4">run</span>: <span style="color:#7fe3c0">python model.py</span>                <span style="color:#8a93b4"># train</span>
+      - <span style="color:#9aa3c4">run</span>: <span style="color:#7fe3c0">pytest tests/ -v</span>              <span style="color:#8a93b4"># test accuracy</span>
+      - <span style="color:#9aa3c4">run</span>: <span style="color:#7fe3c0">docker build -t iris-classifier:${{ github.sha }} .</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 5 · TEST_MODEL.PY ══ -->
+<section data-label="Code" data-screen-label="test_model.py" data-speaker-notes="Key point: testing an ML model isn't just 'does it run' — it's 'is it accurate enough?' The accuracy threshold test is the gate that prevents a degraded model from shipping." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">tests / test_model.py</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Testing an ML model with pytest</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:25px;line-height:1.68;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">import</span> pickle, numpy <span style="color:#9aa3c4">as</span> np, pytest
+
+<span style="color:#9aa3c4">@pytest</span>.fixture
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">model</span>():
+    <span style="color:#9aa3c4">with</span> <span style="color:var(--teal)">open</span>(<span style="color:#7fe3c0">"model.pkl"</span>, <span style="color:#7fe3c0">"rb"</span>) <span style="color:#9aa3c4">as</span> f: <span style="color:#9aa3c4">return</span> pickle.load(f)
+
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">test_model_loads</span>(model):      assert model <span style="color:#9aa3c4">is not</span> <span style="color:var(--teal)">None</span>
+
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">test_predicts_setosa</span>(model):
+    X = np.array([[<span style="color:#7fe3c0">5.1</span>, <span style="color:#7fe3c0">3.5</span>, <span style="color:#7fe3c0">1.4</span>, <span style="color:#7fe3c0">0.2</span>]])
+    assert model.predict(X)[<span style="color:#7fe3c0">0</span>] == <span style="color:#7fe3c0">0</span>         <span style="color:#8a93b4"># setosa</span>
+
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">test_accuracy_above_90</span>(model):        <span style="color:#8a93b4"># THE gate</span>
+    <span style="color:#9aa3c4">from</span> sklearn.datasets <span style="color:#9aa3c4">import</span> load_iris
+    <span style="color:#9aa3c4">from</span> sklearn.metrics <span style="color:#9aa3c4">import</span> accuracy_score
+    X, y = load_iris(return_X_y=<span style="color:var(--teal)">True</span>)
+    assert accuracy_score(y, model.predict(X)) &gt;= <span style="color:#7fe3c0">0.90</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 6 · BLUE-GREEN vs CANARY ══ -->
+<section data-label="Table" data-screen-label="Deployment Strategies" data-speaker-notes="Context: once CI passes, how does the new model reach users? Blue/Green is the safer choice for students — instant rollback. Canary is what mature ML teams use for risky model updates." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Deployment strategies</h2>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;font-size:var(--t-body);border-radius:14px;overflow:hidden;flex:1;align-content:start">
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">Strategy</div>
+    <div style="background:var(--teal);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">Blue / Green</div>
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">Canary</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Approach</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Run two environments; switch all traffic at once</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Gradually shift % of traffic to new version</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Rollback</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Instant — flip traffic back</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Reduce canary % to 0%</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Risk exposure</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Low — zero-downtime switch</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Very low — only a % of users see new model</div>
+
+    <div style="padding:20px 28px;font-weight:600">Best for</div>
+    <div style="padding:20px 28px;background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Zero-downtime releases</div>
+    <div style="padding:20px 28px;color:var(--body)">Risky ML model updates with live evaluation</div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 7 · LAB 3 ══ -->
+<section data-label="Lab" data-screen-label="Lab 3 — GitHub Actions" data-speaker-notes="Timer: 25 minutes. Step 1 together on screen. Tell them: 'The goal is to break it on purpose and watch it fail — that's how you know CI is working.' Show the green check after fixing." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;align-items:center;gap:80px">
+  <div style="flex:1">
+    <div style="display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.12em;text-transform:uppercase;padding:10px 18px;border-radius:8px;margin-bottom:30px">Lab 03 · 25 min</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 26px;line-height:1.05">GitHub Actions CI pipeline</h2>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:0 0 34px">Wire your ML model to a pipeline that tests it on every push. Watch it go red, then fix it and watch it go green.</p>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">1.</span><span style="font-size:var(--t-small);line-height:1.4">Copy <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">labs/lab3-github-actions/ci.yml.template</span> → <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">.github/workflows/ci.yml</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">2.</span><span style="font-size:var(--t-small);line-height:1.4">Push to main — go to the Actions tab and watch the run</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">3.</span><span style="font-size:var(--t-small);line-height:1.4">Break it: change a test assertion to an impossible value, push — see it fail</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">4.</span><span style="font-size:var(--t-small);line-height:1.4">Fix the bug and push again — watch it go green</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">★</span><span style="font-size:var(--t-small);line-height:1.4">Stretch: add Docker Hub push using <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">DOCKERHUB_USERNAME</span> and <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">DOCKERHUB_TOKEN</span> secrets</span></div>
+    </div>
+  </div>
+  <div style="flex:0 0 660px;background:var(--navy);border-radius:16px;padding:34px;box-sizing:border-box">
+    <div style="display:flex;gap:9px;margin-bottom:26px"><span style="width:13px;height:13px;border-radius:50%;background:#ff5f56"></span><span style="width:13px;height:13px;border-radius:50%;background:#ffbd2e"></span><span style="width:13px;height:13px;border-radius:50%;background:#27c93f"></span></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:21px;line-height:1.9;color:#cfd6e6">
+      <div style="color:#8a93b4">Workflow: ML CI Pipeline</div>
+      <div><span style="color:#7fe3c0">✓</span> test-and-build <span style="color:#8a93b4">48s</span></div>
+      <div style="padding-left:16px;color:#8a93b4">✓ Checkout code</div>
+      <div style="padding-left:16px;color:#8a93b4">✓ Set up Python 3.11</div>
+      <div style="padding-left:16px;color:#8a93b4">✓ Install dependencies</div>
+      <div style="padding-left:16px;color:#8a93b4">✓ Train model (100.00%)</div>
+      <div style="padding-left:16px;color:#7fe3c0">✓ Run tests (3 passed)</div>
+      <div style="padding-left:16px;color:#7fe3c0">✓ Build Docker image</div>
+    </div>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

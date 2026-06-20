@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M3 cont. Divider" data-speaker-notes="Welcome back to Session 2. We'll build on Lab 1 — now instead of a hello-world app, we're containerizing a real ML model with a REST API. FastAPI gives us /docs for free." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 03 · Continued · 20 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">ML Model<br>in Docker</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Package a trained Iris classifier into a FastAPI container. Hit <span style="font-family:'IBM Plex Mono',monospace">/docs</span> to predict flower species from your browser.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · MODEL.PY ══ -->
+<section data-label="Code" data-screen-label="model.py — Train &amp; Save" data-speaker-notes="Walk through this live: load data, split, train, evaluate, save as pickle. Ask: why do we save the model to a file instead of training inside the API? (Performance — training once, serving many times.)" style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">labs/lab2-ml-api / model.py</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Step 1: Train and save the model</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:25px;line-height:1.7;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">from</span> sklearn.datasets <span style="color:#9aa3c4">import</span> load_iris
+<span style="color:#9aa3c4">from</span> sklearn.ensemble <span style="color:#9aa3c4">import</span> RandomForestClassifier
+<span style="color:#9aa3c4">from</span> sklearn.model_selection <span style="color:#9aa3c4">import</span> train_test_split
+<span style="color:#9aa3c4">from</span> sklearn.metrics <span style="color:#9aa3c4">import</span> accuracy_score
+<span style="color:#9aa3c4">import</span> pickle
+
+X, y = load_iris(return_X_y=<span style="color:var(--teal)">True</span>)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span style="color:#7fe3c0">0.2</span>, random_state=<span style="color:#7fe3c0">42</span>)
+
+model = RandomForestClassifier(n_estimators=<span style="color:#7fe3c0">10</span>, random_state=<span style="color:#7fe3c0">42</span>)
+model.fit(X_train, y_train)
+acc = accuracy_score(y_test, model.predict(X_test))
+<span style="color:var(--teal)">print</span>(<span style="color:#7fe3c0">f"Accuracy: {acc:.2%}"</span>)          <span style="color:#8a93b4"># → 100.00%</span>
+
+<span style="color:#9aa3c4">with</span> <span style="color:var(--teal)">open</span>(<span style="color:#7fe3c0">"model.pkl"</span>, <span style="color:#7fe3c0">"wb"</span>) <span style="color:#9aa3c4">as</span> f:
+    pickle.dump(model, f)        <span style="color:#8a93b4"># save for the API to load</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 3 · MAIN.PY FASTAPI ══ -->
+<section data-label="Code" data-screen-label="main.py — FastAPI" data-speaker-notes="Key selling point: FastAPI generates /docs (Swagger UI) automatically. Students can test predictions in a browser without writing any client code. Show it live after Lab 2." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">labs/lab2-ml-api / main.py</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Step 2: Serve via FastAPI</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:24px;line-height:1.65;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">from</span> fastapi <span style="color:#9aa3c4">import</span> FastAPI
+<span style="color:#9aa3c4">from</span> pydantic <span style="color:#9aa3c4">import</span> BaseModel
+<span style="color:#9aa3c4">import</span> pickle, numpy <span style="color:#9aa3c4">as</span> np
+
+app = FastAPI(title=<span style="color:#7fe3c0">"Iris Classifier"</span>)
+<span style="color:#9aa3c4">with</span> <span style="color:var(--teal)">open</span>(<span style="color:#7fe3c0">"model.pkl"</span>, <span style="color:#7fe3c0">"rb"</span>) <span style="color:#9aa3c4">as</span> f: model = pickle.load(f)
+SPECIES = [<span style="color:#7fe3c0">"setosa"</span>, <span style="color:#7fe3c0">"versicolor"</span>, <span style="color:#7fe3c0">"virginica"</span>]
+
+<span style="color:#9aa3c4">class</span> <span style="color:var(--teal)">IrisInput</span>(BaseModel):
+    sepal_length: <span style="color:#9aa3c4">float</span>; sepal_width: <span style="color:#9aa3c4">float</span>
+    petal_length: <span style="color:#9aa3c4">float</span>; petal_width: <span style="color:#9aa3c4">float</span>
+
+<span style="color:#9aa3c4">@app</span>.post(<span style="color:#7fe3c0">"/predict"</span>)
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">predict</span>(data: IrisInput):
+    X = np.array([[data.sepal_length, data.sepal_width,
+                   data.petal_length, data.petal_width]])
+    idx = <span style="color:var(--teal)">int</span>(model.predict(X)[<span style="color:#7fe3c0">0</span>])
+    <span style="color:#9aa3c4">return</span> {<span style="color:#7fe3c0">"prediction"</span>: SPECIES[idx]}  <span style="color:#8a93b4"># {"prediction": "setosa"}</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 4 · ML DOCKERFILE ══ -->
+<section data-label="Code" data-screen-label="ML Dockerfile" data-speaker-notes="Key difference from Lab 1: we run model.py during the BUILD step, not at runtime. This bakes the trained model.pkl into the image. Ask: why is this better than training at startup?" style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">labs/lab2-ml-api / Dockerfile</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Step 3: Package train + serve</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:27px;line-height:1.8;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:40px 48px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">FROM</span> python:3.11-slim
+<span style="color:#9aa3c4">WORKDIR</span> /app
+
+<span style="color:#9aa3c4">COPY</span> requirements.txt .
+<span style="color:#9aa3c4">RUN</span> <span style="color:#7fe3c0">pip install --no-cache-dir -r requirements.txt</span>
+
+<span style="color:#9aa3c4">COPY</span> model.py .
+<span style="color:#9aa3c4">RUN</span> <span style="color:#7fe3c0">python model.py</span>           <span style="color:#8a93b4"># train during BUILD — bakes model.pkl into image</span>
+
+<span style="color:#9aa3c4">COPY</span> main.py .
+<span style="color:#9aa3c4">EXPOSE</span> 8000
+
+<span style="color:#9aa3c4">CMD</span> [<span style="color:#7fe3c0">"uvicorn"</span>, <span style="color:#7fe3c0">"main:app"</span>, <span style="color:#7fe3c0">"--host"</span>, <span style="color:#7fe3c0">"0.0.0.0"</span>, <span style="color:#7fe3c0">"--port"</span>, <span style="color:#7fe3c0">"8000"</span>]
+</pre>
+</section>
+
+<!-- ══ SLIDE 5 · LAB 2 ══ -->
+<section data-label="Lab" data-screen-label="Lab 2 — ML Inference API" data-speaker-notes="Timer: 30 minutes. Start docker build on screen together. While it builds, explain what's happening. After lab, show /docs live — let a student pick numbers and call /predict from their browser." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;align-items:center;gap:80px">
+  <div style="flex:1">
+    <div style="display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.12em;text-transform:uppercase;padding:10px 18px;border-radius:8px;margin-bottom:30px">Lab 02 · 30 min</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 26px;line-height:1.05">ML inference API</h2>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:0 0 34px">Build and run the Iris Classifier as a REST API in Docker. Predict flower species from your browser using /docs.</p>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">1.</span><span style="font-size:var(--t-small);line-height:1.4"><span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">cd labs/lab2-ml-api</span> then <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">docker build -t iris-api .</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">2.</span><span style="font-size:var(--t-small);line-height:1.4"><span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">docker run -d -p 8000:8000 iris-api</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">3.</span><span style="font-size:var(--t-small);line-height:1.4">Open <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">http://localhost:8000/docs</span> in your browser</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">4.</span><span style="font-size:var(--t-small);line-height:1.4">POST to /predict with sepal/petal values — confirm you get "setosa" or "versicolor"</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">★</span><span style="font-size:var(--t-small);line-height:1.4">Stretch: change <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">n_estimators=100</span>, rebuild — does accuracy change?</span></div>
+    </div>
+  </div>
+  <div style="flex:0 0 660px;background:var(--navy);border-radius:16px;padding:34px;box-sizing:border-box">
+    <div style="display:flex;gap:9px;margin-bottom:26px"><span style="width:13px;height:13px;border-radius:50%;background:#ff5f56"></span><span style="width:13px;height:13px;border-radius:50%;background:#ffbd2e"></span><span style="width:13px;height:13px;border-radius:50%;background:#27c93f"></span></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;line-height:1.85;color:#cfd6e6">
+      <div><span style="color:var(--teal)">$</span> docker build -t iris-api .</div>
+      <div style="color:#8a93b4">  RUN python model.py</div>
+      <div style="color:#7fe3c0">  Accuracy: 100.00%</div>
+      <div><span style="color:var(--teal)">$</span> docker run -d -p 8000:8000 iris-api</div>
+      <div style="margin-top:8px;color:#8a93b4">POST /predict</div>
+      <div style="color:#cfd6e6">{"sepal_length":5.1,"petal_width":0.2}</div>
+      <div style="color:#7fe3c0">→ {"prediction": "setosa"}</div>
+    </div>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+# GitHub Actions CI Pipeline for ML Projects
+# Copy this file to .github/workflows/ci.yml in your project
+
+name: ML CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Train model
+        run: python model.py
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+      - name: Build Docker image
+        run: docker build -t iris-classifier:${{ github.sha }} .
+
+      - name: Verify container starts
+        run: |
+          docker run -d -p 8000:8000 --name test-container iris-classifier:${{ github.sha }}
+          sleep 5
+          curl -f http://localhost:8000/ || exit 1
+          docker stop test-container

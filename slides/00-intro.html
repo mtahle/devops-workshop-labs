@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · COVER ══ -->
+<section data-label="Cover" data-screen-label="Cover" data-speaker-notes="Welcome everyone. Two sessions, 6 hours total. By the end you'll have a real ML model packaged, tested, and auto-deployed via CI/CD." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between">
+  <div style="position:absolute;top:50%;right:-1150px;transform:translateY(-50%);width:1800px;height:1800px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,var(--contour) 9px 10px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;top:50%;right:-1050px;transform:translateY(-50%);width:1500px;height:1500px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+
+  <div style="display:flex;align-items:center;gap:16px;position:relative;z-index:1">
+    <img src="assets/logo.png" alt="MUJAHED AL-TAHLEH" style="height:72px;width:auto;display:block">
+    <div style="display:flex;flex-direction:column;line-height:1.05">
+      <span style="font-weight:700;font-size:26px;letter-spacing:0.04em;color:var(--navy)">MUJAHED</span>
+      <span style="font-weight:600;font-size:15px;letter-spacing:0.24em;color:var(--teal-ink)">AL-TAHLEH</span>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:64px;position:relative;z-index:1">
+    <div style="width:300px;height:300px;border-radius:50%;background:var(--teal);padding:11px;box-sizing:border-box;flex:0 0 auto">
+      <img src="assets/me.jpeg" alt="Mujahed Al-Tahleh" style="width:278px;height:278px;display:block;border-radius:50%;object-fit:cover;background:var(--paper-soft)">
+    </div>
+    <div style="max-width:1080px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.22em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:22px">MLOps Workshop · CS/SE Final Year</div>
+      <h1 style="font-weight:800;font-size:var(--t-display);line-height:1.0;letter-spacing:-0.02em;margin:0;color:var(--navy)">From Notebook<br>to Production</h1>
+      <p style="font-size:var(--t-sub);color:var(--body);margin:28px 0 0;line-height:1.4">DevOps &amp; MLOps for your graduation project</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:48px;align-items:center;position:relative;z-index:1;font-size:var(--t-small);color:var(--body)">
+    <span><strong style="color:var(--navy);font-weight:600">MUJAHED AL-TAHLEH</strong> · Lead Cloud Engineer</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:24px">mujahed@kloudkiq.com</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:24px">2 Sessions · 6 Hours Total</span>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · AGENDA ══ -->
+<section data-label="Agenda" data-screen-label="Workshop Agenda" data-speaker-notes="Walk through both sessions quickly — under 2 minutes. Tell them the goal: by end of session 2 they'll have a model in a CI/CD pipeline." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="position:absolute;right:-650px;bottom:-650px;width:1300px;height:1300px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;height:100%">
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">Workshop Map</h2>
+    <p style="font-size:var(--t-body);color:var(--body);margin:0 0 44px">Two sessions. Seven modules. Three hands-on labs.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;column-gap:90px;row-gap:0;flex:1">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:14px;padding-bottom:10px;border-bottom:3px solid var(--teal)">Session 1 · 3 Hours</div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M1</span><span style="font-size:var(--t-body)">DevOps fundamentals &amp; MLOps</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M2</span><span style="font-size:var(--t-body)">Cloud &amp; Infrastructure as Code</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M3</span><span style="font-size:var(--t-body)">Containerization with Docker</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal);min-width:40px">L1</span><span style="font-size:var(--t-body);font-weight:600;color:var(--navy)">Lab: Your First Container</span></div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:14px;padding-bottom:10px;border-bottom:3px solid var(--teal)">Session 2 · 3 Hours</div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M3</span><span style="font-size:var(--t-body)">ML model in Docker · Lab 2</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M4</span><span style="font-size:var(--t-body)">CI/CD &amp; GitHub Actions · Lab 3</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M5</span><span style="font-size:var(--t-body)">Model versioning &amp; environments</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M6</span><span style="font-size:var(--t-body)">Serverless ML concepts</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M7</span><span style="font-size:var(--t-body)">End-to-end MLOps &amp; self-learning</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · SESSION 1 DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="Session 1 Divider" data-speaker-notes="Session 1 starts now. Install check: everyone open a terminal and type 'docker --version'. If it fails, flag us now — we'll fix it during M1." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Session 01 · 3 Hours</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">The Foundation</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">DevOps, MLOps, Cloud basics, and Docker — everything you need before we start shipping.</p>
+    <div style="display:flex;gap:40px;margin-top:50px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Quick install check (15 min)</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ M1 + M2 + M3 content</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Lab 1 hands-on</div>
+    </div>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

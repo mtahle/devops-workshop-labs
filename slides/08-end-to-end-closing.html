@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · END-TO-END RADIAL ══ -->
+<section data-label="Radial" data-screen-label="End-to-End MLOps Pipeline" data-speaker-notes="Walk the loop clockwise starting from Data. Point out: CI/CD lives between Build and Deploy. MLflow lives between Train and Evaluate. Monitoring feeds back into Data. Everything connects." style="background:var(--paper);color:var(--navy);padding:60px var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;align-items:center;justify-content:center">
+  <div style="position:absolute;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.45;pointer-events:none;z-index:0"></div>
+
+  <div style="position:absolute;top:50px;left:50%;transform:translateX(-50%);text-align:center;z-index:2">
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0;color:var(--navy)">The complete MLOps loop</h2>
+  </div>
+
+  <div style="position:relative;z-index:1;width:100%;height:860px;display:flex;align-items:center;justify-content:center">
+    <!-- Central hub -->
+    <div style="width:380px;height:380px;border-radius:50%;background:var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff">
+      <span style="font-weight:800;font-size:32px;line-height:1.15">MLOps<br>Pipeline</span>
+      <span style="font-size:20px;color:rgba(255,255,255,0.75);margin-top:8px">Continuous loop</span>
+    </div>
+
+    <!-- Node 1 · Data (top left) -->
+    <div style="position:absolute;top:60px;left:120px;display:flex;align-items:center;gap:18px;width:340px;flex-direction:row-reverse;text-align:right">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--gray-circle);color:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">01<br><span style="font-size:11px;font-weight:600">DATA</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Collect &amp; validate</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Version datasets with DVC. Gate on schema &amp; quality.</p>
+      </div>
+    </div>
+
+    <!-- Node 2 · Train (top right) -->
+    <div style="position:absolute;top:60px;right:120px;display:flex;align-items:center;gap:18px;width:340px">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--teal);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">02<br><span style="font-size:11px;font-weight:600">TRAIN</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Experiment &amp; track</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Log params &amp; metrics in MLflow. Compare runs.</p>
+      </div>
+    </div>
+
+    <!-- Node 3 · Evaluate (middle right) -->
+    <div style="position:absolute;top:50%;right:50px;transform:translateY(-50%);display:flex;align-items:center;gap:18px;width:340px">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--teal);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">03<br><span style="font-size:11px;font-weight:600">EVALUATE</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Test &amp; approve</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">pytest checks accuracy threshold. Only promote if &gt;90%.</p>
+      </div>
+    </div>
+
+    <!-- Node 4 · Build (bottom right) -->
+    <div style="position:absolute;bottom:60px;right:120px;display:flex;align-items:center;gap:18px;width:340px">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">04<br><span style="font-size:11px;font-weight:600">BUILD</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Package &amp; push</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Docker image tagged with commit SHA. Pushed to registry.</p>
+      </div>
+    </div>
+
+    <!-- Node 5 · Deploy (bottom left) -->
+    <div style="position:absolute;bottom:60px;left:120px;display:flex;align-items:center;gap:18px;width:340px;flex-direction:row-reverse;text-align:right">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">05<br><span style="font-size:11px;font-weight:600">DEPLOY</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Release to users</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Blue/Green or Canary. Auto-rollback on health check fail.</p>
+      </div>
+    </div>
+
+    <!-- Node 6 · Monitor (middle left) -->
+    <div style="position:absolute;top:50%;left:50px;transform:translateY(-50%);display:flex;align-items:center;gap:18px;width:340px;flex-direction:row-reverse;text-align:right">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--gray-circle);color:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">06<br><span style="font-size:11px;font-weight:600">MONITOR</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Observe &amp; alert</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Latency, accuracy drift, data skew. Triggers retrain loop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · SELF-LEARNING ASSIGNMENTS ══ -->
+<section data-label="Numbered Grid" data-screen-label="Self-Learning Assignments" data-speaker-notes="Hand out the ASSIGNMENTS.md file. Walk through each assignment briefly. Tell them: pick ONE, complete it, and prepare a 5-minute demo for the group. No grading — just exposure and shipping." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="position:absolute;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.45;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-260px;bottom:-260px;width:520px;height:520px;border-radius:50%;background:var(--teal);opacity:.9;pointer-events:none;z-index:0"></div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.01em;margin:0 0 10px;position:relative;z-index:1">Self-learning assignments</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 40px;position:relative;z-index:1">Pick ONE and demo it in 5 minutes. Full details in <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">ASSIGNMENTS.md</span></p>
+  <div style="position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;column-gap:80px;row-gap:36px;flex:1">
+    <div style="display:flex;align-items:flex-start;gap:24px">
+      <div style="width:86px;height:86px;border-radius:50%;background:var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex:0 0 auto;text-align:center;line-height:1.25">A1<br><span style="font-size:11px">2–3h</span></div>
+      <div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">MLflow experiment tracking</h3><p style="font-size:20px;line-height:1.4;color:var(--body);margin:0">Add MLflow to your model, run 3 experiments with different hyperparameters, register the best model in the local registry.</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:24px">
+      <div style="width:86px;height:86px;border-radius:50%;background:var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex:0 0 auto;text-align:center;line-height:1.25">A2<br><span style="font-size:11px">3–4h</span></div>
+      <div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Containerize YOUR graduation project</h3><p style="font-size:20px;line-height:1.4;color:var(--body);margin:0">Write a Dockerfile for your own ML model. Serve it via FastAPI. Run it on your laptop. Share the /predict endpoint.</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:24px">
+      <div style="width:86px;height:86px;border-radius:50%;background:var(--gray-circle);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--navy);flex:0 0 auto;text-align:center;line-height:1.25">A3<br><span style="font-size:11px">2h</span></div>
+      <div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">TensorFlow Serving (reference)</h3><p style="font-size:20px;line-height:1.4;color:var(--body);margin:0">Pull <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">tensorflow/serving</span>, serve a SavedModel locally. Read the TF Serving docs. Compare to FastAPI approach.</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:24px">
+      <div style="width:86px;height:86px;border-radius:50%;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex:0 0 auto;text-align:center;line-height:1.25">A4<br><span style="font-size:11px">4–6h</span></div>
+      <div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Deploy to AWS Lambda or ECS</h3><p style="font-size:20px;line-height:1.4;color:var(--body);margin:0">Deploy iris-api (or your own model) to AWS using the free tier. Share a live endpoint URL with the group.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · CLOSING ══ -->
+<section data-label="Closing" data-screen-label="Closing" data-speaker-notes="One sentence recap: you now know how to take a model from a notebook to a versioned, tested, auto-deployed container. The rest is practice. Questions? Connect on LinkedIn. Now go ship." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between">
+  <div style="position:absolute;top:50%;right:-1150px;transform:translateY(-50%);width:1800px;height:1800px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,var(--contour) 9px 10px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;top:50%;right:-1050px;transform:translateY(-50%);width:1500px;height:1500px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+
+  <div style="display:flex;align-items:center;gap:16px;position:relative;z-index:1">
+    <img src="assets/logo" alt="MUJAHED AL-TAHLEH" style="height:64px;width:auto;display:block">
+    <div style="display:flex;flex-direction:column;line-height:1.05">
+      <span style="font-weight:700;font-size:24px;letter-spacing:0.04em;color:var(--navy)">MUJAHED</span>
+      <span style="font-weight:600;font-size:14px;letter-spacing:0.24em;color:var(--teal-ink)">AL-TAHLEH</span>
+    </div>
+  </div>
+
+  <div style="position:relative;z-index:1;max-width:1100px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.22em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:22px">Now go ship</div>
+    <h2 style="font-weight:800;font-size:var(--t-display);line-height:1.0;letter-spacing:-0.02em;margin:0 0 32px">Thank you</h2>
+    <p style="font-size:var(--t-sub);color:var(--body);line-height:1.4;margin:0">You went from "it works in my notebook" to a containerized, tested, CI/CD-powered ML system. That's Level 1 MLOps. What you do with it next is up to you.</p>
+  </div>
+
+  <div style="display:flex;gap:48px;align-items:center;position:relative;z-index:1;font-size:var(--t-small);color:var(--body)">
+    <span><strong style="color:var(--navy);font-weight:600">MUJAHED AL-TAHLEH</strong> · Lead Cloud Engineer</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:24px">mujahed@kloudkiq.com</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--teal-ink)">github.com/mtahle</span>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+:root {
+  /* ---- Brand core ---- */
+  --navy-900: #1F2750;   /* deep navy, layering */
+  --navy-700: #283068;   /* PRIMARY brand */
+  --teal-500: #38C0C8;   /* SECONDARY brand */
+  --teal-700: #2BA5AD;   /* teal as TEXT on white (legible) */
+
+  /* ---- Neutrals ---- */
+  --ink:        #283068; /* headings = navy */
+  --body:       #6E7479; /* body copy */
+  --muted:      #9AA0A4; /* faint captions */
+  --line:       #D9DDE0; /* hairlines / borders */
+  --paper:      #FFFFFF; /* primary surface */
+  --paper-soft: #F1F2F4; /* panels / stat cards */
+  --gray-circle:#CBCFD3; /* secondary numbered circles */
+  --contour:    #D4D8DB; /* the signature hairline "swoosh" lines */
+
+  /* ---- Semantic aliases ---- */
+  --brand-primary:   var(--navy-700);
+  --brand-secondary: var(--teal-500);
+  --text-heading:    var(--navy-700);
+  --text-body:       var(--body);
+  --text-muted:      var(--muted);
+  --text-accent:     var(--teal-700);
+  --text-on-brand:   #FFFFFF;
+  --surface:         var(--paper);
+  --surface-soft:    var(--paper-soft);
+  --surface-dark:    var(--navy-700);
+  --border:          var(--line);
+}

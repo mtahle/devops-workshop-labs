@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · COVER ══ -->
+<section data-label="Cover" data-screen-label="Cover" data-speaker-notes="Welcome everyone. Two sessions, 6 hours total. By the end you'll have a real ML model packaged, tested, and auto-deployed via CI/CD." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between">
+  <div style="position:absolute;top:50%;right:-1150px;transform:translateY(-50%);width:1800px;height:1800px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,var(--contour) 9px 10px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;top:50%;right:-1050px;transform:translateY(-50%);width:1500px;height:1500px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+
+  <div style="display:flex;align-items:center;gap:16px;position:relative;z-index:1">
+    <img src="assets/logo.png" alt="MUJAHED AL-TAHLEH" style="height:72px;width:auto;display:block">
+    <div style="display:flex;flex-direction:column;line-height:1.05">
+      <span style="font-weight:700;font-size:26px;letter-spacing:0.04em;color:var(--navy)">MUJAHED</span>
+      <span style="font-weight:600;font-size:15px;letter-spacing:0.24em;color:var(--teal-ink)">AL-TAHLEH</span>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:64px;position:relative;z-index:1">
+    <div style="width:300px;height:300px;border-radius:50%;background:var(--teal);padding:11px;box-sizing:border-box;flex:0 0 auto">
+      <img src="assets/me.jpeg" alt="Mujahed Al-Tahleh" style="width:278px;height:278px;display:block;border-radius:50%;object-fit:cover;background:var(--paper-soft)">
+    </div>
+    <div style="max-width:1080px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.22em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:22px">MLOps Workshop · CS/SE Final Year</div>
+      <h1 style="font-weight:800;font-size:var(--t-display);line-height:1.0;letter-spacing:-0.02em;margin:0;color:var(--navy)">From Notebook<br>to Production</h1>
+      <p style="font-size:var(--t-sub);color:var(--body);margin:28px 0 0;line-height:1.4">DevOps &amp; MLOps for your graduation project</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:48px;align-items:center;position:relative;z-index:1;font-size:var(--t-small);color:var(--body)">
+    <span><strong style="color:var(--navy);font-weight:600">MUJAHED AL-TAHLEH</strong> · Lead Cloud Engineer</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:24px">mujahed@kloudkiq.com</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:24px">2 Sessions · 6 Hours Total</span>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · AGENDA ══ -->
+<section data-label="Agenda" data-screen-label="Workshop Agenda" data-speaker-notes="Walk through both sessions quickly — under 2 minutes. Tell them the goal: by end of session 2 they'll have a model in a CI/CD pipeline." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="position:absolute;right:-650px;bottom:-650px;width:1300px;height:1300px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;height:100%">
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">Workshop Map</h2>
+    <p style="font-size:var(--t-body);color:var(--body);margin:0 0 44px">Two sessions. Seven modules. Three hands-on labs.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;column-gap:90px;row-gap:0;flex:1">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:14px;padding-bottom:10px;border-bottom:3px solid var(--teal)">Session 1 · 3 Hours</div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M1</span><span style="font-size:var(--t-body)">DevOps fundamentals &amp; MLOps</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M2</span><span style="font-size:var(--t-body)">Cloud &amp; Infrastructure as Code</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M3</span><span style="font-size:var(--t-body)">Containerization with Docker</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal);min-width:40px">L1</span><span style="font-size:var(--t-body);font-weight:600;color:var(--navy)">Lab: Your First Container</span></div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:14px;padding-bottom:10px;border-bottom:3px solid var(--teal)">Session 2 · 3 Hours</div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M3</span><span style="font-size:var(--t-body)">ML model in Docker · Lab 2</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M4</span><span style="font-size:var(--t-body)">CI/CD &amp; GitHub Actions · Lab 3</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M5</span><span style="font-size:var(--t-body)">Model versioning &amp; environments</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line)"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M6</span><span style="font-size:var(--t-body)">Serverless ML concepts</span></div>
+        <div style="display:flex;align-items:center;gap:22px;padding:16px 0"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;color:var(--teal-ink);min-width:40px">M7</span><span style="font-size:var(--t-body)">End-to-end MLOps &amp; self-learning</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · SESSION 1 DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="Session 1 Divider" data-speaker-notes="Session 1 starts now. Install check: everyone open a terminal and type 'docker --version'. If it fails, flag us now — we'll fix it during M1." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Session 01 · 3 Hours</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">The Foundation</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">DevOps, MLOps, Cloud basics, and Docker — everything you need before we start shipping.</p>
+    <div style="display:flex;gap:40px;margin-top:50px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Quick install check (15 min)</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ M1 + M2 + M3 content</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Lab 1 hands-on</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M1 Divider" data-speaker-notes="Poll in chat: how many of you have deployed an ML model to production? Let's see what that even means by the end of this module." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 01 · 40 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">DevOps &amp; MLOps<br>Fundamentals</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Where ML meets operations — and why your notebook is not a product.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · THE PROBLEM ══ -->
+<section data-label="Bullets" data-screen-label="The Problem" data-speaker-notes="Ask: how many of you have a Jupyter notebook that 'works' but no one else can run it? This is the problem. Keep it conversational — 3 minutes max, then move on." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-300px;bottom:-300px;width:600px;height:600px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1320px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:16px">The Gap</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 48px">The notebook is not a product</h2>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">"It works on my machine" — the most dangerous phrase in ML.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">A model trained in a notebook can't serve real users — it needs an API, a container, a pipeline.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Without versioning, you can't reproduce your best result — or roll back from your worst.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Models degrade silently as real-world data drifts — no monitoring means no warning.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--navy);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35;font-weight:600;color:var(--navy)">This workshop gives you the bridge: DevOps &amp; MLOps practices that turn your project into a product.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · WHAT IS DEVOPS? ══ -->
+<section data-label="Three Columns" data-screen-label="What is DevOps?" data-speaker-notes="DevOps is not a tool — it's a culture. Ask: what do you think DevOps means? Take 2 answers from chat, then reveal. Keep each column to 30 seconds." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:10px">Module 01</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">What is DevOps?</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 56px;max-width:1100px">A culture and set of practices that unifies development, operations, and delivery.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">People</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Shared ownership</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Dev and Ops work together, not in silos. The team that builds it is responsible for running it.</p>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Process</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Continuous delivery</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Small, frequent changes over big, rare releases. Every commit flows through an automated pipeline.</p>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Tools</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Automation everywhere</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Git, Docker, GitHub Actions, Terraform — the stack that removes manual toil from code to production.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · DEVOPS LIFECYCLE ══ -->
+<section data-label="Timeline" data-screen-label="DevOps Lifecycle" data-speaker-notes="The lifecycle is a loop, not a line — monitoring feeds back into planning. Point out that ML adds a data + retrain arrow between Monitor and Plan." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 12px">The DevOps lifecycle</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 70px">Eight phases, continuously repeating. ML adds a <strong>data loop</strong> on top.</p>
+  <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start">
+    <div style="position:absolute;top:39px;left:5%;right:5%;height:4px;background:var(--line);z-index:0"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">01</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Plan</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">02</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Code</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">03</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Build</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">04</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Test</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">05</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Release</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">06</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Deploy</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">07</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Operate</span></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:11%"><div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px">08</div><span style="font-weight:600;font-size:24px;margin-top:22px;text-align:center">Monitor</span></div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 5 · DEVOPS VS MLOPS ══ -->
+<section data-label="Table" data-screen-label="DevOps vs MLOps" data-speaker-notes="MLOps = DevOps + data + models. The extra dimensions are what make ML systems harder to operate. Don't spend more than 4 minutes here." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">DevOps vs MLOps</h2>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;font-size:var(--t-body);border-radius:14px;overflow:hidden;flex:1;align-content:start">
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">Dimension</div>
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">DevOps</div>
+    <div style="background:var(--teal);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">MLOps</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Primary artifact</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Code / binary</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Code + trained model</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Testing</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Unit &amp; integration</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">+ Model accuracy &amp; bias</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Versioning</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Git</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Git + MLflow / DVC</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Deploy trigger</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Every passing build</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">When model improves</div>
+
+    <div style="padding:20px 28px;font-weight:600">Monitoring</div>
+    <div style="padding:20px 28px;color:var(--body)">Logs, latency, errors</div>
+    <div style="padding:20px 28px;background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">+ Data drift &amp; accuracy</div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 6 · MLOPS MATURITY LEVELS ══ -->
+<section data-label="Numbered Grid" data-screen-label="MLOps Maturity" data-speaker-notes="Ask students to drop in chat which level their graduation project is at. Most will say Level 0. That's fine — Level 1 by end of today is the goal." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="position:absolute;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.45;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-260px;bottom:-260px;width:520px;height:520px;border-radius:50%;background:var(--teal);opacity:.9;pointer-events:none;z-index:0"></div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.01em;margin:0 0 16px;position:relative;z-index:1">MLOps maturity levels</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 44px;position:relative;z-index:1">Where does your graduation project sit today?</p>
+  <div style="position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;column-gap:90px;row-gap:36px;flex:1">
+    <div style="display:flex;align-items:center;gap:28px"><div style="width:96px;height:96px;border-radius:50%;border:8px solid var(--gray-circle);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px;color:var(--navy);flex:0 0 auto">0</div><div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Manual everything</h3><p style="font-size:22px;line-height:1.4;color:var(--body);margin:0">Notebook only. No versioning, no API, no reproducibility. Your laptop IS the server.</p></div></div>
+    <div style="display:flex;align-items:center;gap:28px"><div style="width:96px;height:96px;border-radius:50%;border:8px solid var(--teal);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px;color:var(--navy);flex:0 0 auto">2</div><div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Automated pipeline</h3><p style="font-size:22px;line-height:1.4;color:var(--body);margin:0">CI/CD triggers training + testing + container build on every push. Models are versioned.</p></div></div>
+    <div style="display:flex;align-items:center;gap:28px"><div style="width:96px;height:96px;border-radius:50%;border:8px solid var(--teal);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px;color:var(--navy);flex:0 0 auto">1</div><div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Scripted + containerized</h3><p style="font-size:22px;line-height:1.4;color:var(--body);margin:0">Training is a script. Model served via Docker. Deployment is still manual. <strong style="color:var(--teal-ink)">← Target for today</strong></p></div></div>
+    <div style="display:flex;align-items:center;gap:28px"><div style="width:96px;height:96px;border-radius:50%;border:8px solid var(--navy);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px;color:var(--navy);flex:0 0 auto">3</div><div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Full MLOps</h3><p style="font-size:22px;line-height:1.4;color:var(--body);margin:0">Automated retraining on data drift. Model registry. A/B testing. Self-healing production.</p></div></div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 7 · WHAT YOU'LL BE ABLE TO DO ══ -->
+<section data-label="Bullets" data-screen-label="Learning Outcomes" data-speaker-notes="This is a commitment slide. Read each bullet. Tell them: by session 2 end, you'll have done all of these. Ask 'who's excited?' — pause for reactions before moving to Module 2." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-300px;bottom:-300px;width:600px;height:600px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1320px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:16px">By end of Session 2</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 48px">You will be able to…</h2>
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Package any ML model as a Docker container with a REST API.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Write a GitHub Actions pipeline that trains, tests, and builds your model on every push.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Apply MLflow to track experiments and compare model versions.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Describe what cloud services power a production ML system and why.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Apply Level 1 MLOps practices to your graduation project — starting this weekend.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M2 Divider" data-speaker-notes="Quick context-setter: we're not going deep on cloud here. The goal is to know WHAT the pieces are so you can read architecture diagrams and have intelligent conversations with cloud teams." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 02 · 30 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Cloud &amp; Infrastructure<br>as Code</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">The cloud building blocks your ML system will run on — and why you define them in code, not in a console.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · CLOUD PRIMITIVES ══ -->
+<section data-label="Three Columns" data-screen-label="Cloud Primitives" data-speaker-notes="Mentimeter poll: 'Which AWS service have you used?' Show results. Then map each column to a real ML use case: EC2=training, S3=datasets, VPC/ALB=serving. Keep it to 5 minutes." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:10px">Module 02</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">The three cloud primitives</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 56px;max-width:1100px">Everything in AWS (and any cloud) is one of three things: compute, storage, or network.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Compute · EC2</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Virtual machines on demand</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Rent a CPU (or GPU) by the hour. Your ML training job and your API server both run here.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal-ink);background:var(--paper-soft);padding:12px 16px;border-radius:8px">t3.medium · g4dn.xlarge</div>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Storage · S3</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Object storage for everything</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Unlimited files at pennies per GB. Model artifacts, training datasets, Docker layer cache — all here.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal-ink);background:var(--paper-soft);padding:12px 16px;border-radius:8px">s3://my-bucket/models/v1/</div>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Network · VPC + ALB</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Your private network + load balancer</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">VPC isolates your resources. ALB (Application Load Balancer) routes user traffic to your containers.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal-ink);background:var(--paper-soft);padding:12px 16px;border-radius:8px">api.myproject.com → :8000</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · INFRASTRUCTURE AS CODE ══ -->
+<section data-label="Bar Items" data-screen-label="Infrastructure as Code" data-speaker-notes="Key message: treat infrastructure like code — commit it, review it, version it. Terraform is just one tool; the principle applies everywhere." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-360px;bottom:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1180px">
+    <div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:14px">
+      <span style="width:56px;height:56px;background:var(--teal);flex:0 0 auto;border-radius:6px"></span>
+      <div>
+        <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0;line-height:1.0">Infrastructure as Code</h2>
+        <p style="font-weight:500;font-size:var(--t-sub);color:var(--navy);margin:6px 0 0">Stop clicking. Start committing.</p>
+      </div>
+    </div>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:8px 0 52px;max-width:900px">Define your cloud infrastructure in files, version it in Git, and let automation do the rest. Terraform is the most widely used IaC tool.</p>
+    <div style="display:flex;flex-direction:column;gap:34px">
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Version control</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">Infrastructure lives in Git alongside your code. Every change is auditable, reviewable, and reversible with a single command.</p>
+      </div>
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Reproducibility</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">The same Terraform config creates identical environments in dev, staging, and production. No more "it works in staging but fails in prod."</p>
+      </div>
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Speed</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">Spinning up a GPU instance for training goes from a 10-minute console session to one command: <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">terraform apply</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · TERRAFORM CODE ══ -->
+<section data-label="Code" data-screen-label="Terraform Example" data-speaker-notes="Live demo: open this file, show what each block does. You don't need to run it — just read it like a recipe. Then ask: 'What would you change to make this a GPU instance?'" style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">terraform / main.tf</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Declare an EC2 instance in code</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:26px;line-height:1.75;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:40px 48px;color:#cfd6e6;max-width:1500px"><span style="color:#8a93b4"># main.tf — provision an EC2 instance for ML training</span>
+
+<span style="color:#9aa3c4">provider</span> <span style="color:#7fe3c0">"aws"</span> {
+  <span style="color:#9aa3c4">region</span> = <span style="color:#7fe3c0">"us-east-1"</span>
+}
+
+<span style="color:#9aa3c4">resource</span> <span style="color:#7fe3c0">"aws_instance"</span> <span style="color:var(--teal)">"ml_trainer"</span> {
+  <span style="color:#9aa3c4">ami</span>           = <span style="color:#7fe3c0">"ami-0c55b159cbfafe1f0"</span>
+  <span style="color:#9aa3c4">instance_type</span> = <span style="color:#7fe3c0">"t3.medium"</span>    <span style="color:#8a93b4"># swap to g4dn.xlarge for GPU</span>
+
+  <span style="color:#9aa3c4">tags</span> = {
+    <span style="color:#9aa3c4">Name</span> = <span style="color:#7fe3c0">"ml-training-server"</span>
+    <span style="color:#9aa3c4">Env</span>  = <span style="color:#7fe3c0">"dev"</span>
+  }
+}
+</pre>
+</section>
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M3 Divider" data-speaker-notes="This is the core technical module of Session 1. Containers are the most important skill for getting ML into production. Everything else builds on this." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 03 · 55 min + Lab</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Containerization<br>with Docker</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Package your code, dependencies, and runtime into one portable box. Ship it anywhere.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · VENV vs DOCKER ══ -->
+<section data-label="Table" data-screen-label="venv vs Docker" data-speaker-notes="Most students know venv. Build from there. Ask: what's the problem with venv when your teammate has a different Python version? That's exactly what Docker solves." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Why Docker? venv vs Docker vs VM</h2>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;font-size:var(--t-body);border-radius:14px;overflow:hidden;flex:1;align-content:start">
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:22px 28px">Feature</div>
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:22px 28px">venv</div>
+    <div style="background:var(--teal);color:#fff;font-weight:600;font-size:22px;padding:22px 28px">Docker</div>
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:22px 28px">VM</div>
+
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);font-weight:600">Isolation level</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Python packages</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Full OS + packages</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Full hardware</div>
+
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);font-weight:600">Portability</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">No (OS-dependent)</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Yes — any Linux host</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Partial (image files)</div>
+
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);font-weight:600">Image size</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Tiny (~MB)</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Small (100–500 MB)</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Large (2–10 GB)</div>
+
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);font-weight:600">Startup time</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Instant</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">~1 second</div>
+    <div style="padding:18px 28px;border-bottom:1px solid var(--line);color:var(--body)">Minutes</div>
+
+    <div style="padding:18px 28px;font-weight:600">Best for</div>
+    <div style="padding:18px 28px;color:var(--body)">Local dev only</div>
+    <div style="padding:18px 28px;background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Production ML APIs</div>
+    <div style="padding:18px 28px;color:var(--body)">Legacy / Windows apps</div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · IMAGE / CONTAINER / REGISTRY ══ -->
+<section data-label="Three Columns" data-screen-label="Core Docker Concepts" data-speaker-notes="Analogy: Image=Class, Container=Instance, Registry=npm/PyPI. Ask students to drop this analogy in their own words in chat before clicking to next slide." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">Three core Docker concepts</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 56px;max-width:1100px">Image → Container → Registry. This is the only vocabulary you need to get started.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Image</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">The blueprint</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Read-only. Built once, stored forever. Layers stacked on top of a base like <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">python:3.11-slim</span>.</p>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--muted);margin:0">Think: a class definition. Not running — just a template.</p>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Container</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">The running instance</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">A live, isolated process. One image can spawn 100 containers — each isolated from the others.</p>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--muted);margin:0">Think: a class instance. Running in its own memory space.</p>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Registry</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">The warehouse</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Docker Hub, Amazon ECR, GitHub Packages. Pull base images from here. Push your built images here.</p>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--muted);margin:0">Think: PyPI for images. <span style="font-family:'IBM Plex Mono',monospace">docker pull / push</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · DOCKERFILE ANATOMY ══ -->
+<section data-label="Code" data-screen-label="Dockerfile Anatomy" data-speaker-notes="Walk each line live. Key insight: COPY requirements.txt BEFORE COPY . . — this is the layer cache trick. If code changes but requirements don't, pip install is skipped on rebuild." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">Dockerfile</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Anatomy of a Dockerfile</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:27px;line-height:1.75;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:40px 48px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">FROM</span> python:3.11-slim          <span style="color:#8a93b4"># start from an official base image</span>
+
+<span style="color:#9aa3c4">WORKDIR</span> /app                   <span style="color:#8a93b4"># set the working directory inside the container</span>
+
+<span style="color:#9aa3c4">COPY</span> requirements.txt .        <span style="color:#8a93b4"># copy deps first — layer cache trick!</span>
+<span style="color:#9aa3c4">RUN</span> <span style="color:#7fe3c0">pip install -r requirements.txt</span>
+
+<span style="color:#9aa3c4">COPY</span> . .                       <span style="color:#8a93b4"># then copy the rest of your code</span>
+
+<span style="color:#9aa3c4">EXPOSE</span> 8000                    <span style="color:#8a93b4"># document which port the app listens on</span>
+
+<span style="color:#9aa3c4">CMD</span> [<span style="color:#7fe3c0">"python"</span>, <span style="color:#7fe3c0">"app.py"</span>]       <span style="color:#8a93b4"># default command when container starts</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 5 · DOCKER COMMANDS ══ -->
+<section data-label="Code" data-screen-label="Docker Commands" data-speaker-notes="Live demo — type these commands on screen. For docker ps, show the students what a running container looks like. Ask: what's the difference between -p 8000:8000 and just 8000:8000? (nothing — it's the same)." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">Terminal</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Four commands you need today</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:27px;line-height:1.85;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:40px 48px;color:#cfd6e6;max-width:1500px"><span style="color:#8a93b4"># 1. Build an image from the Dockerfile in the current directory</span>
+<span style="color:var(--teal)">$</span> <span style="color:#7fe3c0">docker build -t my-app:v1 .</span>
+
+<span style="color:#8a93b4"># 2. Run a container (detached, port mapped host:container)</span>
+<span style="color:var(--teal)">$</span> <span style="color:#7fe3c0">docker run -d -p 8000:8000 my-app:v1</span>
+
+<span style="color:#8a93b4"># 3. List running containers</span>
+<span style="color:var(--teal)">$</span> <span style="color:#7fe3c0">docker ps</span>
+
+<span style="color:#8a93b4"># 4. Push to Docker Hub (replace with your username)</span>
+<span style="color:var(--teal)">$</span> <span style="color:#7fe3c0">docker push myusername/my-app:v1</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 6 · LAB 1 ══ -->
+<section data-label="Lab" data-screen-label="Lab 1 — First Container" data-speaker-notes="Set the timer: 25 minutes. Walk through step 1 together on screen, then let them work. Circulate and help. Collect the stretch results in chat — ask who got layer caching working." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;align-items:center;gap:80px">
+  <div style="flex:1">
+    <div style="display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.12em;text-transform:uppercase;padding:10px 18px;border-radius:8px;margin-bottom:30px">Lab 01 · 25 min</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 26px;line-height:1.05">Your first container</h2>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:0 0 34px">Build and run a Docker container that prints Python version and today's date. Fill in the blanks in the Dockerfile.</p>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">1.</span><span style="font-size:var(--t-small);line-height:1.4">Open <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">labs/lab1-first-container/</span> — fill in the blanks in <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">Dockerfile</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">2.</span><span style="font-size:var(--t-small);line-height:1.4">Build: <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">docker build -t hello-docker .</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">3.</span><span style="font-size:var(--t-small);line-height:1.4">Run: <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">docker run hello-docker</span> — verify the output</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">★</span><span style="font-size:var(--t-small);line-height:1.4">Stretch: edit <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">app.py</span>, rebuild — observe which steps are cached vs re-run</span></div>
+    </div>
+  </div>
+  <div style="flex:0 0 680px;background:var(--navy);border-radius:16px;padding:34px;box-sizing:border-box">
+    <div style="display:flex;gap:9px;margin-bottom:26px"><span style="width:13px;height:13px;border-radius:50%;background:#ff5f56"></span><span style="width:13px;height:13px;border-radius:50%;background:#ffbd2e"></span><span style="width:13px;height:13px;border-radius:50%;background:#27c93f"></span></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;line-height:1.9;color:#cfd6e6">
+      <div><span style="color:var(--teal)">$</span> docker build -t hello-docker .</div>
+      <div style="color:#8a93b4">Step 1/4 : FROM python:3.11-slim</div>
+      <div style="color:#8a93b4">Step 2/4 : WORKDIR /app</div>
+      <div style="color:#8a93b4">Step 3/4 : COPY . .</div>
+      <div style="color:#8a93b4">Step 4/4 : CMD ["python", "app.py"]</div>
+      <div style="margin-top:10px"><span style="color:var(--teal)">$</span> docker run hello-docker</div>
+      <div style="color:#7fe3c0">Hello from inside Docker!</div>
+      <div style="color:#7fe3c0">Running Python 3.11.6</div>
+      <div style="color:#7fe3c0">Today is: 2024-01-15</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 7 · SESSION 2 DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="Session 2 Divider" data-speaker-notes="Break time between sessions. Ask students to think about ONE model from their graduation project they'd like to containerize. We'll work toward that in Lab 2." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Session 02 · 3 Hours</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Ship &amp; Automate</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">ML model in Docker · CI/CD pipelines · Model versioning · Serverless · End-to-end MLOps</p>
+    <div style="display:flex;gap:40px;margin-top:50px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Lab 2: ML Inference API</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Lab 3: GitHub Actions</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(255,255,255,0.55)">✓ Self-learning assignments</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M3 cont. Divider" data-speaker-notes="Welcome back to Session 2. We'll build on Lab 1 — now instead of a hello-world app, we're containerizing a real ML model with a REST API. FastAPI gives us /docs for free." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 03 · Continued · 20 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">ML Model<br>in Docker</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Package a trained Iris classifier into a FastAPI container. Hit <span style="font-family:'IBM Plex Mono',monospace">/docs</span> to predict flower species from your browser.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · MODEL.PY ══ -->
+<section data-label="Code" data-screen-label="model.py — Train &amp; Save" data-speaker-notes="Walk through this live: load data, split, train, evaluate, save as pickle. Ask: why do we save the model to a file instead of training inside the API? (Performance — training once, serving many times.)" style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">labs/lab2-ml-api / model.py</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Step 1: Train and save the model</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:25px;line-height:1.7;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">from</span> sklearn.datasets <span style="color:#9aa3c4">import</span> load_iris
+<span style="color:#9aa3c4">from</span> sklearn.ensemble <span style="color:#9aa3c4">import</span> RandomForestClassifier
+<span style="color:#9aa3c4">from</span> sklearn.model_selection <span style="color:#9aa3c4">import</span> train_test_split
+<span style="color:#9aa3c4">from</span> sklearn.metrics <span style="color:#9aa3c4">import</span> accuracy_score
+<span style="color:#9aa3c4">import</span> pickle
+
+X, y = load_iris(return_X_y=<span style="color:var(--teal)">True</span>)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span style="color:#7fe3c0">0.2</span>, random_state=<span style="color:#7fe3c0">42</span>)
+
+model = RandomForestClassifier(n_estimators=<span style="color:#7fe3c0">10</span>, random_state=<span style="color:#7fe3c0">42</span>)
+model.fit(X_train, y_train)
+acc = accuracy_score(y_test, model.predict(X_test))
+<span style="color:var(--teal)">print</span>(<span style="color:#7fe3c0">f"Accuracy: {acc:.2%}"</span>)          <span style="color:#8a93b4"># → 100.00%</span>
+
+<span style="color:#9aa3c4">with</span> <span style="color:var(--teal)">open</span>(<span style="color:#7fe3c0">"model.pkl"</span>, <span style="color:#7fe3c0">"wb"</span>) <span style="color:#9aa3c4">as</span> f:
+    pickle.dump(model, f)        <span style="color:#8a93b4"># save for the API to load</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 3 · MAIN.PY FASTAPI ══ -->
+<section data-label="Code" data-screen-label="main.py — FastAPI" data-speaker-notes="Key selling point: FastAPI generates /docs (Swagger UI) automatically. Students can test predictions in a browser without writing any client code. Show it live after Lab 2." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">labs/lab2-ml-api / main.py</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Step 2: Serve via FastAPI</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:24px;line-height:1.65;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">from</span> fastapi <span style="color:#9aa3c4">import</span> FastAPI
+<span style="color:#9aa3c4">from</span> pydantic <span style="color:#9aa3c4">import</span> BaseModel
+<span style="color:#9aa3c4">import</span> pickle, numpy <span style="color:#9aa3c4">as</span> np
+
+app = FastAPI(title=<span style="color:#7fe3c0">"Iris Classifier"</span>)
+<span style="color:#9aa3c4">with</span> <span style="color:var(--teal)">open</span>(<span style="color:#7fe3c0">"model.pkl"</span>, <span style="color:#7fe3c0">"rb"</span>) <span style="color:#9aa3c4">as</span> f: model = pickle.load(f)
+SPECIES = [<span style="color:#7fe3c0">"setosa"</span>, <span style="color:#7fe3c0">"versicolor"</span>, <span style="color:#7fe3c0">"virginica"</span>]
+
+<span style="color:#9aa3c4">class</span> <span style="color:var(--teal)">IrisInput</span>(BaseModel):
+    sepal_length: <span style="color:#9aa3c4">float</span>; sepal_width: <span style="color:#9aa3c4">float</span>
+    petal_length: <span style="color:#9aa3c4">float</span>; petal_width: <span style="color:#9aa3c4">float</span>
+
+<span style="color:#9aa3c4">@app</span>.post(<span style="color:#7fe3c0">"/predict"</span>)
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">predict</span>(data: IrisInput):
+    X = np.array([[data.sepal_length, data.sepal_width,
+                   data.petal_length, data.petal_width]])
+    idx = <span style="color:var(--teal)">int</span>(model.predict(X)[<span style="color:#7fe3c0">0</span>])
+    <span style="color:#9aa3c4">return</span> {<span style="color:#7fe3c0">"prediction"</span>: SPECIES[idx]}  <span style="color:#8a93b4"># {"prediction": "setosa"}</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 4 · ML DOCKERFILE ══ -->
+<section data-label="Code" data-screen-label="ML Dockerfile" data-speaker-notes="Key difference from Lab 1: we run model.py during the BUILD step, not at runtime. This bakes the trained model.pkl into the image. Ask: why is this better than training at startup?" style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">labs/lab2-ml-api / Dockerfile</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Step 3: Package train + serve</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:27px;line-height:1.8;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:40px 48px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">FROM</span> python:3.11-slim
+<span style="color:#9aa3c4">WORKDIR</span> /app
+
+<span style="color:#9aa3c4">COPY</span> requirements.txt .
+<span style="color:#9aa3c4">RUN</span> <span style="color:#7fe3c0">pip install --no-cache-dir -r requirements.txt</span>
+
+<span style="color:#9aa3c4">COPY</span> model.py .
+<span style="color:#9aa3c4">RUN</span> <span style="color:#7fe3c0">python model.py</span>           <span style="color:#8a93b4"># train during BUILD — bakes model.pkl into image</span>
+
+<span style="color:#9aa3c4">COPY</span> main.py .
+<span style="color:#9aa3c4">EXPOSE</span> 8000
+
+<span style="color:#9aa3c4">CMD</span> [<span style="color:#7fe3c0">"uvicorn"</span>, <span style="color:#7fe3c0">"main:app"</span>, <span style="color:#7fe3c0">"--host"</span>, <span style="color:#7fe3c0">"0.0.0.0"</span>, <span style="color:#7fe3c0">"--port"</span>, <span style="color:#7fe3c0">"8000"</span>]
+</pre>
+</section>
+
+<!-- ══ SLIDE 5 · LAB 2 ══ -->
+<section data-label="Lab" data-screen-label="Lab 2 — ML Inference API" data-speaker-notes="Timer: 30 minutes. Start docker build on screen together. While it builds, explain what's happening. After lab, show /docs live — let a student pick numbers and call /predict from their browser." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;align-items:center;gap:80px">
+  <div style="flex:1">
+    <div style="display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.12em;text-transform:uppercase;padding:10px 18px;border-radius:8px;margin-bottom:30px">Lab 02 · 30 min</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 26px;line-height:1.05">ML inference API</h2>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:0 0 34px">Build and run the Iris Classifier as a REST API in Docker. Predict flower species from your browser using /docs.</p>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">1.</span><span style="font-size:var(--t-small);line-height:1.4"><span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">cd labs/lab2-ml-api</span> then <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">docker build -t iris-api .</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">2.</span><span style="font-size:var(--t-small);line-height:1.4"><span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">docker run -d -p 8000:8000 iris-api</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">3.</span><span style="font-size:var(--t-small);line-height:1.4">Open <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">http://localhost:8000/docs</span> in your browser</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">4.</span><span style="font-size:var(--t-small);line-height:1.4">POST to /predict with sepal/petal values — confirm you get "setosa" or "versicolor"</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">★</span><span style="font-size:var(--t-small);line-height:1.4">Stretch: change <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">n_estimators=100</span>, rebuild — does accuracy change?</span></div>
+    </div>
+  </div>
+  <div style="flex:0 0 660px;background:var(--navy);border-radius:16px;padding:34px;box-sizing:border-box">
+    <div style="display:flex;gap:9px;margin-bottom:26px"><span style="width:13px;height:13px;border-radius:50%;background:#ff5f56"></span><span style="width:13px;height:13px;border-radius:50%;background:#ffbd2e"></span><span style="width:13px;height:13px;border-radius:50%;background:#27c93f"></span></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;line-height:1.85;color:#cfd6e6">
+      <div><span style="color:var(--teal)">$</span> docker build -t iris-api .</div>
+      <div style="color:#8a93b4">  RUN python model.py</div>
+      <div style="color:#7fe3c0">  Accuracy: 100.00%</div>
+      <div><span style="color:var(--teal)">$</span> docker run -d -p 8000:8000 iris-api</div>
+      <div style="margin-top:8px;color:#8a93b4">POST /predict</div>
+      <div style="color:#cfd6e6">{"sepal_length":5.1,"petal_width":0.2}</div>
+      <div style="color:#7fe3c0">→ {"prediction": "setosa"}</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M4 Divider" data-speaker-notes="Transition: in Lab 2 we built and ran a container manually. In this module, we automate that process so EVERY push triggers test + build. That's CI/CD." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 04 · 45 min + Lab</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">CI/CD for ML<br>with GitHub Actions</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Automate test → train → build → push. Every push to main becomes a validated, versioned container.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · WHAT CICD SOLVES ══ -->
+<section data-label="Bullets" data-screen-label="What CI/CD Solves" data-speaker-notes="Ask: how do you currently 'deploy' your model changes? Email the script? SSH into a server? Drop a file? Each one of these is a risk. CI/CD removes the human from the critical path." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-300px;bottom:-300px;width:600px;height:600px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1320px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:16px">The problem</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 48px">What CI/CD eliminates</h2>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">"It works on my machine" — automated tests catch breakage before it reaches anyone else.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Forgetting to run tests before pushing — the pipeline runs them automatically on every commit.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Manual Docker builds with inconsistent tags — the pipeline builds and tags with the exact commit SHA.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Untested model accuracy drops — pytest checks that accuracy stays above threshold on every run.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--navy);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35;font-weight:600">Result: bad code never reaches production because the pipeline is the gatekeeper.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · GITHUB ACTIONS CONCEPTS ══ -->
+<section data-label="Bar Items" data-screen-label="GitHub Actions Concepts" data-speaker-notes="Build bottom-up: Step → Job → Workflow. The YAML file IS the pipeline. It lives in the repo — version controlled, reviewable, reproducible." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-360px;bottom:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1180px">
+    <div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:14px">
+      <span style="width:56px;height:56px;background:var(--teal);flex:0 0 auto;border-radius:6px"></span>
+      <div>
+        <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0;line-height:1.0">GitHub Actions</h2>
+        <p style="font-weight:500;font-size:var(--t-sub);color:var(--navy);margin:6px 0 0">A YAML file that lives next to your code</p>
+      </div>
+    </div>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:8px 0 48px;max-width:900px">Place a <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">.github/workflows/ci.yml</span> in your repo and GitHub runs it automatically on the events you define.</p>
+    <div style="display:flex;flex-direction:column;gap:30px">
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Trigger <span style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500">(on:)</span></h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">Defines WHEN the pipeline runs: <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">push</span>, <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">pull_request</span>, <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">schedule</span>, or manually via the GitHub UI.</p>
+      </div>
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Job</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">A group of steps that runs on one fresh machine (<span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">ubuntu-latest</span>). Jobs can run in parallel or in sequence.</p>
+      </div>
+      <div style="border-left:5px solid var(--teal);padding-left:28px">
+        <h3 style="font-weight:700;font-size:var(--t-sub);color:var(--navy);margin:0 0 8px">Step</h3>
+        <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0;max-width:980px">The smallest unit of work. <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">uses:</span> runs a pre-built action. <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">run:</span> executes any shell command.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 4 · CI.YML ══ -->
+<section data-label="Code" data-screen-label="ci.yml workflow" data-speaker-notes="Walk each step: checkout → setup python → install → train → test → docker build. Notice the tag uses github.sha — every image is uniquely identified by its commit. No 'latest' ambiguity." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">.github/workflows/ci.yml</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">The ML CI pipeline</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:24px;line-height:1.65;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">name</span>: ML CI Pipeline
+<span style="color:#9aa3c4">on</span>:
+  <span style="color:#9aa3c4">push</span>:
+    <span style="color:#9aa3c4">branches</span>: [main]
+
+<span style="color:#9aa3c4">jobs</span>:
+  <span style="color:var(--teal)">test-and-build</span>:
+    <span style="color:#9aa3c4">runs-on</span>: ubuntu-latest
+    <span style="color:#9aa3c4">steps</span>:
+      - <span style="color:#9aa3c4">uses</span>: <span style="color:#7fe3c0">actions/checkout@v4</span>
+      - <span style="color:#9aa3c4">uses</span>: <span style="color:#7fe3c0">actions/setup-python@v4</span>
+        <span style="color:#9aa3c4">with</span>: { <span style="color:#9aa3c4">python-version</span>: <span style="color:#7fe3c0">'3.11'</span> }
+      - <span style="color:#9aa3c4">run</span>: <span style="color:#7fe3c0">pip install -r requirements.txt</span>
+      - <span style="color:#9aa3c4">run</span>: <span style="color:#7fe3c0">python model.py</span>                <span style="color:#8a93b4"># train</span>
+      - <span style="color:#9aa3c4">run</span>: <span style="color:#7fe3c0">pytest tests/ -v</span>              <span style="color:#8a93b4"># test accuracy</span>
+      - <span style="color:#9aa3c4">run</span>: <span style="color:#7fe3c0">docker build -t iris-classifier:${{ github.sha }} .</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 5 · TEST_MODEL.PY ══ -->
+<section data-label="Code" data-screen-label="test_model.py" data-speaker-notes="Key point: testing an ML model isn't just 'does it run' — it's 'is it accurate enough?' The accuracy threshold test is the gate that prevents a degraded model from shipping." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">tests / test_model.py</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Testing an ML model with pytest</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:25px;line-height:1.68;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">import</span> pickle, numpy <span style="color:#9aa3c4">as</span> np, pytest
+
+<span style="color:#9aa3c4">@pytest</span>.fixture
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">model</span>():
+    <span style="color:#9aa3c4">with</span> <span style="color:var(--teal)">open</span>(<span style="color:#7fe3c0">"model.pkl"</span>, <span style="color:#7fe3c0">"rb"</span>) <span style="color:#9aa3c4">as</span> f: <span style="color:#9aa3c4">return</span> pickle.load(f)
+
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">test_model_loads</span>(model):      assert model <span style="color:#9aa3c4">is not</span> <span style="color:var(--teal)">None</span>
+
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">test_predicts_setosa</span>(model):
+    X = np.array([[<span style="color:#7fe3c0">5.1</span>, <span style="color:#7fe3c0">3.5</span>, <span style="color:#7fe3c0">1.4</span>, <span style="color:#7fe3c0">0.2</span>]])
+    assert model.predict(X)[<span style="color:#7fe3c0">0</span>] == <span style="color:#7fe3c0">0</span>         <span style="color:#8a93b4"># setosa</span>
+
+<span style="color:#9aa3c4">def</span> <span style="color:var(--teal)">test_accuracy_above_90</span>(model):        <span style="color:#8a93b4"># THE gate</span>
+    <span style="color:#9aa3c4">from</span> sklearn.datasets <span style="color:#9aa3c4">import</span> load_iris
+    <span style="color:#9aa3c4">from</span> sklearn.metrics <span style="color:#9aa3c4">import</span> accuracy_score
+    X, y = load_iris(return_X_y=<span style="color:var(--teal)">True</span>)
+    assert accuracy_score(y, model.predict(X)) &gt;= <span style="color:#7fe3c0">0.90</span>
+</pre>
+</section>
+
+<!-- ══ SLIDE 6 · BLUE-GREEN vs CANARY ══ -->
+<section data-label="Table" data-screen-label="Deployment Strategies" data-speaker-notes="Context: once CI passes, how does the new model reach users? Blue/Green is the safer choice for students — instant rollback. Canary is what mature ML teams use for risky model updates." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 44px">Deployment strategies</h2>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;font-size:var(--t-body);border-radius:14px;overflow:hidden;flex:1;align-content:start">
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">Strategy</div>
+    <div style="background:var(--teal);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">Blue / Green</div>
+    <div style="background:var(--navy);color:#fff;font-weight:600;font-size:22px;padding:24px 28px">Canary</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Approach</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Run two environments; switch all traffic at once</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Gradually shift % of traffic to new version</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Rollback</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Instant — flip traffic back</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Reduce canary % to 0%</div>
+
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);font-weight:600">Risk exposure</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Low — zero-downtime switch</div>
+    <div style="padding:20px 28px;border-bottom:1px solid var(--line);color:var(--body)">Very low — only a % of users see new model</div>
+
+    <div style="padding:20px 28px;font-weight:600">Best for</div>
+    <div style="padding:20px 28px;background:rgba(56,192,200,0.08);color:var(--teal-ink);font-weight:600">Zero-downtime releases</div>
+    <div style="padding:20px 28px;color:var(--body)">Risky ML model updates with live evaluation</div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 7 · LAB 3 ══ -->
+<section data-label="Lab" data-screen-label="Lab 3 — GitHub Actions" data-speaker-notes="Timer: 25 minutes. Step 1 together on screen. Tell them: 'The goal is to break it on purpose and watch it fail — that's how you know CI is working.' Show the green check after fixing." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;align-items:center;gap:80px">
+  <div style="flex:1">
+    <div style="display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.12em;text-transform:uppercase;padding:10px 18px;border-radius:8px;margin-bottom:30px">Lab 03 · 25 min</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 26px;line-height:1.05">GitHub Actions CI pipeline</h2>
+    <p style="font-size:var(--t-body);line-height:1.4;color:var(--body);margin:0 0 34px">Wire your ML model to a pipeline that tests it on every push. Watch it go red, then fix it and watch it go green.</p>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">1.</span><span style="font-size:var(--t-small);line-height:1.4">Copy <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">labs/lab3-github-actions/ci.yml.template</span> → <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">.github/workflows/ci.yml</span></span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">2.</span><span style="font-size:var(--t-small);line-height:1.4">Push to main — go to the Actions tab and watch the run</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">3.</span><span style="font-size:var(--t-small);line-height:1.4">Break it: change a test assertion to an impossible value, push — see it fail</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">4.</span><span style="font-size:var(--t-small);line-height:1.4">Fix the bug and push again — watch it go green</span></div>
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal-ink);font-size:var(--t-small)">★</span><span style="font-size:var(--t-small);line-height:1.4">Stretch: add Docker Hub push using <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">DOCKERHUB_USERNAME</span> and <span style="font-family:'IBM Plex Mono',monospace;color:var(--navy)">DOCKERHUB_TOKEN</span> secrets</span></div>
+    </div>
+  </div>
+  <div style="flex:0 0 660px;background:var(--navy);border-radius:16px;padding:34px;box-sizing:border-box">
+    <div style="display:flex;gap:9px;margin-bottom:26px"><span style="width:13px;height:13px;border-radius:50%;background:#ff5f56"></span><span style="width:13px;height:13px;border-radius:50%;background:#ffbd2e"></span><span style="width:13px;height:13px;border-radius:50%;background:#27c93f"></span></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:21px;line-height:1.9;color:#cfd6e6">
+      <div style="color:#8a93b4">Workflow: ML CI Pipeline</div>
+      <div><span style="color:#7fe3c0">✓</span> test-and-build <span style="color:#8a93b4">48s</span></div>
+      <div style="padding-left:16px;color:#8a93b4">✓ Checkout code</div>
+      <div style="padding-left:16px;color:#8a93b4">✓ Set up Python 3.11</div>
+      <div style="padding-left:16px;color:#8a93b4">✓ Install dependencies</div>
+      <div style="padding-left:16px;color:#8a93b4">✓ Train model (100.00%)</div>
+      <div style="padding-left:16px;color:#7fe3c0">✓ Run tests (3 passed)</div>
+      <div style="padding-left:16px;color:#7fe3c0">✓ Build Docker image</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M5 Divider" data-speaker-notes="Transition: we can now build and test a model automatically. But how do we know which model is live? Which experiment produced the best result? That's model versioning." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 05 · 25 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Model Versioning<br>&amp; Environments</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Track every experiment. Know what's live. Roll back in one click.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · WHY VERSIONING MATTERS ══ -->
+<section data-label="Bullets" data-screen-label="Why Versioning Matters" data-speaker-notes="Ask: have you ever lost your best experiment because you overwrote model.pkl? Everyone nods. That's the problem. Git versions code — we need the same thing for models." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-300px;bottom:-300px;width:600px;height:600px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1320px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:16px">The problem</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 48px">Why model versioning matters</h2>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Different models perform differently on different data slices — you need to compare runs side by side.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">A deployed model can degrade silently as real-world data drifts from the training set.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Without versioning, "rolling back" means re-training from scratch — you've lost the previous artifact.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Teams need answers: which model is live? trained on what data? by whom? when? with what accuracy?</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--navy);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35;font-weight:600">MLflow answers all of these: experiment tracking + model registry = reproducibility + accountability.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · MLFLOW CODE ══ -->
+<section data-label="Code" data-screen-label="MLflow Tracking" data-speaker-notes="Show the MLflow UI after this slide — the tracking server UI is the best way to see this in action. Even without a server, mlflow.start_run() saves everything to ./mlruns locally." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">Assignment 01 · MLflow (self-learning)</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Track experiments with MLflow</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:25px;line-height:1.7;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">import</span> mlflow
+<span style="color:#9aa3c4">import</span> mlflow.sklearn
+
+mlflow.set_experiment(<span style="color:#7fe3c0">"iris-classifier"</span>)
+
+<span style="color:#9aa3c4">with</span> mlflow.<span style="color:var(--teal)">start_run</span>():
+    <span style="color:#8a93b4"># log parameters</span>
+    mlflow.<span style="color:var(--teal)">log_param</span>(<span style="color:#7fe3c0">"n_estimators"</span>, <span style="color:#7fe3c0">10</span>)
+    mlflow.<span style="color:var(--teal)">log_param</span>(<span style="color:#7fe3c0">"random_state"</span>, <span style="color:#7fe3c0">42</span>)
+
+    model.fit(X_train, y_train)
+    acc = accuracy_score(y_test, model.predict(X_test))
+
+    <span style="color:#8a93b4"># log metric — visible in the MLflow UI</span>
+    mlflow.<span style="color:var(--teal)">log_metric</span>(<span style="color:#7fe3c0">"accuracy"</span>, acc)
+
+    <span style="color:#8a93b4"># register model in the model registry</span>
+    mlflow.sklearn.<span style="color:var(--teal)">log_model</span>(model, <span style="color:#7fe3c0">"iris-rf-model"</span>)
+</pre>
+</section>
+
+<!-- ══ SLIDE 4 · DEV / STAGING / PRODUCTION ══ -->
+<section data-label="Three Columns" data-screen-label="Environments" data-speaker-notes="Final concept of this module. The key message: code flows one direction only — dev → staging → prod. Never skip staging. A model that works on your laptop is not the same as one that works under load." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">The three environments</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 56px;max-width:1100px">Code flows one direction: Dev → Staging → Production. No shortcuts.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--gray-circle);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:18px">Development</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Where you experiment</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Local Docker, fast iteration, broken code is acceptable. This is your sandbox.</p>
+      <div style="margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--muted);background:var(--paper-soft);padding:12px 16px;border-radius:8px">localhost:8000</div>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Staging</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Where you validate</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Same config as production. CI must pass. Stakeholders review here before release.</p>
+      <div style="margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal-ink);background:rgba(56,192,200,0.08);padding:12px 16px;border-radius:8px">staging.myproject.com</div>
+    </div>
+    <div style="border-top:5px solid var(--navy);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--navy);margin-bottom:18px">Production</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Where users live</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Auto-deploy from main only. Monitor always. Rollback must be instant and practiced.</p>
+      <div style="margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--navy);background:var(--paper-soft);padding:12px 16px;border-radius:8px">api.myproject.com</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M6 Divider" data-speaker-notes="Short module — 15 minutes. Serverless is where ML is heading for low-traffic, event-driven use cases. We're not building it today — just making sure you can read architecture diagrams and have an informed opinion." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 06 · 15 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Serverless ML<br>Concepts</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">No servers to manage. Pay per request. Auto-scales to zero. Here's when to use it — and when not to.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · SERVERLESS OPTIONS ══ -->
+<section data-label="Three Columns" data-screen-label="Serverless ML Options" data-speaker-notes="Key decision tree: Lambda = cheap, fast startup, small models. SageMaker = big models, team wants MLOps tooling. Containers = when you want full control and portability. Ask: which fits your graduation project?" style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">Three ways to serve ML without managing servers</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 52px;max-width:1400px">Each trades off control, cost, and time-to-production differently.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">AWS Lambda</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Event-driven compute</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Pay per invocation. Auto-scales to zero when idle. Perfect for low-traffic inference endpoints. 15 min max execution.</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:20px;color:var(--teal-ink)">✓ No servers to manage</div>
+        <div style="font-size:20px;color:var(--teal-ink)">✓ Free tier: 1M requests/month</div>
+        <div style="font-size:20px;color:var(--muted)">✗ Cold starts · 250MB limit</div>
+      </div>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Managed ML Platforms</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">SageMaker · Vertex AI · Azure ML</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Pre-built MLOps infrastructure: training pipelines, model registry, A/B testing, monitoring — all included.</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:20px;color:var(--teal-ink)">✓ Fast time-to-value</div>
+        <div style="font-size:20px;color:var(--teal-ink)">✓ Built-in model monitoring</div>
+        <div style="font-size:20px;color:var(--muted)">✗ Vendor lock-in · Higher cost</div>
+      </div>
+    </div>
+    <div style="border-top:5px solid var(--navy);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--navy);margin-bottom:18px">Containers (what we built)</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Full control &amp; portability</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0 0 20px">Your Docker image runs on EC2, ECS, GCP, Azure, or a Raspberry Pi. No lock-in. You own the runtime.</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:20px;color:var(--navy)">✓ Maximum portability</div>
+        <div style="font-size:20px;color:var(--navy)">✓ No model size limits</div>
+        <div style="font-size:20px;color:var(--muted)">✗ You manage the infrastructure</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · M7 DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M7 Divider" data-speaker-notes="Final module. This is the synthesis — everything we've done comes together into one picture. After this slide, we close the loop and hand out the self-learning assignments." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 07 · 10 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">End-to-End MLOps<br>&amp; What's Next</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">The complete picture — from raw data to live predictions in production, monitored and versioned.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 1 · END-TO-END RADIAL ══ -->
+<section data-label="Radial" data-screen-label="End-to-End MLOps Pipeline" data-speaker-notes="Walk the loop clockwise starting from Data. Point out: CI/CD lives between Build and Deploy. MLflow lives between Train and Evaluate. Monitoring feeds back into Data. Everything connects." style="background:var(--paper);color:var(--navy);padding:60px var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;align-items:center;justify-content:center">
+  <div style="position:absolute;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.45;pointer-events:none;z-index:0"></div>
+
+  <div style="position:absolute;top:50px;left:50%;transform:translateX(-50%);text-align:center;z-index:2">
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0;color:var(--navy)">The complete MLOps loop</h2>
+  </div>
+
+  <div style="position:relative;z-index:1;width:100%;height:860px;display:flex;align-items:center;justify-content:center">
+    <!-- Central hub -->
+    <div style="width:380px;height:380px;border-radius:50%;background:var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff">
+      <span style="font-weight:800;font-size:32px;line-height:1.15">MLOps<br>Pipeline</span>
+      <span style="font-size:20px;color:rgba(255,255,255,0.75);margin-top:8px">Continuous loop</span>
+    </div>
+
+    <!-- Node 1 · Data (top left) -->
+    <div style="position:absolute;top:60px;left:120px;display:flex;align-items:center;gap:18px;width:340px;flex-direction:row-reverse;text-align:right">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--gray-circle);color:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">01<br><span style="font-size:11px;font-weight:600">DATA</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Collect &amp; validate</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Version datasets with DVC. Gate on schema &amp; quality.</p>
+      </div>
+    </div>
+
+    <!-- Node 2 · Train (top right) -->
+    <div style="position:absolute;top:60px;right:120px;display:flex;align-items:center;gap:18px;width:340px">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--teal);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">02<br><span style="font-size:11px;font-weight:600">TRAIN</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Experiment &amp; track</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Log params &amp; metrics in MLflow. Compare runs.</p>
+      </div>
+    </div>
+
+    <!-- Node 3 · Evaluate (middle right) -->
+    <div style="position:absolute;top:50%;right:50px;transform:translateY(-50%);display:flex;align-items:center;gap:18px;width:340px">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--teal);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">03<br><span style="font-size:11px;font-weight:600">EVALUATE</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Test &amp; approve</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">pytest checks accuracy threshold. Only promote if &gt;90%.</p>
+      </div>
+    </div>
+
+    <!-- Node 4 · Build (bottom right) -->
+    <div style="position:absolute;bottom:60px;right:120px;display:flex;align-items:center;gap:18px;width:340px">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">04<br><span style="font-size:11px;font-weight:600">BUILD</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Package &amp; push</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Docker image tagged with commit SHA. Pushed to registry.</p>
+      </div>
+    </div>
+
+    <!-- Node 5 · Deploy (bottom left) -->
+    <div style="position:absolute;bottom:60px;left:120px;display:flex;align-items:center;gap:18px;width:340px;flex-direction:row-reverse;text-align:right">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">05<br><span style="font-size:11px;font-weight:600">DEPLOY</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Release to users</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Blue/Green or Canary. Auto-rollback on health check fail.</p>
+      </div>
+    </div>
+
+    <!-- Node 6 · Monitor (middle left) -->
+    <div style="position:absolute;top:50%;left:50px;transform:translateY(-50%);display:flex;align-items:center;gap:18px;width:340px;flex-direction:row-reverse;text-align:right">
+      <div style="width:82px;height:82px;border-radius:50%;background:var(--gray-circle);color:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 auto;text-align:center;line-height:1.2">06<br><span style="font-size:11px;font-weight:600">MONITOR</span></div>
+      <div>
+        <h3 style="font-weight:700;font-size:26px;margin:0 0 4px">Observe &amp; alert</h3>
+        <p style="font-size:20px;line-height:1.35;color:var(--body);margin:0">Latency, accuracy drift, data skew. Triggers retrain loop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · SELF-LEARNING ASSIGNMENTS ══ -->
+<section data-label="Numbered Grid" data-screen-label="Self-Learning Assignments" data-speaker-notes="Hand out the ASSIGNMENTS.md file. Walk through each assignment briefly. Tell them: pick ONE, complete it, and prepare a 5-minute demo for the group. No grading — just exposure and shipping." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <div style="position:absolute;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.45;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-260px;bottom:-260px;width:520px;height:520px;border-radius:50%;background:var(--teal);opacity:.9;pointer-events:none;z-index:0"></div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.01em;margin:0 0 10px;position:relative;z-index:1">Self-learning assignments</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 40px;position:relative;z-index:1">Pick ONE and demo it in 5 minutes. Full details in <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">ASSIGNMENTS.md</span></p>
+  <div style="position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;column-gap:80px;row-gap:36px;flex:1">
+    <div style="display:flex;align-items:flex-start;gap:24px">
+      <div style="width:86px;height:86px;border-radius:50%;background:var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex:0 0 auto;text-align:center;line-height:1.25">A1<br><span style="font-size:11px">2–3h</span></div>
+      <div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">MLflow experiment tracking</h3><p style="font-size:20px;line-height:1.4;color:var(--body);margin:0">Add MLflow to your model, run 3 experiments with different hyperparameters, register the best model in the local registry.</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:24px">
+      <div style="width:86px;height:86px;border-radius:50%;background:var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex:0 0 auto;text-align:center;line-height:1.25">A2<br><span style="font-size:11px">3–4h</span></div>
+      <div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Containerize YOUR graduation project</h3><p style="font-size:20px;line-height:1.4;color:var(--body);margin:0">Write a Dockerfile for your own ML model. Serve it via FastAPI. Run it on your laptop. Share the /predict endpoint.</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:24px">
+      <div style="width:86px;height:86px;border-radius:50%;background:var(--gray-circle);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--navy);flex:0 0 auto;text-align:center;line-height:1.25">A3<br><span style="font-size:11px">2h</span></div>
+      <div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">TensorFlow Serving (reference)</h3><p style="font-size:20px;line-height:1.4;color:var(--body);margin:0">Pull <span style="font-family:'IBM Plex Mono',monospace;color:var(--teal-ink)">tensorflow/serving</span>, serve a SavedModel locally. Read the TF Serving docs. Compare to FastAPI approach.</p></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:24px">
+      <div style="width:86px;height:86px;border-radius:50%;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex:0 0 auto;text-align:center;line-height:1.25">A4<br><span style="font-size:11px">4–6h</span></div>
+      <div><h3 style="font-weight:700;font-size:26px;margin:0 0 6px">Deploy to AWS Lambda or ECS</h3><p style="font-size:20px;line-height:1.4;color:var(--body);margin:0">Deploy iris-api (or your own model) to AWS using the free tier. Share a live endpoint URL with the group.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · CLOSING ══ -->
+<section data-label="Closing" data-screen-label="Closing" data-speaker-notes="One sentence recap: you now know how to take a model from a notebook to a versioned, tested, auto-deployed container. The rest is practice. Questions? Connect on LinkedIn. Now go ship." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between">
+  <div style="position:absolute;top:50%;right:-1150px;transform:translateY(-50%);width:1800px;height:1800px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,var(--contour) 9px 10px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;top:50%;right:-1050px;transform:translateY(-50%);width:1500px;height:1500px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+
+  <div style="display:flex;align-items:center;gap:16px;position:relative;z-index:1">
+    <img src="assets/logo" alt="MUJAHED AL-TAHLEH" style="height:64px;width:auto;display:block">
+    <div style="display:flex;flex-direction:column;line-height:1.05">
+      <span style="font-weight:700;font-size:24px;letter-spacing:0.04em;color:var(--navy)">MUJAHED</span>
+      <span style="font-weight:600;font-size:14px;letter-spacing:0.24em;color:var(--teal-ink)">AL-TAHLEH</span>
+    </div>
+  </div>
+
+  <div style="position:relative;z-index:1;max-width:1100px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.22em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:22px">Now go ship</div>
+    <h2 style="font-weight:800;font-size:var(--t-display);line-height:1.0;letter-spacing:-0.02em;margin:0 0 32px">Thank you</h2>
+    <p style="font-size:var(--t-sub);color:var(--body);line-height:1.4;margin:0">You went from "it works in my notebook" to a containerized, tested, CI/CD-powered ML system. That's Level 1 MLOps. What you do with it next is up to you.</p>
+  </div>
+
+  <div style="display:flex;gap:48px;align-items:center;position:relative;z-index:1;font-size:var(--t-small);color:var(--body)">
+    <span><strong style="color:var(--navy);font-weight:600">MUJAHED AL-TAHLEH</strong> · Lead Cloud Engineer</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:24px">mujahed@kloudkiq.com</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--teal-ink)">github.com/mtahle</span>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+<script>
+(function () {
+  const ch = new BroadcastChannel('dc-presenter');
+  const isAudience = new URLSearchParams(location.search).has('audience');
+
+  if (isAudience) {
+    /* ── AUDIENCE WINDOW ── */
+    document.documentElement.style.cssText =
+      'margin:0;padding:0;overflow:hidden;background:#000';
+
+    ch.onmessage = ({ data }) => {
+      const el = document.querySelector(
+        `x-import section:nth-child(${data.index + 1})`
+      );
+      if (el) el.scrollIntoView({ behavior: 'instant' });
+    };
+
+    /* hide the DC sidebar shell once loaded */
+    window.addEventListener('load', () => {
+      const style = document.createElement('style');
+      style.textContent = `
+        [data-dc-sidebar], [data-dc-toolbar], [data-dc-nav] { display:none!important; }
+        x-import { width:100vw!important; height:100vh!important; }
+      `;
+      document.head.appendChild(style);
+    });
+    return;
+  }
+
+  /* ── PRESENTER WINDOW ── */
+  let audienceWin = null;
+
+  /* open audience window button */
+  window.addEventListener('load', () => {
+    const btn = document.createElement('button');
+    btn.textContent = '⎋ Present on 2nd screen';
+    Object.assign(btn.style, {
+      position: 'fixed', bottom: '16px', right: '16px', zIndex: 9999,
+      padding: '10px 18px', background: '#283068', color: '#fff',
+      border: 'none', borderRadius: '8px', cursor: 'pointer',
+      fontFamily: 'Poppins,sans-serif', fontSize: '14px', fontWeight: 600,
+    });
+    btn.onclick = () => {
+      audienceWin = window.open(location.href + '?audience', '_blank');
+    };
+    document.body.appendChild(btn);
+  });
+
+  /* watch active slide and broadcast index */
+  const observer = new MutationObserver(() => {
+    const sections = [...document.querySelectorAll('x-import section')];
+    const active = sections.findIndex(s =>
+      s.hasAttribute('data-active') || s.classList.contains('active')
+    );
+    if (active >= 0) ch.postMessage({ index: active });
+  });
+
+  window.addEventListener('load', () => {
+    const root = document.querySelector('x-import');
+    if (root) observer.observe(root, { attributes: true, subtree: true });
+  });
+})();
+</script>
+<!-- ═══════════════════════════════════════════════════════════════
+     INSTRUCTOR PRESENTER MODE
+     Paste this block just before </body> in full-workshop.html
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+
+/* ── INSTRUCTOR NOTES ──────────────────────────────────────────
+   One entry per slide, in deck order.
+   Fields:
+     label   → matches data-screen-label on the <section>
+     time    → suggested time in minutes
+     keys    → 2-4 bullet talking points
+     prompt  → discussion question or activity
+     tip     → delivery tip for the instructor
+─────────────────────────────────────────────────────────────── */
+const NOTES = [
+
+  /* ── MODULE 00 · INTRO ────────────────────────────────────── */
+  {
+    label: "Cover",
+    time: 3,
+    keys: [
+      "Introduce yourself and your background briefly — keep it under 60 seconds.",
+      "Two sessions, 6 hours total. Labs count for ~40% of the time.",
+      "Wifi password + Zoom link + GitHub repo — share on screen now.",
+      "Goal: by end of Session 2 every student has a CI/CD pipeline shipping a real model."
+    ],
+    prompt: "Ask: 'Who has deployed a model to production before?' — see who raises their hand.",
+    tip: "Energy here sets the tone. Stand up if you're presenting remotely, use your webcam."
+  },
+  {
+    label: "Workshop Agenda",
+    time: 2,
+    keys: [
+      "Walk through both sessions in under 90 seconds — don't read every bullet.",
+      "Session 1 ends with Lab 1 (Docker basics). Session 2 ends with Lab 3 (CI/CD).",
+      "Breaks are built in — honour them or students lose focus.",
+      "Slack/Discord channel is open for questions even after the workshop."
+    ],
+    prompt: null,
+    tip: "Tell them to bookmark the repo link — they'll need it for every lab."
+  },
+
+  /* ── SESSION 1 OPENING ───────────────────────────────────── */
+  {
+    label: "Session 1 Divider",
+    time: 1,
+    keys: [
+      "Hard prerequisite check: everyone run 'docker --version' in a terminal right now.",
+      "If Docker fails → use the Gitpod backup link in the repo README.",
+      "Python 3.9+ and pip also required — quick check: 'python3 --version'."
+    ],
+    prompt: "Ask who is using Windows vs Mac vs Linux — affects some Docker commands.",
+    tip: "Fix environment issues NOW. Skipping this costs 30 minutes of lab time later."
+  },
+
+  /* ── MODULE 01 · DEVOPS & MLOPS ─────────────────────────── */
+  {
+    label: "M1 Divider",
+    time: 1,
+    keys: [
+      "Poll: 'How many of you have deployed an ML model to production?' — chat or show of hands.",
+      "This module is conceptual — it moves fast. Labs come in Module 3.",
+      "Goal: frame WHY the rest of the workshop matters before touching any code."
+    ],
+    prompt: "Ask: 'What problems do you face when sharing a Jupyter notebook with teammates?'",
+    tip: "Keep energy high — this is theory before practice. Use stories, not slides."
+  },
+  {
+    label: "The Problem",
+    time: 4,
+    keys: [
+      "The 'Works on My Machine' problem is universal — every student has felt it.",
+      "ML adds extra pain: library versions, GPU drivers, dataset paths all vary.",
+      "Production != a notebook: needs an API, logging, error handling, restartability.",
+      "The gap between Data Science and Engineering is where models die."
+    ],
+    prompt: "Ask: 'Raise your hand if you have a model that works in a notebook but nowhere else.' — then say 'We're fixing that today.'",
+    tip: "Be empathetic — this is a real frustration students live with. Don't shame it."
+  },
+  {
+    label: "What is DevOps?",
+    time: 4,
+    keys: [
+      "DevOps = Culture + Practices + Tools. In that order of importance.",
+      "Left column: Plan→Code→Build is the Dev side.",
+      "Right column: Test→Release→Deploy→Operate→Monitor is the Ops side.",
+      "The loop is intentional — monitoring feeds back into planning."
+    ],
+    prompt: "Ask: 'What do you think DevOps means?' — take 2 answers, then reveal.",
+    tip: "Don't spend more than 4 minutes here. The comparison slide next is more useful."
+  },
+  {
+    label: "DevOps Lifecycle",
+    time: 3,
+    keys: [
+      "The cycle never stops — ship, watch, learn, ship again.",
+      "Traditional software: the loop is code → deploy → monitor.",
+      "ML adds a data arrow: Monitor → (re)train → evaluate → deploy.",
+      "This extra feedback loop is the key difference MLOps addresses."
+    ],
+    prompt: null,
+    tip: "Draw the ML arrow verbally: 'Now imagine an arrow going from Monitor back to data collection — that's the extra loop ML teams deal with.'"
+  },
+  {
+    label: "DevOps vs MLOps",
+    time: 4,
+    keys: [
+      "MLOps = DevOps + Data Versioning + Model Versioning + Experiment Tracking.",
+      "Code doesn't change but accuracy does — that's a model drift problem, not a code bug.",
+      "Retraining pipelines replace standard deployment pipelines for ML.",
+      "This workshop covers the intersection: where ML meets proper engineering."
+    ],
+    prompt: "Ask: 'What's the hardest part of keeping an ML model accurate over time?'",
+    tip: "Keep this to 4 minutes. The maturity model next makes the abstract concrete."
+  },
+  {
+    label: "MLOps Maturity",
+    time: 4,
+    keys: [
+      "Level 0: Jupyter notebooks, manual everything — most academic projects.",
+      "Level 1: Training pipeline automated, model registry, basic monitoring.",
+      "Level 2: Full CI/CD for both code AND model, automated retraining triggers.",
+      "Today's target: get from Level 0 to Level 1 in 6 hours."
+    ],
+    prompt: "Ask students to drop in chat which level their current graduation project is at.",
+    tip: "Validate Level 0 answers — most will say 0. 'That's the honest answer and exactly why you're here.'"
+  },
+  {
+    label: "Learning Outcomes",
+    time: 2,
+    keys: [
+      "Read each outcome aloud — this is a commitment to students.",
+      "Containerize: Lab 1 & 2. CI/CD: Lab 3. Version: Module 5. Deploy: Module 6.",
+      "By end of today, all 5 are checked off."
+    ],
+    prompt: "Ask: 'Which of these feels most unfamiliar right now?' — note the answers, revisit at close.",
+    tip: "This slide is a contract. Reference it again at the very end to show what changed."
+  },
+
+  /* ── MODULE 02 · CLOUD & IAC ─────────────────────────────── */
+  {
+    label: "M2 Divider",
+    time: 1,
+    keys: [
+      "Cloud is NOT the focus — understanding the vocabulary is.",
+      "Goal: read an architecture diagram and talk intelligently with cloud teams.",
+      "We use AWS as the example but every concept maps to Azure/GCP."
+    ],
+    prompt: null,
+    tip: "Move through this module quickly — 15 minutes max. Practical Docker time is more valuable."
+  },
+  {
+    label: "Cloud Primitives",
+    time: 5,
+    keys: [
+      "EC2 = renting a computer by the hour. t3.medium for CPU, g4dn.xlarge for GPU training.",
+      "S3 = unlimited file storage at ~$0.023/GB. Home for datasets, model artifacts, logs.",
+      "VPC = your private network. ALB = the traffic director in front of your containers.",
+      "Every ML architecture uses all three."
+    ],
+    prompt: "Mentimeter poll: 'Which AWS service have you used?' — show results live.",
+    tip: "Map each column to the workshop: EC2=Lab VMs, S3=model storage, ALB=serving endpoint."
+  },
+  {
+    label: "Infrastructure as Code",
+    time: 4,
+    keys: [
+      "If you click to create infrastructure, it's undocumented and unrepeatable.",
+      "IaC: define resources in files → version in Git → automate with CI.",
+      "Terraform is provider-agnostic. Pulumi, CDK, Bicep are alternatives.",
+      "Reproducibility: same config → identical dev/staging/prod. No more 'works in staging'."
+    ],
+    prompt: "Ask: 'How do you currently provision your cloud resources? Clicking or code?'",
+    tip: "Stress the Git angle — infra changes are now code-reviewed, audited, and reversible."
+  },
+  {
+    label: "Terraform Example",
+    time: 4,
+    keys: [
+      "provider block: which cloud and which region.",
+      "resource block: what to create. 'aws_instance' + 'ml_trainer' = type + name.",
+      "ami = the base OS image. instance_type = the hardware size.",
+      "tags = metadata — use them for cost tracking and environment labelling."
+    ],
+    prompt: "Ask: 'What would you change to make this a GPU instance?' (answer: instance_type = 'g4dn.xlarge')",
+    tip: "Open the file live if possible — show it's just text, demystify Terraform."
+  },
+
+  /* ── MODULE 03 · DOCKER ─────────────────────────────────── */
+  {
+    label: "M3 Divider",
+    time: 1,
+    keys: [
+      "This is the most important module of Session 1.",
+      "Everything downstream — CI/CD, serverless, cloud deploy — depends on containers.",
+      "Lab 1 is the first hands-on moment. Keep the energy high."
+    ],
+    prompt: null,
+    tip: "Pause here, check that everyone's Docker is running before continuing."
+  },
+  {
+    label: "venv vs Docker",
+    time: 5,
+    keys: [
+      "venv isolates Python packages but not the OS, system libraries, or Python version itself.",
+      "Docker isolates everything: OS, Python, system libs, your code. Identical everywhere.",
+      "The price of Docker: slightly larger artifact, slightly longer build time. Worth it.",
+      "In production, containers beat venv every time — standardised, deployable, auditable."
+    ],
+    prompt: "Ask: 'What's the problem when your teammate has a different Python version than you?'",
+    tip: "Build from what students know — they all use venv. Docker is just the next level up."
+  },
+  {
+    label: "Core Docker Concepts",
+    time: 5,
+    keys: [
+      "Image = the blueprint (class in OOP terms). Immutable.",
+      "Container = a running instance of an image. Ephemeral by default.",
+      "Registry = Docker Hub / ECR / GHCR — the npm for container images.",
+      "Layer = one instruction in a Dockerfile. Layers are cached and reused."
+    ],
+    prompt: "Ask students to restate the Image/Container/Registry analogy in their own words in chat.",
+    tip: "The Class/Instance analogy lands immediately with CS students."
+  },
+  {
+    label: "Dockerfile Anatomy",
+    time: 6,
+    keys: [
+      "FROM: base image. Always pin a version tag — never use :latest in production.",
+      "WORKDIR: sets the working directory inside the container. Use /app by convention.",
+      "COPY requirements.txt BEFORE COPY . . — this is the layer cache trick.",
+      "RUN pip install executes at build time. CMD executes at run time."
+    ],
+    prompt: "Ask: 'Why do we COPY requirements.txt before copying the rest of the code?'",
+    tip: "The layer cache insight (requirements before code) is the most practical Dockerfile tip. Make sure it lands."
+  },
+  {
+    label: "Docker Commands",
+    time: 5,
+    keys: [
+      "docker build -t name:tag . — builds an image from the Dockerfile in current directory.",
+      "docker run -p 8000:8000 name — starts a container and maps port 8000 host→container.",
+      "docker ps — lists running containers with IDs, names, ports.",
+      "docker stop / docker rm — graceful stop then remove. Use docker rm -f to force both."
+    ],
+    prompt: "Ask: 'What's the difference between -p 8000:8000 and -p 9000:8000?' (host:container mapping)",
+    tip: "Type every command live. Seeing it execute matters more than the slide."
+  },
+  {
+    label: "Lab 1 — First Container",
+    time: 25,
+    keys: [
+      "Timer: 25 minutes on screen.",
+      "Walk through Step 1 (write Dockerfile) together before releasing students.",
+      "Circulate — common issue: COPY path wrong, port not mapped.",
+      "Stretch goal: change code → rebuild → verify only changed layers rebuild (cache demo)."
+    ],
+    prompt: "After lab: 'Who got the layer cache optimisation working? Show us your build output.'",
+    tip: "The most common mistake: forgetting the . at the end of docker build. Watch for it."
+  },
+
+  /* ── SESSION 2 OPENING ──────────────────────────────────── */
+  {
+    label: "Session 2 Divider",
+    time: 5,
+    keys: [
+      "Break time — 10–15 minutes. Hard stop.",
+      "While on break: ask students to think of ONE model from their own project.",
+      "Session 2 goal: take that model → containerise it → add CI/CD.",
+      "Energy reset: do a quick recap poll at session start."
+    ],
+    prompt: "Opening of Session 2: 'Name one thing from Session 1 you'll use in your next project.'",
+    tip: "Start Session 2 with a 2-minute recap — energy always dips after a break."
+  },
+
+  /* ── MODULE 04 · ML DOCKER ──────────────────────────────── */
+  {
+    label: "M3 cont. Divider",
+    time: 1,
+    keys: [
+      "Session 2 starts here — we're extending what we built in Lab 1.",
+      "Now we containerise a real ML model with a FastAPI REST endpoint.",
+      "This is what production ML actually looks like."
+    ],
+    prompt: null,
+    tip: "Reference Lab 1: 'You already know how to build and run a container. Now we add the ML layer.'"
+  },
+  {
+    label: "model.py — Train & Save",
+    time: 5,
+    keys: [
+      "load_iris() → train/test split → RandomForest → evaluate → pickle.dump.",
+      "We save model.pkl to disk — the container will load it at startup.",
+      "Key question: why train once and save, rather than train every time the API starts?",
+      "Answer: training is expensive (seconds to hours). Inference is cheap (milliseconds)."
+    ],
+    prompt: "Ask: 'Why do we save the model to a file instead of training inside the API?'",
+    tip: "Run this script live so students see model.pkl appear. Makes it tangible."
+  },
+  {
+    label: "main.py — FastAPI",
+    time: 5,
+    keys: [
+      "FastAPI auto-generates /docs (Swagger UI) — API testing in the browser for free.",
+      "On startup: load model.pkl once. On every /predict request: run model.predict().",
+      "The IrisFeatures schema validates input automatically — wrong type = 422 error.",
+      "This pattern (load once, serve many) is the standard ML inference API pattern."
+    ],
+    prompt: "Ask: 'What would happen if we loaded the model on every request instead of at startup?'",
+    tip: "Show the /docs page live after Lab 2 — students love clicking the interactive API tester."
+  },
+  {
+    label: "ML Dockerfile",
+    time: 4,
+    keys: [
+      "Key difference from Lab 1: RUN python model.py runs training AT BUILD TIME.",
+      "model.pkl is baked into the image — the container starts pre-trained, instantly.",
+      "Tradeoff: larger image, but zero cold-start training cost at runtime.",
+      "Alternative: mount model.pkl as a volume from S3 at startup (covered in Module 7)."
+    ],
+    prompt: "Ask: 'Why is it better to train during docker build rather than when the container starts?'",
+    tip: "Emphasise that the resulting image is fully self-contained — ship it anywhere, it works."
+  },
+  {
+    label: "Lab 2 — ML Inference API",
+    time: 30,
+    keys: [
+      "Timer: 30 minutes on screen.",
+      "Start docker build together on screen — while it runs, explain the layers being built.",
+      "After build: docker run → open /docs → live predict from a browser together.",
+      "Stretch: swap RandomForest for GradientBoosting — show the model is swappable."
+    ],
+    prompt: "After lab: let a student pick numbers and call /predict from their browser via /docs.",
+    tip: "The Swagger UI moment is the 'wow' moment of the workshop. Build up to it."
+  },
+
+  /* ── MODULE 05 · CI/CD ──────────────────────────────────── */
+  {
+    label: "M4 Divider",
+    time: 1,
+    keys: [
+      "Transition: in Lab 2 we built and pushed manually. In this module, automation takes over.",
+      "Every push to main now runs tests → builds the container → deploys.",
+      "This is the moment the workshop clicks for most students."
+    ],
+    prompt: null,
+    tip: "Say: 'Imagine never needing to type docker build again. That's what we're building now.'"
+  },
+  {
+    label: "What CI/CD Solves",
+    time: 4,
+    keys: [
+      "Manual deploy = risk. CI/CD removes the human from the critical path.",
+      "CI: every push is tested automatically — broken code never reaches main.",
+      "CD: every green build is deployed automatically — no deployment scripts, no SSH.",
+      "For ML: CI also runs model accuracy tests. A degraded model won't ship."
+    ],
+    prompt: "Ask: 'How do you currently deploy changes to your project?' — SSH? Manual copy? Nothing?",
+    tip: "Validate all answers, even 'we don't deploy.' That's the honest truth for most students."
+  },
+  {
+    label: "GitHub Actions Concepts",
+    time: 5,
+    keys: [
+      "Workflow = the whole YAML file. Lives at .github/workflows/ci.yml in the repo.",
+      "Job = a group of steps running on one machine (runner).",
+      "Step = a single shell command or a pre-built action (uses: actions/checkout@v4).",
+      "Trigger: on: push: branches: [main] — runs on every push to main."
+    ],
+    prompt: "Ask: 'Where do workflow files live in a repo?' (.github/workflows/) — check comprehension.",
+    tip: "Bottom-up explanation (Step → Job → Workflow) is easier than top-down."
+  },
+  {
+    label: "ci.yml workflow",
+    time: 6,
+    keys: [
+      "actions/checkout@v4 — clones the repo into the runner.",
+      "actions/setup-python@v5 — installs the right Python version.",
+      "pip install → python model.py → pytest — train then test on every push.",
+      "docker build tag uses ${{ github.sha }} — every image is uniquely tied to a commit."
+    ],
+    prompt: "Ask: 'Why do we use github.sha as the image tag instead of :latest?'",
+    tip: "The SHA tag is the key insight: you can always roll back to any previous commit's image."
+  },
+  {
+    label: "test_model.py",
+    time: 4,
+    keys: [
+      "Standard pytest file — two tests: model loads without error, accuracy > 0.85.",
+      "The accuracy threshold IS the deployment gate. Below 0.85 → CI fails → nothing ships.",
+      "This is data-aware testing — unique to ML, not just code testing.",
+      "Add more tests: latency, memory, fairness metrics — the pattern is extensible."
+    ],
+    prompt: "Ask: 'What threshold would you set for your own model? What counts as good enough?'",
+    tip: "The accuracy gate test is the single most important concept in this module."
+  },
+  {
+    label: "Deployment Strategies",
+    time: 4,
+    keys: [
+      "Rolling: replace containers one by one. Zero downtime but slow rollback.",
+      "Blue/Green: two live environments, instant traffic switch. Fast rollback — just flip the switch.",
+      "Canary: 5% of traffic to new model first. Catch issues before full rollout.",
+      "For students: Blue/Green is the safest starting point. Canary for mature pipelines."
+    ],
+    prompt: "Ask: 'If your new model has worse accuracy, which strategy lets you recover fastest?'",
+    tip: "Draw the traffic flow for Blue/Green — a quick diagram on screen makes it click."
+  },
+  {
+    label: "Lab 3 — GitHub Actions",
+    time: 25,
+    keys: [
+      "Timer: 25 minutes on screen.",
+      "Start Step 1 together: create .github/workflows/ci.yml and push.",
+      "Tell students: 'Break it on purpose first — lower the threshold to 0.99 and watch CI fail.'",
+      "After fix: show the green check on GitHub Actions tab together."
+    ],
+    prompt: "After lab: ask who got the red X first (breaking CI intentionally). Celebrate it.",
+    tip: "A failing CI pipeline is the lesson, not a mistake. Frame it that way from the start."
+  },
+
+  /* ── MODULE 06 · VERSIONING ─────────────────────────────── */
+  {
+    label: "M5 Divider",
+    time: 1,
+    keys: [
+      "We can now build and test automatically. But how do we track which model is live?",
+      "Model versioning = Git for models. Same idea, different tool.",
+      "MLflow is the most widely adopted open-source solution."
+    ],
+    prompt: null,
+    tip: "Reference the problem: 'You overwrote model.pkl last week — which one is in production?'"
+  },
+  {
+    label: "Why Versioning Matters",
+    time: 4,
+    keys: [
+      "Code is versioned in Git — but model.pkl is a binary, not code.",
+      "Without versioning: can't reproduce an experiment, can't roll back a bad model.",
+      "DVC (Data Version Control) versions datasets + models alongside Git commits.",
+      "MLflow tracks hyperparameters, metrics, and artifacts per experiment run."
+    ],
+    prompt: "Ask: 'Has anyone lost their best experiment by overwriting model.pkl?' — pause for nods.",
+    tip: "This is an emotional memory for most students. Let the pain land before offering the solution."
+  },
+  {
+    label: "MLflow Tracking",
+    time: 5,
+    keys: [
+      "mlflow.start_run() wraps your training code — that's it. No server required to start.",
+      "mlflow.log_param() → hyperparameters. mlflow.log_metric() → accuracy/loss etc.",
+      "mlflow.log_artifact() → saves any file (model.pkl, plots, data snapshots).",
+      "mlflow ui → local web UI at localhost:5000. Production: point to a tracking server."
+    ],
+    prompt: "Show the MLflow UI live — even locally, ./mlruns is created automatically after first run.",
+    tip: "The UI demo is worth 5 minutes. Seeing the experiment comparison table is the aha moment."
+  },
+  {
+    label: "Environments",
+    time: 4,
+    keys: [
+      "Dev → Staging → Prod. Code travels one direction only. Never skip staging.",
+      "Dev: your laptop or a cloud VM. Fast iteration, no stability guarantees.",
+      "Staging: a prod-like environment. Runs load tests, integration tests, smoke tests.",
+      "Prod: real users, real data, real consequences. Only promoted from green staging."
+    ],
+    prompt: "Ask: 'What could go wrong if you deploy to production without a staging environment?'",
+    tip: "Stress: a model that works on your laptop is not the same as one that works under load."
+  },
+
+  /* ── MODULE 07 · SERVERLESS ─────────────────────────────── */
+  {
+    label: "M6 Divider",
+    time: 1,
+    keys: [
+      "Short module — 15 minutes. Serverless is the alternative to always-on containers.",
+      "Not building today — just learning to read architecture diagrams.",
+      "Understanding options helps you make the right infrastructure choice for your project."
+    ],
+    prompt: null,
+    tip: "Manage expectations: 'This is a survey, not a deep-dive. You'll know which option to choose.'"
+  },
+  {
+    label: "Serverless ML Options",
+    time: 8,
+    keys: [
+      "AWS Lambda: event-driven, ~15 min max, 10 GB RAM, no GPU. Good for lightweight models.",
+      "SageMaker Endpoints: managed containers, auto-scaling, A/B testing built in. Best for teams.",
+      "Custom container on ECS/Fargate: full control, persistent, best portability.",
+      "Decision: cost-sensitive + small model → Lambda. Team + monitoring → SageMaker. Full control → containers."
+    ],
+    prompt: "Ask: 'Which option fits your graduation project — Lambda, SageMaker, or a container?'",
+    tip: "The decision tree matters more than memorising the options. Keep it practical."
+  },
+
+  /* ── MODULE 08 · END TO END ─────────────────────────────── */
+  {
+    label: "M7 Divider",
+    time: 1,
+    keys: [
+      "Final module — synthesis. Every concept from today appears in one diagram.",
+      "Walk the loop clockwise, name the tool at each stage.",
+      "This is the slide they screenshot for their LinkedIn post."
+    ],
+    prompt: null,
+    tip: "Slow down here. Students are tired. Make this moment feel like a finish line."
+  },
+  {
+    label: "End-to-End MLOps Pipeline",
+    time: 6,
+    keys: [
+      "Data → Experiment (MLflow) → Train → Evaluate (pytest accuracy gate).",
+      "Evaluate → CI/CD (GitHub Actions) → Build (Docker) → Registry (GHCR/ECR).",
+      "Registry → Deploy (ECS/Lambda/SageMaker) → Monitor → feeds back to Data.",
+      "The entire loop is automated except for the Data ingestion trigger — that's the next frontier."
+    ],
+    prompt: "Walk the loop clockwise and ask a different student to name the tool at each stage.",
+    tip: "Point out: everything they built today lives in this one picture."
+  },
+  {
+    label: "Self-Learning Assignments",
+    time: 5,
+    keys: [
+      "Hand out ASSIGNMENTS.md — it's in the repo root.",
+      "Pick ONE assignment, complete it, prepare a 5-minute demo for the study group.",
+      "No grading — just shipping. Exposure to real tools matters more than a score.",
+      "Suggested timeline: complete within 2 weeks while the material is fresh."
+    ],
+    prompt: "Ask each student to unmute and say which assignment they'll attempt.",
+    tip: "Public commitment in the room increases follow-through. Don't skip this."
+  },
+  {
+    label: "Closing",
+    time: 3,
+    keys: [
+      "Recap the learning outcomes slide — tick off every bullet together.",
+      "One sentence: you can now take a notebook model to a versioned, tested, auto-deployed container.",
+      "Share LinkedIn / GitHub handles. Ask students to connect.",
+      "Share the repo link, recording link (if applicable), and where to ask questions after."
+    ],
+    prompt: "Ask: 'Which module surprised you most?' — one answer per person, 10 seconds each.",
+    tip: "End on time. Students remember how you finish. Energy → gratitude → resources → done."
+  }
+
+]; /* end NOTES */
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PRESENTER ENGINE
+   ─ Opens an audience window synced via BroadcastChannel
+   ─ Shows expanded notes in a side panel for the instructor
+   ═══════════════════════════════════════════════════════════════ */
+
+const ch = new BroadcastChannel('dc-presenter');
+const isAudience = new URLSearchParams(location.search).has('audience');
+
+/* ── AUDIENCE WINDOW ──────────────────────────────────────── */
+if (isAudience) {
+  document.documentElement.style.cssText = 'margin:0;padding:0;overflow:hidden;background:#000';
+
+  ch.onmessage = ({ data }) => {
+    const sections = document.querySelectorAll('x-import section');
+    const el = sections[data.index];
+    if (el) el.scrollIntoView({ behavior: 'instant' });
+  };
+
+  window.addEventListener('load', () => {
+    const s = document.createElement('style');
+    s.textContent = `
+      [data-dc-sidebar],[data-dc-toolbar],[data-dc-nav]{ display:none!important; }
+      x-import{ width:100vw!important; height:100vh!important; }
+      #presenter-panel{ display:none!important; }
+      #present-btn{ display:none!important; }
+    `;
+    document.head.appendChild(s);
+  });
+  return; /* stop here for audience window */
+}
+
+/* ── PRESENTER WINDOW ─────────────────────────────────────── */
+
+const CSS = `
+  #present-btn{
+    position:fixed;bottom:20px;right:20px;z-index:9000;
+    padding:10px 20px;background:#283068;color:#fff;
+    border:none;border-radius:8px;cursor:pointer;
+    font-family:Poppins,sans-serif;font-size:13px;font-weight:600;
+    box-shadow:0 4px 16px rgba(40,48,104,.35);
+  }
+  #present-btn:hover{ background:#38C0C8;color:#283068; }
+
+  #presenter-panel{
+    position:fixed;bottom:0;left:0;right:0;z-index:8000;
+    height:0;overflow:hidden;
+    background:#1a1f44;color:#e8eaf2;
+    font-family:Poppins,sans-serif;
+    transition:height .3s ease;
+    border-top:3px solid #38C0C8;
+    display:flex;flex-direction:column;
+  }
+  #presenter-panel.open{ height:280px; }
+
+  #panel-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 20px;background:#12163a;flex-shrink:0;
+  }
+  #panel-slide-label{ font-size:13px;font-weight:700;color:#38C0C8;letter-spacing:.08em;text-transform:uppercase; }
+  #panel-time{ font-size:13px;color:#9aa3c4; }
+  #panel-toggle{
+    background:none;border:none;color:#9aa3c4;cursor:pointer;
+    font-size:20px;line-height:1;padding:0 4px;
+  }
+  #panel-toggle:hover{ color:#fff; }
+
+  #panel-body{
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:0;overflow:hidden;flex:1;
+  }
+  .panel-col{ padding:14px 20px;overflow-y:auto;border-right:1px solid rgba(255,255,255,.08); }
+  .panel-col:last-child{ border-right:none; }
+  .panel-col-title{
+    font-size:10px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:#38C0C8;margin:0 0 8px;
+  }
+  .panel-col ul{ margin:0;padding-left:16px; }
+  .panel-col li{ font-size:12px;line-height:1.5;color:#ccd0e8;margin-bottom:5px; }
+  .panel-prompt{
+    font-size:12px;line-height:1.45;color:#f0d060;
+    background:rgba(240,208,96,.08);border-radius:6px;
+    padding:8px 12px;margin-top:4px;
+  }
+  .panel-tip{
+    font-size:12px;line-height:1.45;color:#a0e8b0;
+    background:rgba(56,192,200,.08);border-radius:6px;
+    padding:8px 12px;margin-top:4px;
+  }
+  .panel-empty{ font-size:12px;color:#6e7490;font-style:italic; }
+`;
+
+const styleEl = document.createElement('style');
+styleEl.textContent = CSS;
+document.head.appendChild(styleEl);
+
+/* Present button */
+const btn = document.createElement('button');
+btn.id = 'present-btn';
+btn.textContent = '⎋ Present on 2nd screen';
+btn.onclick = () => {
+  const aw = window.open(location.href + '?audience', '_blank');
+  setTimeout(() => {
+    ch.postMessage({ index: currentIndex });
+  }, 2000);
+};
+document.body.appendChild(btn);
+
+/* Notes panel */
+const panel = document.createElement('div');
+panel.id = 'presenter-panel';
+panel.innerHTML = `
+  <div id="panel-header">
+    <span id="panel-slide-label">Slide</span>
+    <span id="panel-time"></span>
+    <button id="panel-toggle" title="Toggle notes panel">▲</button>
+  </div>
+  <div id="panel-body">
+    <div class="panel-col">
+      <p class="panel-col-title">Talking points</p>
+      <ul id="panel-keys"></ul>
+    </div>
+    <div class="panel-col">
+      <p class="panel-col-title">Discussion prompt</p>
+      <div id="panel-prompt"></div>
+    </div>
+    <div class="panel-col">
+      <p class="panel-col-title">Delivery tip</p>
+      <div id="panel-tip"></div>
+    </div>
+  </div>
+`;
+document.body.appendChild(panel);
+
+let panelOpen = false;
+document.getElementById('panel-toggle').onclick = () => {
+  panelOpen = !panelOpen;
+  panel.classList.toggle('open', panelOpen);
+  document.getElementById('panel-toggle').textContent = panelOpen ? '▼' : '▲';
+};
+
+/* auto-open panel on first slide change */
+let autoOpened = false;
+
+function buildNoteIndex(sections) {
+  const map = {};
+  sections.forEach((sec, i) => {
+    const lbl = sec.getAttribute('data-screen-label') || '';
+    map[i] = NOTES.find(n => n.label === lbl) || null;
+  });
+  return map;
+}
+
+let currentIndex = 0;
+let noteMap = {};
+
+function renderNotes(index) {
+  currentIndex = index;
+  const note = noteMap[index];
+  const sections = document.querySelectorAll('x-import section');
+  const lbl = sections[index]?.getAttribute('data-screen-label') || `Slide ${index + 1}`;
+
+  document.getElementById('panel-slide-label').textContent =
+    `${index + 1} / ${sections.length}  ·  ${lbl}`;
+
+  if (!note) {
+    document.getElementById('panel-time').textContent = '';
+    document.getElementById('panel-keys').innerHTML = '<li class="panel-empty">No notes for this slide.</li>';
+    document.getElementById('panel-prompt').innerHTML = '<span class="panel-empty">—</span>';
+    document.getElementById('panel-tip').innerHTML = '<span class="panel-empty">—</span>';
+    return;
+  }
+
+  document.getElementById('panel-time').textContent = `⏱ ${note.time} min`;
+  document.getElementById('panel-keys').innerHTML =
+    note.keys.map(k => `<li>${k}</li>`).join('');
+  document.getElementById('panel-prompt').innerHTML = note.prompt
+    ? `<div class="panel-prompt">${note.prompt}</div>`
+    : '<span class="panel-empty">No discussion prompt.</span>';
+  document.getElementById('panel-tip').innerHTML = note.tip
+    ? `<div class="panel-tip">${note.tip}</div>`
+    : '<span class="panel-empty">No delivery tip.</span>';
+
+  /* auto-open on first navigation */
+  if (!autoOpened) {
+    panelOpen = true;
+    panel.classList.add('open');
+    document.getElementById('panel-toggle').textContent = '▼';
+    autoOpened = true;
+  }
+
+  /* sync audience window */
+  ch.postMessage({ index });
+}
+
+/* Watch for active slide changes */
+window.addEventListener('load', () => {
+  const sections = [...document.querySelectorAll('x-import section')];
+  noteMap = buildNoteIndex(sections);
+
+  /* render notes for slide 0 immediately */
+  renderNotes(0);
+
+  /* IntersectionObserver — works with scroll-snap and CSS-driven navigation */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sections.indexOf(entry.target);
+        if (idx >= 0 && idx !== currentIndex) renderNotes(idx);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  sections.forEach(s => io.observe(s));
+
+  /* MutationObserver fallback for data-active attribute (deck-stage.js) */
+  const mo = new MutationObserver(() => {
+    const activeIdx = sections.findIndex(
+      s => s.hasAttribute('data-active') || s.classList.contains('active')
+    );
+    if (activeIdx >= 0 && activeIdx !== currentIndex) renderNotes(activeIdx);
+  });
+  const root = document.querySelector('x-import');
+  if (root) mo.observe(root, { attributes: true, subtree: true, attributeFilter: ['data-active', 'class'] });
+});
+
+})();
+</script>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+</body>
+</html>

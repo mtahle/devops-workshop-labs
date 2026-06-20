@@ -1,0 +1,2 @@
+# No external dependencies for Lab 1 — stdlib only
+# This file exists to practice the copy-install pattern

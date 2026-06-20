@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  :root{
+    --navy:#283068; --navy-deep:#1F2750; --teal:#38C0C8; --teal-ink:#2BA5AD;
+    --ink:#283068; --body:#6E7479; --muted:#9AA0A4; --line:#D9DDE0;
+    --paper:#FFFFFF; --paper-soft:#F1F2F4; --gray-circle:#CBCFD3; --contour:#D4D8DB;
+    --t-display:104px; --t-name:78px; --t-title:58px; --t-sub:34px;
+    --t-body:28px; --t-small:24px; --t-label:24px; --px:112px; --py:90px;
+  }
+  *{ text-wrap:pretty; }
+  image-slot{ border-radius:inherit; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="assets/deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<!-- ══ SLIDE 1 · MODULE DIVIDER ══ -->
+<section data-label="Divider" data-screen-label="M5 Divider" data-speaker-notes="Transition: we can now build and test a model automatically. But how do we know which model is live? Which experiment produced the best result? That's model versioning." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;left:-620px;top:-620px;width:1240px;height:1240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,rgba(255,255,255,0.10) 9px 10px);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;left:-360px;top:-360px;width:720px;height:720px;border-radius:50%;background:var(--teal);opacity:.92;pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px">Module 05 · 25 min</div>
+    <h2 style="font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;margin:0 0 28px;max-width:1400px">Model Versioning<br>&amp; Environments</h2>
+    <p style="font-size:var(--t-sub);line-height:1.4;color:rgba(255,255,255,0.78);margin:0;max-width:1100px">Track every experiment. Know what's live. Roll back in one click.</p>
+  </div>
+</section>
+
+<!-- ══ SLIDE 2 · WHY VERSIONING MATTERS ══ -->
+<section data-label="Bullets" data-screen-label="Why Versioning Matters" data-speaker-notes="Ask: have you ever lost your best experiment because you overwrote model.pkl? Everyone nods. That's the problem. Git versions code — we need the same thing for models." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;right:-560px;bottom:-560px;width:1120px;height:1120px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 8px,var(--contour) 8px 9px);opacity:.5;pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;right:-300px;bottom:-300px;width:600px;height:600px;border-radius:50%;background:var(--teal);pointer-events:none;z-index:0"></div>
+  <div style="position:relative;z-index:1;max-width:1320px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:16px">The problem</div>
+    <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 48px">Why model versioning matters</h2>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Different models perform differently on different data slices — you need to compare runs side by side.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">A deployed model can degrade silently as real-world data drifts from the training set.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Without versioning, "rolling back" means re-training from scratch — you've lost the previous artifact.</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--teal);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35">Teams need answers: which model is live? trained on what data? by whom? when? with what accuracy?</span></div>
+      <div style="display:flex;gap:24px;align-items:baseline"><span style="width:14px;height:14px;border-radius:50%;background:var(--navy);flex:0 0 auto;transform:translateY(4px)"></span><span style="font-size:var(--t-body);line-height:1.35;font-weight:600">MLflow answers all of these: experiment tracking + model registry = reproducibility + accountability.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 3 · MLFLOW CODE ══ -->
+<section data-label="Code" data-screen-label="MLflow Tracking" data-speaker-notes="Show the MLflow UI after this slide — the tracking server UI is the best way to see this in action. Even without a server, mlflow.start_run() saves everything to ./mlruns locally." style="background:var(--navy);color:#fff;padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+  <div style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">Assignment 01 · MLflow (self-learning)</div>
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 40px">Track experiments with MLflow</h2>
+  <pre style="font-family:'IBM Plex Mono',monospace;font-size:25px;line-height:1.7;margin:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:36px 44px;color:#cfd6e6;max-width:1500px"><span style="color:#9aa3c4">import</span> mlflow
+<span style="color:#9aa3c4">import</span> mlflow.sklearn
+
+mlflow.set_experiment(<span style="color:#7fe3c0">"iris-classifier"</span>)
+
+<span style="color:#9aa3c4">with</span> mlflow.<span style="color:var(--teal)">start_run</span>():
+    <span style="color:#8a93b4"># log parameters</span>
+    mlflow.<span style="color:var(--teal)">log_param</span>(<span style="color:#7fe3c0">"n_estimators"</span>, <span style="color:#7fe3c0">10</span>)
+    mlflow.<span style="color:var(--teal)">log_param</span>(<span style="color:#7fe3c0">"random_state"</span>, <span style="color:#7fe3c0">42</span>)
+
+    model.fit(X_train, y_train)
+    acc = accuracy_score(y_test, model.predict(X_test))
+
+    <span style="color:#8a93b4"># log metric — visible in the MLflow UI</span>
+    mlflow.<span style="color:var(--teal)">log_metric</span>(<span style="color:#7fe3c0">"accuracy"</span>, acc)
+
+    <span style="color:#8a93b4"># register model in the model registry</span>
+    mlflow.sklearn.<span style="color:var(--teal)">log_model</span>(model, <span style="color:#7fe3c0">"iris-rf-model"</span>)
+</pre>
+</section>
+
+<!-- ══ SLIDE 4 · DEV / STAGING / PRODUCTION ══ -->
+<section data-label="Three Columns" data-screen-label="Environments" data-speaker-notes="Final concept of this module. The key message: code flows one direction only — dev → staging → prod. Never skip staging. A model that works on your laptop is not the same as one that works under load." style="background:var(--paper);color:var(--navy);padding:var(--py) var(--px);box-sizing:border-box;font-family:'Poppins',sans-serif;overflow:hidden;display:flex;flex-direction:column">
+  <h2 style="font-weight:800;font-size:var(--t-title);letter-spacing:-0.02em;margin:0 0 10px">The three environments</h2>
+  <p style="font-size:var(--t-body);color:var(--body);margin:0 0 56px;max-width:1100px">Code flows one direction: Dev → Staging → Production. No shortcuts.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;flex:1">
+    <div style="border-top:5px solid var(--gray-circle);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:18px">Development</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Where you experiment</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Local Docker, fast iteration, broken code is acceptable. This is your sandbox.</p>
+      <div style="margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--muted);background:var(--paper-soft);padding:12px 16px;border-radius:8px">localhost:8000</div>
+    </div>
+    <div style="border-top:5px solid var(--teal);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-ink);margin-bottom:18px">Staging</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Where you validate</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Same config as production. CI must pass. Stakeholders review here before release.</p>
+      <div style="margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--teal-ink);background:rgba(56,192,200,0.08);padding:12px 16px;border-radius:8px">staging.myproject.com</div>
+    </div>
+    <div style="border-top:5px solid var(--navy);padding-top:30px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:var(--t-label);letter-spacing:0.16em;text-transform:uppercase;color:var(--navy);margin-bottom:18px">Production</div>
+      <h3 style="font-weight:700;font-size:var(--t-sub);margin:0 0 16px">Where users live</h3>
+      <p style="font-size:var(--t-small);line-height:1.45;color:var(--body);margin:0">Auto-deploy from main only. Monitor always. Rollback must be instant and practiced.</p>
+      <div style="margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--navy);background:var(--paper-soft);padding:12px 16px;border-radius:8px">api.myproject.com</div>
+    </div>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: &quot;100%&quot;, &quot;height&quot;: &quot;100%&quot; },
+  &quot;navyColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#283068&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tealColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#38C0C8&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;showContour&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  applyTokens() {
+    const s = document.documentElement.style;
+    const p = this.props || {};
+    if (p.navyColor) s.setProperty('--navy', p.navyColor);
+    if (p.tealColor) { s.setProperty('--teal', p.tealColor); s.setProperty('--teal-ink', p.tealColor); }
+    if (p.showContour === false) s.setProperty('--contour', 'transparent');
+    else s.setProperty('--contour', '#D4D8DB');
+  }
+  componentDidMount() { this.applyTokens(); }
+  componentDidUpdate() { this.applyTokens(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
