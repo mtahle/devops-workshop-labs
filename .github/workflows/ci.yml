@@ -1,0 +1,132 @@
+name: ML CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "lab2-ml-api/**"
+      - ".github/workflows/ci.yml"
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "lab2-ml-api/**"
+      - ".github/workflows/ci.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test ML Application
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: lab2-ml-api
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: lab2-ml-api/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Train model
+        run: python model.py
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+      - name: Build Docker image for testing
+        run: docker build -t iris-classifier:test .
+
+      - name: Start test container
+        run: |
+          docker run -d \
+            --name iris-api-test \
+            -p 8000:8000 \
+            iris-classifier:test
+
+      - name: Test ML prediction endpoint
+        run: |
+          response=""
+
+          for attempt in {1..10}; do
+            if response=$(curl --silent --show-error --fail \
+              -X POST \
+              http://localhost:8000/predict \
+              -H "Content-Type: application/json" \
+              -d '{
+                "sepal_length": 5.1,
+                "sepal_width": 3.5,
+                "petal_length": 1.4,
+                "petal_width": 0.2
+              }'); then
+
+              echo "API response: $response"
+
+              if echo "$response" | grep -q '"prediction":"setosa"'; then
+                echo "Prediction test passed successfully"
+                exit 0
+              fi
+
+              echo "API returned an unexpected prediction"
+              docker logs iris-api-test
+              exit 1
+            fi
+
+            echo "Waiting for API to start... attempt $attempt/10"
+            sleep 2
+          done
+
+          echo "API failed to start"
+          docker logs iris-api-test
+          exit 1
+
+      - name: Clean up test container
+        if: always()
+        run: docker rm -f iris-api-test || true
+
+  build-and-push:
+    name: Build and Push Docker Image
+    needs: test
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v7
+        with:
+          context: ./lab2-ml-api
+          file: ./lab2-ml-api/Dockerfile
+          push: true
+          tags: |
+            ${{ vars.DOCKERHUB_USERNAME }}/iris-classifier:latest
+            ${{ vars.DOCKERHUB_USERNAME }}/iris-classifier:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
