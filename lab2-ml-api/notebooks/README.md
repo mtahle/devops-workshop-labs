@@ -13,7 +13,7 @@ They teach the ML project flow in notebook format first, then transition to a re
 
 ## Prerequisites
 
-From `/home/runner/work/devops-workshop-labs/devops-workshop-labs/lab2-ml-api`:
+From `lab2-ml-api` (repository root):
 
 ```bash
 pip install -r requirements.txt
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 ## Notebook-first workflow
 
-From `/home/runner/work/devops-workshop-labs/devops-workshop-labs/lab2-ml-api/notebooks`:
+From `lab2-ml-api/notebooks`:
 
 ```bash
 jupyter notebook model.ipynb
@@ -39,7 +39,7 @@ After running all cells:
 
 ## Move from notebook to web app (REST API)
 
-From `/home/runner/work/devops-workshop-labs/devops-workshop-labs/lab2-ml-api`:
+From `lab2-ml-api` (repository root):
 
 ```bash
 uvicorn main:app --reload
@@ -61,7 +61,7 @@ Expected response includes `"prediction": "setosa"`.
 
 ## Optional CI-aligned validation
 
-From `/home/runner/work/devops-workshop-labs/devops-workshop-labs/lab2-ml-api`:
+From `lab2-ml-api` (repository root):
 
 ```bash
 python model.py
