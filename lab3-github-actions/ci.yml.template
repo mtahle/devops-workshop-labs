@@ -42,7 +42,7 @@ jobs:
         run: |
           docker run -d -p 8000:8000 --name test-container iris-classifier:${{ github.sha }}
           HEALTH_OK=0
-          for i in {1..15}; do
+          for i in $(seq 1 15); do
             echo "Health check attempt $i/15"
             if [ "$(docker inspect -f '{{.State.Running}}' test-container)" != "true" ]; then
               echo "Container exited before health check completed"
