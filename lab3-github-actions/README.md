@@ -7,6 +7,23 @@
 
 ---
 
+## Learning Objectives
+
+By the end of this lab, students should be able to:
+- Explain CI trigger conditions and workflow job structure.
+- Validate ML project quality with automated tests on push.
+- Interpret pass/fail workflow runs and use them as feedback loops.
+
+## Success Criteria (Checkpoint)
+
+Students are successful when all of the following are true:
+- Workflow file is added at `.github/workflows/ci.yml`.
+- A push triggers a workflow run in the Actions tab.
+- Students can identify one passing run and one failing run reason.
+- After fixing the intentional failure, workflow returns to green.
+
+---
+
 ## Setup
 
 This lab assumes you have:
@@ -68,6 +85,33 @@ Add this to your README.md (replace `USERNAME` and `REPO`):
 ```markdown
 ![CI](https://github.com/USERNAME/REPO/actions/workflows/ci.yml/badge.svg)
 ```
+
+---
+
+## Common Troubleshooting Path
+
+Use this order when diagnosing issues:
+1. Confirm workflow location is exactly `.github/workflows/ci.yml`.
+2. Check workflow trigger conditions match your push branch.
+3. Open failed job logs and identify the first failing step.
+4. Fix code/tests locally, commit, then push again.
+
+## Common Errors
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| Workflow not appearing in Actions | Wrong file path/name | Move file to `.github/workflows/ci.yml` |
+| Workflow not triggered on push | Branch mismatch in trigger | Align trigger branch with active branch |
+| Tests fail unexpectedly | Local code diverged from tested assumptions | Re-run local test sequence from Lab 2 before push |
+| Badge always broken | Wrong repo/workflow URL | Rebuild badge URL with correct username/repo/workflow |
+
+---
+
+## Wrap-Up Reflection Questions
+
+1. Why is a failing CI pipeline useful even when it blocks merges?
+2. What should run in CI for your graduation project first: tests, lint, or security checks?
+3. What would you add next to move from CI to full CD?
 
 ---
 

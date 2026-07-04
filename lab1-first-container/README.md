@@ -5,6 +5,22 @@
 
 ---
 
+## Learning Objectives
+
+By the end of this lab, students should be able to:
+- Explain what each Dockerfile instruction does.
+- Build a Python image with dependency caching in mind.
+- Run a container and validate expected runtime output.
+
+## Success Criteria (Checkpoint)
+
+Students are successful when all of the following are true:
+- `docker build -t lab1-app .` completes without errors.
+- `docker run lab1-app` prints the greeting + Python version + date.
+- Student can explain why `requirements.txt` is copied before app files.
+
+---
+
 ## What's in this folder
 
 ```
@@ -61,6 +77,14 @@ Compare your `Dockerfile` with `Dockerfile.solution`.
 
 ---
 
+## Common Troubleshooting Path
+
+Use this order when diagnosing issues:
+1. Confirm file names and Dockerfile paths are exact.
+2. Rebuild image and watch the first failing step.
+3. Validate CMD uses JSON array form.
+4. Confirm dependencies were installed before app copy.
+
 ## Common Errors
 
 | Error | Cause | Fix |
@@ -69,3 +93,11 @@ Compare your `Dockerfile` with `Dockerfile.solution`.
 | `python: not found` | Wrong CMD syntax | Use `["python", "app.py"]` not `python app.py` |
 | `ModuleNotFoundError` | pip install didn't run | Make sure `RUN pip install` is before `COPY . .` |
 | Image builds but runs nothing | Missing CMD | Add `CMD ["python", "app.py"]` at the end |
+
+---
+
+## Wrap-Up Reflection Questions
+
+1. Which Dockerfile step changed most often while iterating?
+2. What benefit did you observe from Docker layer caching?
+3. What would you change first to containerize your own project?

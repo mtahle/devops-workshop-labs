@@ -5,6 +5,23 @@
 
 ---
 
+## Learning Objectives
+
+By the end of this lab, students should be able to:
+- Train and persist a simple ML model artifact.
+- Serve model inference through a FastAPI endpoint.
+- Package model training + API serving into one Docker image.
+
+## Success Criteria (Checkpoint)
+
+Students are successful when all of the following are true:
+- Docker image builds and includes a trained `model.pkl`.
+- API runs at `http://localhost:8000/docs`.
+- `/predict` returns the expected species for sample inputs.
+- Local tests pass when running `python model.py` then `pytest tests/ -v`.
+
+---
+
 ## What you're building
 
 ```
@@ -104,7 +121,33 @@ docker push yourusername/iris-classifier:v1
 
 ---
 
+## Common Troubleshooting Path
+
+Use this order when diagnosing issues:
+1. Confirm `model.py` can run locally and generates `model.pkl`.
+2. Rebuild image and verify `RUN python model.py` succeeds during build.
+3. Confirm container port mapping is `-p 8000:8000`.
+4. Use `/docs` first before testing raw curl requests.
+5. Re-run local tests before retrying CI in Lab 3.
+
+## Common Errors
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `FileNotFoundError: model.pkl` | Model was not trained before app startup | Ensure `RUN python model.py` executes in Docker build |
+| `Connection refused on localhost:8000` | Container not running or port not mapped | Re-run with `docker run -p 8000:8000 iris-classifier` |
+| Validation/test failures | Dependency or model artifact mismatch | Reinstall requirements, rerun `python model.py`, then `pytest tests/ -v` |
+| Wrong prediction label | Input values malformed | Use numeric fields and known iris examples first |
+
+---
+
 ## Discussion Questions
 1. What happens if you change the model (e.g., set `n_estimators=100`) and rebuild?
 2. Why do we train the model in the Dockerfile (`RUN python model.py`) instead of at startup?
 3. How would you modify this for your own graduation project model?
+
+## Wrap-Up Reflection Questions
+
+1. What was the most important contract between `model.py` and `main.py`?
+2. Which step would likely fail first in a real team CI pipeline?
+3. How would you adapt this API to return confidence scores?
