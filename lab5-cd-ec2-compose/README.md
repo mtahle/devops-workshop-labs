@@ -87,11 +87,13 @@ Open PR to `main`, pass CI, then merge.
 
 ### Step 4: Watch CD deployment
 
-After merge:
+After merge to `main`, deployment runs automatically:
 1. Open Actions tab
-2. Run `Deploy to EC2 with Docker Compose` workflow
+2. Open `Deploy to EC2 with Docker Compose` workflow run started by push to `main`
 3. Confirm deploy job runs on self-hosted runner
 4. Verify app is reachable on EC2 public IP + app port
+
+If needed for testing, you can also trigger the same workflow manually using **Run workflow** (`workflow_dispatch`).
 
 ---
 
