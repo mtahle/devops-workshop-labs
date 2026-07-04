@@ -41,18 +41,20 @@ jobs:
       - name: Verify container starts
         run: |
           docker run -d -p 8000:8000 --name test-container iris-classifier:${{ github.sha }}
+          HEALTH_OK=0
           for i in {1..15}; do
             echo "Health check attempt $i/15"
             if curl -fsS http://localhost:8000/ > /dev/null; then
               echo "Container health check passed"
+              HEALTH_OK=1
               break
-            fi
-            if [ "$i" -eq 15 ]; then
-              echo "Container did not become healthy in time"
-              docker logs test-container || true
-              exit 1
             fi
             sleep 2
           done
+          if [ "$HEALTH_OK" -ne 1 ]; then
+            echo "Container did not become healthy in time"
+            docker logs test-container || true
+            exit 1
+          fi
           docker stop test-container
           docker rm test-container
