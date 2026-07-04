@@ -45,6 +45,8 @@
 | **Lab 1** | Containerize a Python script | 25 min |
 | **Lab 2** | ML inference API — FastAPI + scikit-learn Iris classifier | 30 min |
 | **Lab 3** | CI/CD pipeline — GitHub Actions for the ML repo | 25 min |
+| **Lab 4 (Advanced)** | Provision AWS EC2 with Terraform | 45 min |
+| **Lab 5 (Advanced)** | CD to EC2 using Docker Compose + self-hosted runner | 50 min |
 
 ## Post-Session Follow-Up Expectations
 
@@ -69,6 +71,8 @@ devops-workshop-labs/
 ├── lab1-first-container/
 ├── lab2-ml-api/
 ├── lab3-github-actions/
+├── lab4-terraform-ec2/
+├── lab5-cd-ec2-compose/
 └── slides/
 ```
 

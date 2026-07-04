@@ -24,6 +24,16 @@ Students are successful when all of the following are true:
 
 ---
 
+## Template Reliability Notes
+
+The provided CI templates are aligned with Lab 2 behavior:
+- install dependencies from `requirements.txt`
+- train model with `python model.py`
+- run tests with `pytest tests/ -v`
+- build Docker image and verify container startup using the root endpoint (`/`)
+
+---
+
 ## Setup
 
 This lab assumes you have:
