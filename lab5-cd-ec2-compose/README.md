@@ -60,8 +60,10 @@ Create these in **Settings → Secrets and variables → Actions**:
 
 Copy:
 - `docker-compose.prod.yml.template` → `docker-compose.prod.yml`
-- `.env.prod.example` → `.env.prod` (values can be replaced later from secrets/environment)
 - `cd-ec2-compose.yml.template` → `.github/workflows/cd.yml`
+
+Use `.env.prod.example` as a local reference only.  
+In CI/CD, `.env.prod` is generated automatically from GitHub Secrets by the workflow.
 
 ### Step 2: Configure the self-hosted runner labels
 

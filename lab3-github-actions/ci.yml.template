@@ -44,6 +44,11 @@ jobs:
           HEALTH_OK=0
           for i in {1..15}; do
             echo "Health check attempt $i/15"
+            if [ "$(docker inspect -f '{{.State.Running}}' test-container)" != "true" ]; then
+              echo "Container exited before health check completed"
+              docker logs test-container || true
+              exit 1
+            fi
             if curl -fsS http://localhost:8000/ > /dev/null; then
               echo "Container health check passed"
               HEALTH_OK=1
