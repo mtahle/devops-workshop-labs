@@ -64,7 +64,7 @@ See [ASSIGNMENTS.md](./ASSIGNMENTS.md):
 ## Repository Structure
 
 ```
-/home/runner/work/devops-workshop-labs/devops-workshop-labs/
+devops-workshop-labs/
 ├── README.md
 ├── lab1-first-container/
 ├── lab2-ml-api/
