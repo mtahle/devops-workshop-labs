@@ -42,6 +42,7 @@ jobs:
         run: |
           docker run -d -p 8000:8000 --name test-container iris-classifier:${{ github.sha }}
           for i in {1..15}; do
+            echo "Health check attempt $i/15"
             if curl -fsS http://localhost:8000/ > /dev/null; then
               echo "Container health check passed"
               break
