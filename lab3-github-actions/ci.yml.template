@@ -58,6 +58,8 @@ jobs:
           done
           if [ "$HEALTH_OK" -ne 1 ]; then
             echo "Container did not become healthy in time"
+            echo "Last curl response/error output:"
+            curl -sS http://localhost:8000/ || true
             docker logs test-container || true
             exit 1
           fi

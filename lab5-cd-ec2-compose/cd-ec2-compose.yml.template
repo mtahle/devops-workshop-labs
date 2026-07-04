@@ -27,11 +27,13 @@ jobs:
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
           APP_IMAGE_NAME: ${{ secrets.APP_IMAGE_NAME }}
           APP_PORT: ${{ secrets.APP_PORT }}
+          APP_ENV: ${{ secrets.APP_ENV }}
         run: |
           [ -n "$DOCKERHUB_USERNAME" ] || { echo "Missing DOCKERHUB_USERNAME"; exit 1; }
           [ -n "$DOCKERHUB_TOKEN" ] || { echo "Missing DOCKERHUB_TOKEN"; exit 1; }
           [ -n "$APP_IMAGE_NAME" ] || { echo "Missing APP_IMAGE_NAME"; exit 1; }
           [ -n "$APP_PORT" ] || { echo "Missing APP_PORT"; exit 1; }
+          [ -n "$APP_ENV" ] || { echo "Missing APP_ENV"; exit 1; }
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
