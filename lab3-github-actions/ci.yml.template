@@ -60,5 +60,6 @@ jobs:
             docker logs test-container || true
             exit 1
           fi
+          docker logs test-container || true
           docker stop test-container
-          docker rm test-container
+
