@@ -1,0 +1,23 @@
+---
+references:
+  - "File: /lab2-ml-api/main.py"
+generationTime: 2026-07-10T16:06:30.193Z
+---
+flowchart TD
+    A["Start"] --> B["Create FastAPI app"]
+    B --> C["Load model.pkl with pickle"]
+    C --> D["Define SPECIES list and Pydantic models"]
+    D --> E{"Request path?"}
+
+    E -->|"/"| F["root()"]
+    F --> G["Return status message"]
+    G --> H["Response sent"]
+
+    E -->|"/predict"| I["predict(data: IrisInput)"]
+    I --> J["Validate request body"]
+    J --> K["Build numpy feature array"]
+    K --> L["Call model.predict(features)"]
+    L --> M["Read first class_index"]
+    M --> N["Map class_index to SPECIES"]
+    N --> O["Return PredictionOutput"]
+    O --> H

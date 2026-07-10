@@ -7,7 +7,6 @@ They teach the ML project flow in notebook format first, then transition to a re
 
 1. **`model.ipynb`** — train and save the model artifact (`../model.pkl`)
 2. **`test_model.ipynb`** — validate model behavior and accuracy
-3. **`main.ipynb`** — convert notebook logic into production REST API code (`../main.py`)
 
 ---
 
@@ -28,12 +27,10 @@ From `lab2-ml-api/notebooks`:
 ```bash
 jupyter notebook model.ipynb
 jupyter notebook test_model.ipynb
-jupyter notebook main.ipynb
 ```
 
 After running all cells:
 - `../model.pkl` is created for inference.
-- `../main.py` is generated as the REST API app file.
 
 ---
 
