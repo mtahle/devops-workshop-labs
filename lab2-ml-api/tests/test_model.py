@@ -22,7 +22,7 @@ def test_prediction_returns_valid_class(model):
 def test_setosa_prediction(model):
     # Known setosa sample
     features = np.array([[5.1, 3.5, 1.4, 0.2]])
-    assert model.predict(features)[0] == 1
+    assert model.predict(features)[0] == 0
 
 
 def test_versicolor_prediction(model):
