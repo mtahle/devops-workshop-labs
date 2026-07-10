@@ -29,6 +29,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
+          context: ./lab2-ml-api
+          file: ./lab2-ml-api/Dockerfile
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/iris-classifier:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/iris-classifier:${{ github.sha }}
