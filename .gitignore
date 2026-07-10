@@ -1,1 +1,4 @@
 .DS_Store
+lab2-ml-api/__pycache__/main.cpython-311.pyc
+lab2-ml-api/model.pkl
+lab2-ml-api/tests/__pycache__/test_model.cpython-311-pytest-7.4.3.pyc

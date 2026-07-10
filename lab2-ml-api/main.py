@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 import pickle
 import numpy as np
 
@@ -21,8 +21,8 @@ class IrisInput(BaseModel):
     petal_length: float
     petal_width: float
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "sepal_length": 5.1,
                 "sepal_width": 3.5,
@@ -30,6 +30,7 @@ class IrisInput(BaseModel):
                 "petal_width": 0.2,
             }
         }
+    )
 
 
 class PredictionOutput(BaseModel):
