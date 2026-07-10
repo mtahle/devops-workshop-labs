@@ -3,10 +3,6 @@
 
 name: ML CI Pipeline
 
-permissions:
-  contents: read
-  checks: write
-
 on:
   pull_request:
     branches:
@@ -20,9 +16,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Prepare artifacts directory
-        run: mkdir -p artifacts
-
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
@@ -30,49 +23,27 @@ jobs:
 
       - name: Install dependencies
         run: |
-          set -o pipefail
           python -m pip install --upgrade pip
-          pip install -r lab2-ml-api/requirements.txt | tee artifacts/pip-install.log
+          pip install -r lab2-ml-api/requirements.txt
 
       - name: Train model
-        run: |
-          set -o pipefail
-          python lab2-ml-api/model.py 2>&1 | tee artifacts/train-model.log
+        run: python lab2-ml-api/model.py
 
       - name: Run tests
-        id: run_tests
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          pytest lab2-ml-api/tests/ -v \
-            --junitxml=artifacts/pytest-results.xml \
-            2>&1 | tee artifacts/pytest.log
-
-      - name: Publish test report in Actions
-        if: always()
-        uses: dorny/test-reporter@v1
-        with:
-          name: Pytest Results
-          path: artifacts/pytest-results.xml
-          reporter: java-junit
-          fail-on-error: false
+        run: pytest lab2-ml-api/tests/ -v
 
       - name: Build Docker image
-        run: |
-          set -o pipefail
-          docker build -t iris-classifier:${{ github.sha }} ./lab2-ml-api 2>&1 | tee artifacts/docker-build.log
+        run: docker build -t iris-classifier:${{ github.sha }} ./lab2-ml-api
 
       - name: Verify container starts
-        if: always()
         run: |
-          set -o pipefail
           docker run -d -p 8000:8000 --name test-container iris-classifier:${{ github.sha }}
           HEALTH_OK=0
           for i in $(seq 1 15); do
             echo "Health check attempt $i/15"
             if [ "$(docker inspect -f '{{.State.Running}}' test-container)" != "true" ]; then
               echo "Container exited before health check completed"
-              docker logs test-container 2>&1 | tee artifacts/container.log || true
+              docker logs test-container || true
               exit 1
             fi
             if curl -fsS http://localhost:8000/ > /dev/null; then
@@ -86,35 +57,10 @@ jobs:
             echo "Container did not become healthy in time"
             echo "Last curl response/error output:"
             curl -sS http://localhost:8000/ || true
-            docker logs test-container 2>&1 | tee artifacts/container.log || true
+            docker logs test-container || true
             exit 1
           fi
-          docker logs test-container 2>&1 | tee artifacts/container.log || true
-          docker stop test-container || true
-          docker rm test-container || true
-
-      - name: Add run summary
-        if: always()
-        run: |
-          {
-            echo "## CI Run Summary"
-            echo ""
-            echo "- Test step outcome: ${{ steps.run_tests.outcome }}"
-            echo "- Test report: check 'Pytest Results' in this run"
-            echo "- Logs and reports are uploaded as workflow artifacts"
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload CI artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ci-logs-and-test-results-${{ github.run_number }}
-          path: artifacts/
-          if-no-files-found: warn
-
-      - name: Fail if tests failed
-        if: steps.run_tests.outcome == 'failure'
-        run: |
-          echo "Pytest failed. See 'Pytest Results' and uploaded artifacts for details."
-          exit 1
+          docker logs test-container || true
+          docker stop test-container
+          docker rm test-container
 
