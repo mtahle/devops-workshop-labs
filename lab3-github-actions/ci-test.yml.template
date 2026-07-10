@@ -34,3 +34,32 @@ jobs:
 
       - name: Run tests
         run: pytest tests/ -v
+    
+      - name: Verify container starts
+        run: |
+          docker run -d -p 8000:8000 --name test-container iris-classifier:${{ github.sha }}
+          HEALTH_OK=0
+          for i in $(seq 1 15); do
+            echo "Health check attempt $i/15"
+            if [ "$(docker inspect -f '{{.State.Running}}' test-container)" != "true" ]; then
+              echo "Container exited before health check completed"
+              docker logs test-container || true
+              exit 1
+            fi
+            if curl -fsS http://localhost:8000/ > /dev/null; then
+              echo "Container health check passed"
+              HEALTH_OK=1
+              break
+            fi
+            sleep 2
+          done
+          if [ "$HEALTH_OK" -ne 1 ]; then
+            echo "Container did not become healthy in time"
+            echo "Last curl response/error output:"
+            curl -sS http://localhost:8000/ || true
+            docker logs test-container || true
+            exit 1
+          fi
+          docker logs test-container || true
+          docker stop test-container
+          docker rm test-container
