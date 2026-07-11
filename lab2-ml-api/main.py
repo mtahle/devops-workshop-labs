@@ -89,7 +89,6 @@ def root():
 
                                     <div class="d-grid gap-2 d-md-flex">
                                         <a class="btn btn-primary btn-lg" href="/docs">Open API Docs</a>
-                                        <a class="btn btn-outline-dark btn-lg" href="/redoc">Open ReDoc</a>
                                     </div>
                                 </div>
                             </div>
