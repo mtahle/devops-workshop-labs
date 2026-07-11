@@ -28,7 +28,7 @@ def test_setosa_prediction(model):
 def test_versicolor_prediction(model):
     # Known versicolor sample
     features = np.array([[6.3, 3.3, 4.7, 1.6]])
-    assert model.predict(features)[0] == 2
+    assert model.predict(features)[0] == 1
 
 
 def test_virginica_prediction(model):
